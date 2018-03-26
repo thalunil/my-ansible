@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+server:
+  use-syslog: yes
+  username: "unbound"
+  directory: "/etc/unbound"
+  trust-anchor-file: trusted-key.key
+
+## a zone served by a dedicated nameserver
+#forward-zone:
+#  name: "void.kallisti.at"
+#  forward-addr: 10.1.1.254

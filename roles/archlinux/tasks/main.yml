@@ -1,0 +1,199 @@
+# vim:ft=ansible:
+---
+- name: /etc/pacman.d/mirrorlist
+  copy:
+    src:    mirrorlist
+    dest:   /etc/pacman.d/mirrorlist
+    owner:  root
+    group:  wheel
+    mode:   0640
+
+- name: install some packages in archlinux world
+  package: name="{{ item }}" state=present
+  with_items:
+    - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
+    - acpi
+    - opensmtpd
+    - neomutt
+    - hexchat
+    - binwalk
+    - diffoscope # in-depth comparison of files, archives, and directories
+    - meld # Compare files, directories and working copies
+    - diffuse # A graphical tool for merging and comparing text files
+    - pwgen # password generator 
+    - firejail # sandboxing applications with Linux namespaces
+    - catfish # a GUI file search tool
+    - tcpdump
+    - ethtool
+    - hdparm
+    - wipe
+    - elinks
+    - links
+    - lightdm
+    - mtr
+    - vorbis-tools
+    - ettercap
+    - qutebrowser
+    - p7zip
+    - unrar
+    - hwinfo
+    - john
+    - rdesktop
+    - remmina # remote desktop client written in GTK+
+    - sshfs
+    - wol
+    - youtube-dl
+    - bc
+    - galculator
+    - gnome-system-monitor
+    - openbsd-netcat
+    - rsync
+    - smartmontools
+    - stunnel
+    - nmap
+    - nbtscan # scanning IP networks for NetBIOS name information
+    - openvpn
+    - xscreensaver
+    - file-roller
+    - python-pip
+    - digikam
+    - geeqie
+    - gimp
+    - wireshark-gtk
+    - strace
+    - atop
+    - audacious
+    - git
+    - shellcheck # Shell script analysis tool
+    - unbound
+    - duplicity
+    - liferea # rss aggregator
+    - dillo # small, fast graphical web browser
+    - stellarium # space watching astronomy
+    - dvd+rw-tools # for xcfa cd-ripping program
+    - cd-discid # for xcfa cd-ripping program
+    - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
+    - sslscan # tools to scan SSL services, such as HTTPS to determine the ciphers that are supported
+    - calibre # ebook viewer - KDE
+    - mailnag # mail notification
+    - gajim # Jabber chat
+    - firefox
+    - firefox-developer-edition
+
+- name: /etc/unbound/unbound.conf
+  template:
+    src:      unbound.conf.j2
+    dest:     /etc/unbound/unbound.conf
+    mode:     0644
+    owner:    root
+    group:    root
+  notify:
+    - reload unbound
+
+- name: /etc/smartd.conf
+  template:
+    src:      smartd.conf.j2
+    dest:     /etc/smartd.conf
+    mode:     0644
+    owner:    root
+    group:    root
+  notify:
+    - reload smartd
+
+- name: /etc/lightdm/lightdm-gtk-greeter.conf
+  template:
+    src:      lightdm-gtk-greeter.conf.j2
+    dest:     /etc/lightdm/lightdm-gtk-greeter.conf
+    mode:     0644
+    owner:    root
+    group:    root
+- name: /usr/share/pixmaps/lightdm-background.jpg
+  copy:
+    src:      lightdm-background.jpg
+    dest:     /usr/share/pixmaps/lightdm-background.jpg
+    mode:     0644
+    owner:    root
+    group:    root
+
+# documentation in linux/Documentation/filesystems/proc.txt
+- name: /proc filesystem permissions
+  lineinfile:
+    path:   /etc/fstab
+    regexp: "^proc"
+    line:   "proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0"
+
+# Restrict access to kernel logs
+# 1 = active, 0 = disabled
+- name: /etc/sysctl.d/dmesg-restrict.conf
+  copy:
+    content:  "kernel.dmesg_restrict = 1"
+    dest:     /etc/sysctl.d/dmesg-restrict.conf
+    mode:     0644
+    owner:    root
+    group:    root
+
+- copy:
+    src:    pam.d-su
+    dest:   /etc/pam.d/su
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+ 
+- copy:
+    src:    pam.d-su-l
+    dest:   /etc/pam.d/su-l
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+  
+- copy:
+    src:    pam.d-passwd
+    dest:   /etc/pam.d/passwd
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+
+- copy:
+    src:    pam.d-system-login
+    dest:   /etc/pam.d/system-login
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+ 
+- name: pacman configuration - /etc/pacman.conf
+  copy:
+    src:    pacman.conf
+    dest:   /etc/pacman.conf
+    owner:  root
+    group:  wheel
+    mode:   0640
+    backup: yes
+- name: /etc/pacman.d/hooks
+  file:
+    path:  /etc/pacman.d/hooks
+    state: directory
+- name: /etc/pacman.d/hooks/paccache.hook
+  copy:
+    src:  paccache.hook
+    dest: /etc/pacman.d/hooks/paccache.hook
+
+- name: ensure services running and enabled
+  service: name="{{ item }}" enabled="yes" state="started"
+  with_items:
+    - smtpd
+    - unbound
+    - smartd
+    - sshd
+
+# resolvconf configuration for using a localhost dns resolver
+- name: /etc/resolvconf.conf
+  copy:
+    src:      "resolvconf.conf"
+    dest:     "/etc/resolvconf.conf"
+    mode:     0644
+    owner:    root
+    group:    root

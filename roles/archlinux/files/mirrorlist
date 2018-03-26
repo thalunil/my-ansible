@@ -1,0 +1,3 @@
+Server = http://mirror1.htu.tugraz.at/archlinux/$repo/os/$arch
+Server = http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch
+Server = http://mirror.kaminski.io/archlinux/$repo/os/$arch
