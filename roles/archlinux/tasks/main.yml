@@ -77,6 +77,8 @@
     - calibre # ebook viewer - KDE
     - mailnag # mail notification
     - gajim # Jabber chat
+    - python-axolotl # for gajim OMEMO
+    - python-axolotl-curve25519 # for gajim OMEMO
     - firefox
     - firefox-developer-edition
 
