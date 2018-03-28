@@ -1,16 +1,16 @@
 # vim:ft=ansible:
 ---
 - name: restart smtpd
-  become: true
   service: name=smtpd state=restarted
   #- name: rebuild smtpd table aliases
   #command: makemap /etc/smtpd/aliases
   #become: true
 
 - name: reload smartd
-  become: true
   service: name=smartd state=reloaded
   
 - name: reload unbound
-  become: true
   service: name=unbound state=reloaded
+
+- name: rebuild locales
+  command: locale-gen

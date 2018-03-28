@@ -88,6 +88,18 @@
     - linux-lts
     - linux-lts-headers
 
+- name: /etc/locale.gen
+  copy:
+    src:      locale.gen
+    dest:     /etc/locale.gen
+    backup:   yes
+  notify: rebuild locales
+- name: /etc/locale.conf
+  copy:
+    src:      locale.conf
+    dest:     /etc/locale.conf
+    backup:   yes
+
 - name: /etc/unbound/unbound.conf
   template:
     src:      unbound.conf.j2
