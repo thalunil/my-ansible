@@ -81,6 +81,12 @@
     - python-axolotl-curve25519 # for gajim OMEMO
     - firefox
     - firefox-developer-edition
+    - linux
+    - linux-headers
+    - linux-hardened
+    - linux-hardened-headers
+    - linux-lts
+    - linux-lts-headers
 
 - name: /etc/unbound/unbound.conf
   template:
