@@ -9,8 +9,5 @@
 - name: reload smartd
   service: name=smartd state=reloaded
   
-- name: reload unbound
-  service: name=unbound state=reloaded
-
 - name: rebuild locales
   command: locale-gen
