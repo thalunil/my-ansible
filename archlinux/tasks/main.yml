@@ -8,8 +8,11 @@
     group:  wheel
     mode:   0640
 
-- name: install some packages in archlinux world
-  package: name="{{ item }}" state=present
+- name: update pacman cache ("pacman -Sy")
+  pacman: update_cache=yes
+
+- name: install software with pacman
+  pacman: name="{{ item }}" state=present
   with_items:
     - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
     - acpi
