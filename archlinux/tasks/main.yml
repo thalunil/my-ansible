@@ -8,8 +8,13 @@
     group:  wheel
     mode:   0640
 
-- name: update pacman cache ("pacman -Sy")
-  pacman: update_cache=yes
+- name: cronjob /etc/cron.daily/update-pacman-cache
+  copy:
+    content:  "pacman -Syq --noprogressbar\n"
+    dest:     /etc/cron.daily/update-pacman-cache
+    mode:     0755
+    owner:    root
+    group:    root
 
 - name: install software with pacman
   pacman: name="{{ item }}" state=present
@@ -90,6 +95,7 @@
     - linux-hardened-headers
     - linux-lts
     - linux-lts-headers
+    - virt-viewer # virt-viewer for SPICE connection to VMs
 
 - name: /etc/locale.gen
   copy:
