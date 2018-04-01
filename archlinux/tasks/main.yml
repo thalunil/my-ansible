@@ -11,7 +11,8 @@
 
 - name: cronjob /etc/cron.daily/update-pacman-cache
   copy:
-    content:  "pacman -Syq --noprogressbar\n"
+    content: "#!/bin/sh\n
+    pacman -Syq --noprogressbar\n"
     dest:     /etc/cron.daily/update-pacman-cache
     mode:     0755
     owner:    root
