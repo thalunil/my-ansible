@@ -1,4 +1,10 @@
 ansible_become: true
+
+archlinux_server:
+  - http://mirror1.htu.tugraz.at/archlinux/$repo/os/$arch
+  - http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch
+  - http://mirror.kaminski.io/archlinux/$repo/os/$arch
+
 archlinux_packages:
     - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
     - acpi

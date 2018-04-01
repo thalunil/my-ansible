@@ -1,8 +1,8 @@
 # vim:ft=ansible:
 ---
 - name: /etc/pacman.d/mirrorlist
-  copy:
-    src:    mirrorlist
+  template:
+    src:    mirrorlist.j2
     dest:   /etc/pacman.d/mirrorlist
     owner:  root
     group:  wheel
