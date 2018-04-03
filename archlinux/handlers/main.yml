@@ -11,3 +11,6 @@
   
 - name: rebuild locales
   command: locale-gen
+
+- name: rebuild pacman cache
+  command: pacman -Sy

@@ -8,6 +8,12 @@
     group:  wheel
     mode:   0640
   tags: archlinux
+  notify: rebuild pacman cache
+  
+- name: install software with pacman
+  pacman: name="{{item}}" state=present
+  with_items: "{{archlinux_packages}}"
+  tags: archlinux
 
 - name: cronjob /etc/cron.daily/update-pacman-cache
   copy:
@@ -17,11 +23,6 @@
     mode:     0755
     owner:    root
     group:    root
-  tags: archlinux
-
-- name: install software with pacman
-  pacman: name="{{item}}" state=present
-  with_items: "{{archlinux_packages}}"
   tags: archlinux
 
 - name: /etc/locale.gen

@@ -1,3 +1,0 @@
-[submodule "roles/unbound-jdauphant"]
-	path = unbound-jdauphant
-	url = https://github.com/jdauphant/ansible-role-unbound.git

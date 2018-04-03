@@ -7,6 +7,7 @@ archlinux_server:
 
 archlinux_packages:
     - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
+    - cronie
     - acpi
     - opensmtpd
     - neomutt
