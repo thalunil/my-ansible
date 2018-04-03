@@ -26,16 +26,19 @@
   tags: archlinux
 
 - name: /etc/locale.gen
-  copy:
-    src:      locale.gen
+  template:
+    src:      locale.gen.j2
     dest:     /etc/locale.gen
     backup:   yes
   notify: rebuild locales
+  tags: archlinux
+
 - name: /etc/locale.conf
-  copy:
-    src:      locale.conf
+  template:
+    src:      locale.conf.j2
     dest:     /etc/locale.conf
     backup:   yes
+  tags: archlinux
 
 - name: /etc/smartd.conf
   template:
