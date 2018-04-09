@@ -150,3 +150,25 @@
     mode:     0644
     owner:    root
     group:    root
+
+- name: /usr/local/sbin/archlinux-backup.sh
+  copy:
+    src:      archlinux-backup.sh
+    dest:     /usr/local/sbin/archlinux-backup.sh
+    mode:     0755
+    owner:    root
+    group:    root
+
+- name: /etc/cron.daily/archlinux-backup symlink to backup the local archlinux installation
+  file:
+    src:    /usr/local/sbin/archlinux-backup.sh
+    dest:   /etc/cron.daily/archlinux-backup
+    state:  link
+  when: archlinux_backup is defined
+
+- name: remove /etc/cron.daily/archlinux-backup symlink
+  file:
+    src:    /usr/local/sbin/archlinux-backup.sh
+    dest:   /etc/cron.daily/archlinux-backup
+    state:  absent
+  when: archlinux_backup is undefined
