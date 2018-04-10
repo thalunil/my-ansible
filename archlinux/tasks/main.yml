@@ -1,5 +1,8 @@
 # vim:ft=ansible:
 ---
+- include_tasks: rsyslog.yml
+  when: use_rsyslog is defined
+
 - name: /etc/pacman.d/mirrorlist
   template:
     src:    mirrorlist.j2
