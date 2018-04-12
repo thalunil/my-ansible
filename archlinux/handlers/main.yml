@@ -14,3 +14,9 @@
 
 - name: rebuild pacman cache
   command: pacman -Sy
+
+- name: restart rsyslogd
+  service: name=rsyslog state=restarted
+
+- name: restart journald
+  service: name=systemd-journald state=restarted

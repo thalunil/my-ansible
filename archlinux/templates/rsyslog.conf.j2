@@ -1,0 +1,56 @@
+# {{ ansible_managed }}
+#  /etc/rsyslog.conf	Configuration file for rsyslog.
+
+$ModLoad imuxsock # provides support for local system logging
+$ModLoad imklog   # provides kernel logging support
+$ModLoad immark
+## Lennart Poettering on systemd-devel, August 2014
+##        * journald will no longer forward all local data to another
+##          running syslog daemon. This change has been made because
+##          rsyslog (which appears to be the most commonly used syslog
+##          implementation these days) no longer makes use of this, and
+##          instead pulls the data out of the journal on its own. Since
+##          forwarding the messages to a non-existent syslog server is
+##          more expensive than we assumed we have now turned this
+##          off. If you run a syslog server that is not a recent rsyslog
+##          version, you have to turn this option on again
+##          (ForwardToSyslog= in journald.conf).
+#$ModLoad imjournal
+$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+$FileOwner root
+$FileGroup root
+$FileCreateMode 0640
+$DirCreateMode 0755
+$Umask 0022
+$WorkDirectory /var/spool/rsyslog
+#$IncludeConfig /etc/rsyslog.d/*.conf
+
+## Settings for imjournal (If supported)
+#$imjournalStateFile imjournal.state
+#$imjournalIgnorePreviousMessages off
+#$imjournalRatelimitInterval 600
+#$imjournalRatelimitBurst 20000
+
+
+auth,authpriv.*			/var/log/auth.log
+*.*;auth,authpriv.none		-/var/log/syslog
+#cron.*				/var/log/cron.log
+daemon.*			-/var/log/daemon.log
+kern.*				-/var/log/kern.log
+mail.*				-/var/log/mail.log
+user.*				-/var/log/user.log
+
+mail.info			-/var/log/mail.info
+mail.warn			-/var/log/mail.warn
+mail.err			/var/log/mail.err
+
+
+*.=debug;\
+	auth,authpriv.none;\
+	news.none;mail.none	-/var/log/debug
+*.=info;*.=notice;*.=warn;\
+	auth,authpriv.none;\
+	cron,daemon.none;\
+	mail,news.none		-/var/log/messages
+
+*.emerg				:omusrmsg:*

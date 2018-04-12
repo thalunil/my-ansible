@@ -1,12 +1,15 @@
 # vim:ft=ansible:
 ---
+- include_tasks: rsyslog.yml
+  when: use_rsyslog is defined
+
 - name: /etc/pacman.d/mirrorlist
   template:
     src:    mirrorlist.j2
     dest:   /etc/pacman.d/mirrorlist
     owner:  root
     group:  wheel
-    mode:   0640
+    mode:   0644
   notify: rebuild pacman cache
   
 - name: install software with pacman
@@ -115,7 +118,7 @@
     dest:   /etc/pacman.conf
     owner:  root
     group:  wheel
-    mode:   0640
+    mode:   0644
     backup: yes
 - name: /etc/pacman.d/hooks
   file:
