@@ -11,9 +11,22 @@ else
 	exit 1
 fi
 
-# check if $target and $snapshot_dir is set
+# input validation
 [[ -z "$backup_dir" ]] && echo "### ERROR: /etc/archlinux-backup.conf - please set \$backup_dir" && return 1
 [[ -z "$snapshot_dir" ]] && echo "### ERROR: /etc/archlinux-backup.conf - please set \$snapshot_dir" && return 1
+
+case "$snapshot_num" in
+[[:digit:]]*)
+	if [ ! $snapshot_num -ge 1 ]; then
+		echo "not a valid number - snapshot count must be greater than 1"
+		exit 1
+	fi
+      	;;
+*)
+       	echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num is not correctly set - assuming 3"
+	snapshot_num="3"
+       	;;
+esac
 
 if ! [[ -d "$backup_dir" ]]; then
 	mkdir "$backup_dir" && chmod 0750 "$backup_dir" && chown root:thalunil "$backup_dir"
@@ -28,31 +41,41 @@ else
 fi
 
 # delete_date is for snapshots which get purged after specified age
-delete_date=`date -d "7 days ago" +%F`
+delete_date=$(date -d "7 days ago" +%F)
 
 echo "### Dumping Pacman Package List - $backup_dir/pkglist.txt"
 pacman -Qqe > "$backup_dir/pkglist.txt"
 
-## Snapshot routine for btrfs
-## set $snapshot_dir do a snapshot directory under which the snapshots 
-## are created
-snapshot="$snapshot_dir"
+# oldest (~ highest number) snapshot will get purged
+purge_oldest_snapshot () {
+	if [ -d "$snapshot_dir/$snapshot_num" ]; then
+		echo "### INFO: SNAPshot: oldest (~ highest number) snapshot will get purged"
+		btrfs subvolume delete -v "$snapshot_dir/$snapshot_num"
+	fi
+	}
 
-mksnapshot(){
-	echo "### Daily btrfs snapshot of / - $date"
-	echo "btrfs subvolume snapshot / $snapshot_dir/$date-snapshot"
-	btrfs subvolume snapshot / "$snapshot_dir/$date-snapshot"
-	echo "### Delete snapshot of 7 days ago - $delete_date"
-	echo btrfs subvolume delete -v "$snapshot_dir/$delete_date-snapshot"
-	btrfs subvolume delete -v "$snapshot_dir/$delete_date-snapshot"
+# rename the old/previous snapshot to subsequent numbers
+rename_snapshots () {
+	for i in $(seq $((--snapshot_num)) -1 0)
+	do      
+        	if [ -d "$snapshot_dir/$i" ]; then
+			echo "### INFO: SNAPshot: rotating $snapshot_dir/$i"
+			mv $snapshot_dir/$i $snapshot_dir/$((i+1))
+		fi
+	done
+	}
+
+## Snapshot routine for btrfs root filesystem
+mksnapshot () {
+	echo "### INFO: SNAPshot: creating btrfs snapshot of / - $date"
+	echo "snapshot creation: $date" > /snapshot.info
+	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
 
-## Invoke mksnapshot when directory is existent
-if [[ -d "$snapshot_dir" ]]; then
-       	mksnapshot 
-else
-	echo "### NOTICE: $snapshot_dir not a directory"
-fi
+## run script functions
+purge_oldest_snapshot
+rename_snapshots 
+mksnapshot
 
 ## Not implemented TBD after this comment
 exit 0
