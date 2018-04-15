@@ -1,0 +1,19 @@
+# vim:ft=ansible:
+---
+
+# documentation: linux/Documentation/filesystems/proc.txt
+- name: /proc filesystem permissions
+  lineinfile:
+    path:   /etc/fstab
+    regexp: "^proc"
+    line:   "proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0"
+
+# Restrict access to kernel logs
+# 1 = active, 0 = disabled
+- name: /etc/sysctl.d/dmesg-restrict.conf
+  copy:
+    content:  "kernel.dmesg_restrict = 1"
+    dest:     /etc/sysctl.d/dmesg-restrict.conf
+    mode:     0644
+    owner:    root
+    group:    root
