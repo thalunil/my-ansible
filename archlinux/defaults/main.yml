@@ -1,5 +1,8 @@
 ansible_become: true
 
+## apply archlinux system hardening (true/false)
+archlinux_hardening: true
+
 archlinux_locales:
   - en_US.UTF-8 UTF-8
   - de_AT.UTF-8 UTF-8

@@ -1,7 +1,10 @@
 # vim:ft=ansible:
 ---
 - include_tasks: rsyslog.yml
-  when: use_rsyslog is defined
+  when: use_rsyslog is defined 
+
+- include_tasks: hardening.yml
+  when: archlinux_hardening is defined
 
 - name: create system groups
   group:
@@ -25,6 +28,9 @@
     group:  wheel
     mode:   0644
   notify: rebuild pacman cache
+
+- name: run handler immediately - we need a current pacman cache
+  meta: flush_handlers
   
 - name: install software with pacman
   pacman: name="{{item}}" state=present
@@ -73,23 +79,6 @@
   copy:
     src:      lightdm-background.jpg
     dest:     /usr/share/pixmaps/lightdm-background.jpg
-    mode:     0644
-    owner:    root
-    group:    root
-
-# documentation: linux/Documentation/filesystems/proc.txt
-- name: /proc filesystem permissions
-  lineinfile:
-    path:   /etc/fstab
-    regexp: "^proc"
-    line:   "proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0"
-
-# Restrict access to kernel logs
-# 1 = active, 0 = disabled
-- name: /etc/sysctl.d/dmesg-restrict.conf
-  copy:
-    content:  "kernel.dmesg_restrict = 1"
-    dest:     /etc/sysctl.d/dmesg-restrict.conf
     mode:     0644
     owner:    root
     group:    root
