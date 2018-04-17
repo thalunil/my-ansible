@@ -136,7 +136,6 @@
   service: name="{{ item }}" enabled="yes" state="started"
   with_items:
     - smtpd
-    - unbound
     - smartd
     - sshd
 
