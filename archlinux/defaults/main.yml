@@ -100,3 +100,4 @@ archlinux_packages:
     - linux-lts-headers
     - virt-viewer # virt-viewer for SPICE connection to VMs
     - base-devel # essential base developer toolZ
+    - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning
