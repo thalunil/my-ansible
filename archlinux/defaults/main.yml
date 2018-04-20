@@ -1,5 +1,17 @@
 ansible_become: true
 
+## apply archlinux system hardening (true/false)
+archlinux_hardening: true
+
+## activate backup script (cron.daily) when set
+## comment out to disable - the backup script will then be deactivated
+archlinux_backup: true
+
+## variable to provide group membership for ansible user, e.g.
+#archlinux_system_groups:
+  #  - root
+  #  - adm
+
 archlinux_locales:
   - en_US.UTF-8 UTF-8
   - de_AT.UTF-8 UTF-8
@@ -94,3 +106,4 @@ archlinux_packages:
     - virt-viewer # virt-viewer for SPICE connection to VMs
     - base-devel # essential base developer toolZ
     - x2goclient
+    - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning

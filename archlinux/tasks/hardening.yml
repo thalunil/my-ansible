@@ -1,0 +1,61 @@
+# vim:ft=ansible:
+---
+- name: archlinux_hardening set to {{archlinux_hardening}} - enable hardening
+  block:
+    # documentation: linux/Documentation/filesystems/proc.txt
+    # https://wiki.archlinux.org/index.php/Security#hidepid
+    # proc gid is provided by package filesystem
+  - name: /proc filesystem permissions
+    lineinfile:
+      path:   /etc/fstab
+      regexp: "^proc"
+      line:   "proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0"
+# for systemd-login to work correctly it also needs to be in the hidepid-privileged group
+  - name: /etc/systemd/system/systemd-logind.service.d/ 
+    file:
+      path: /etc/systemd/system/systemd-logind.service.d/
+      state:  directory
+# for systemd-login to work correctly it also needs to be in the hidepid-privileged group
+  - name: /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+    template:
+      src:  systemd-logind-hidepid.conf.j2
+      dest: /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+# Restrict access to kernel logs
+# 1 = active, 0 = disabled
+  - name: /etc/sysctl.d/dmesg-restrict.conf
+    copy:
+      content:  kernel.dmesg_restrict = 1
+      dest:     /etc/sysctl.d/dmesg-restrict.conf
+      mode:     0644
+      owner:    root
+      group:    root
+  when: archlinux_hardening
+
+- name: archlinux_hardening set to {{archlinux_hardening}} - disable hardening
+  block:
+# documentation: linux/Documentation/filesystems/proc.txt
+  - name: /proc filesystem permissions
+    lineinfile:
+      path:   /etc/fstab
+      regexp: "^proc"
+      state:  absent
+# for systemd-login to work correctly it also needs to be in the hidepid-privileged group
+  - name: remove /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+    file:
+      dest:   /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+      state:  absent
+# for systemd-login to work correctly it also needs to be in the hidepid-privileged group
+  - name: /etc/systemd/system/systemd-logind.service.d/ 
+    file:
+      path: /etc/systemd/system/systemd-logind.service.d/
+      state:  absent
+# Restrict access to kernel logs
+# 1 = active, 0 = disabled
+  - name: /etc/sysctl.d/dmesg-restrict.conf
+    copy:
+      content:  kernel.dmesg_restrict = 0
+      dest:     /etc/sysctl.d/dmesg-restrict.conf
+      mode:     0644
+      owner:    root
+      group:    root
+  when: archlinux_hardening == false

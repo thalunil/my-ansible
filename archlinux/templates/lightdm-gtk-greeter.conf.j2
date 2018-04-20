@@ -48,7 +48,10 @@
 #
 [greeter]
 #background=#192A40
-background=/usr/share/pixmaps/lightdm-background.jpg
+#2 different modes for image scaling available: #zoomed: and #stretched:
+# #zoomed is default, zooms the image and preserves the aspect ratio
+# #stretched uses the whole image and ignores the aspect ratio, it stretches the background to the actual size
+background=#stretched:/usr/share/pixmaps/lightdm-background.jpg
 #theme-name=
 #icon-theme-name=
 #font-name=
