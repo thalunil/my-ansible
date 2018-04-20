@@ -65,6 +65,7 @@ archlinux_packages:
     - wireshark-gtk
     - strace
     - atop
+    - htop
     - audacious
     - git
     - shellcheck # Shell script analysis tool
@@ -92,3 +93,4 @@ archlinux_packages:
     - linux-lts-headers
     - virt-viewer # virt-viewer for SPICE connection to VMs
     - base-devel # essential base developer toolZ
+    - x2goclient
