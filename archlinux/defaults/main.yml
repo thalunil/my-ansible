@@ -107,3 +107,5 @@ archlinux_packages:
     - base-devel # essential base developer toolZ
     - x2goclient
     - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning
+    - powertop # A tool to diagnose issues with power consumption and power management
+    - mlocate # Merging locate/updatedb implementation
