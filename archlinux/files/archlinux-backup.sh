@@ -3,17 +3,21 @@
 date=`date +%F`
 umask 027
 
+# defaults
+backup_dir="/backup"
+snapshot_dir="/snapshot"
+snapshot_num="3"
+
 # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
 if [[ -f /etc/archlinux-backup.conf ]]; then
 	source /etc/archlinux-backup.conf
 else
-	echo "### ERROR: configuration file not present - /etc/archlinux-backup.conf"
-	exit 1
+	echo "### WARNING: /etc/archlinux-backup.conf - configuration file not present"
 fi
 
 # input validation
-[[ -z "$backup_dir" ]] && echo "### ERROR: /etc/archlinux-backup.conf - please set \$backup_dir" && return 1
-[[ -z "$snapshot_dir" ]] && echo "### ERROR: /etc/archlinux-backup.conf - please set \$snapshot_dir" && return 1
+[[ -z "$backup_dir" ]] && echo "### INFO: /etc/archlinux-backup.conf - \$backup_dir not set - using defaults"
+[[ -z "$snapshot_dir" ]] && echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_dir not set - using defaults"
 
 case "$snapshot_num" in
 [[:digit:]]*)
@@ -23,8 +27,7 @@ case "$snapshot_num" in
 	fi
       	;;
 *)
-       	echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num is not correctly set - assuming 3"
-	snapshot_num="3"
+       	echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num not set - using defaults"
        	;;
 esac
 
@@ -43,7 +46,7 @@ fi
 # delete_date is for snapshots which get purged after specified age
 delete_date=$(date -d "7 days ago" +%F)
 
-echo "### Dumping Pacman Package List - $backup_dir/pkglist.txt"
+echo "## Dumping Pacman Package List - $backup_dir/pkglist.txt"
 pacman -Qqe > "$backup_dir/pkglist.txt"
 
 # oldest (~ highest number) snapshot will get purged
@@ -73,6 +76,7 @@ mksnapshot () {
 }
 
 ## run script functions
+echo "## Archlinux thal snapshot script v1.0"
 purge_oldest_snapshot
 rename_snapshots 
 mksnapshot
