@@ -7,6 +7,8 @@ umask 027
 backup_dir="/backup"
 snapshot_dir="/snapshot"
 snapshot_num="3"
+use_snapshots=true
+use_duplicity=true
 
 # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
 if [[ -f /etc/archlinux-backup.conf ]]; then
@@ -46,8 +48,11 @@ fi
 # delete_date is for snapshots which get purged after specified age
 delete_date=$(date -d "7 days ago" +%F)
 
+
+echo "#########################"
 echo "## Dumping Pacman Package List - $backup_dir/pkglist.txt"
 pacman -Qqe > "$backup_dir/pkglist.txt"
+echo "#########################"
 
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
@@ -75,11 +80,41 @@ mksnapshot () {
 	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
 
-## run script functions
-echo "## Archlinux thal snapshot script v1.0"
-purge_oldest_snapshot
-rename_snapshots 
-mksnapshot
+use_duplicity () {
+	if [ ! -d "$backup_dir/duplicity" ]; then
+		mkdir "$backup_dir/duplicity"
+	fi
+	echo "### duplicity backup -> $backup_dir/duplicity"
+	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "file://$backup_dir/duplicity"
+	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
+	duplicity --no-encryption remove-all-but-n-full 2 --force "file://$backup_dir/duplicity"
+}
+
+if [ "X$use_snapshots" = "Xtrue" ]; then
+	echo "## Archlinux thal snapshot script v1.0"
+	echo -n "### Starting at: "; date +%H:%M
+	purge_oldest_snapshot
+	rename_snapshots 
+	mksnapshot
+	echo -n "### Finished at: "; date +%H:%M
+	echo "#########################"
+fi
+
+if [ "X$use_duplicity" = "Xtrue" ]; then
+	echo "## \$use_duplicity is true - running duplicity"
+	if [ -x $(which duplicity) ]; then
+		echo -n "### Starting at: "; date +%H:%M
+		use_duplicity
+		echo -n "### Finished at: "; date +%H:%M
+	else
+		echo "duplicity not found - please install"
+	fi
+	echo "#########################"
+fi
+
+echo "Disk Space"
+df -h "$snapshot_dir" "$backup_dir"
+echo "#########################"
 
 ## Not implemented TBD after this comment
 exit 0
@@ -87,9 +122,3 @@ exit 0
 echo "### Daily system backup - "$date" - "$target"/rsync"
 echo -n "### Starting at: "; date +%H:%M
 rsync -ax --delete / "$target/rsync"
-
-echo "### Daily duplicity backup"
-echo -n "### Starting at: "; date +%H:%M
-duplicity -v4 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "file://$target/duplicity"
-echo "### Deleting old duplicity sets (> 1 month)"
-duplicity --no-encryption remove-older-than 1M "file://$target/duplicity"
