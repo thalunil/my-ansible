@@ -4,7 +4,7 @@ date=`date +%F`
 umask 027
 
 # defaults
-backup_dir="/backup"
+backup_dir="file:///backup/duplicity/"
 snapshot_dir="/snapshot"
 snapshot_num="3"
 use_snapshots=true
@@ -17,10 +17,6 @@ else
 	echo "### WARNING: /etc/archlinux-backup.conf - configuration file not present"
 fi
 
-# input validation
-[[ -z "$backup_dir" ]] && echo "### INFO: /etc/archlinux-backup.conf - \$backup_dir not set - using defaults"
-[[ -z "$snapshot_dir" ]] && echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_dir not set - using defaults"
-
 case "$snapshot_num" in
 [[:digit:]]*)
 	if [ ! $snapshot_num -ge 1 ]; then
@@ -32,12 +28,6 @@ case "$snapshot_num" in
        	echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num not set - using defaults"
        	;;
 esac
-
-if ! [[ -d "$backup_dir" ]]; then
-	mkdir "$backup_dir" && chmod 0750 "$backup_dir" && chown root:thalunil "$backup_dir"
-else
-	chmod 0750 "$backup_dir" && chown root:thalunil "$backup_dir"
-fi
 
 if ! [[ -d "$snapshot_dir" ]]; then
 	mkdir "$snapshot_dir" && chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
@@ -81,14 +71,12 @@ mksnapshot () {
 }
 
 use_duplicity () {
-	if [ ! -d "$backup_dir/duplicity" ]; then
-		mkdir "$backup_dir/duplicity"
-	fi
-	echo "### duplicity backup -> $backup_dir/duplicity"
-	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "file://$backup_dir/duplicity"
+	echo "### duplicity backup -> $backup_dir"
+	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "$backup_dir"
 	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
-	duplicity --no-encryption remove-all-but-n-full 2 --force "file://$backup_dir/duplicity"
-}
+	duplicity --no-encryption remove-all-but-n-full 2 --force "$backup_dir"
+}	
+
 
 if [ "X$use_snapshots" = "Xtrue" ]; then
 	echo "## Archlinux thal snapshot script v1.0"
