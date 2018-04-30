@@ -1,5 +1,9 @@
 # GRUB boot loader configuration
 
+# for choosing a different default grub entry you can either specificy the title or the number
+# GRUB_DEFAULT='Advanced options for Arch Linux>Arch Linux, with Linux linux'
+# or
+# GRUB_DEFAULT="1>2" # boots the third entry under the 2 second item
 GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch"
