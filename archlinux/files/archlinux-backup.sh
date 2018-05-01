@@ -65,7 +65,7 @@ rename_snapshots () {
 
 ## Snapshot routine for btrfs root filesystem
 mksnapshot () {
-	echo "### INFO: SNAPshot: creating btrfs snapshot of / - $date"
+	echo "### INFO: SNAPshot: creating btrfs snapshot of / - date of snapshot: see /snapshot.info"
 	echo "snapshot creation: $date" > /snapshot.info
 	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
