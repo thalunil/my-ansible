@@ -4,7 +4,8 @@ date=`date +%F`
 umask 027
 
 # defaults
-backup_dir="file:///backup/duplicity/"
+backup_dir="/backup"
+duplicity_dir="file:///backup/duplicity/"
 snapshot_dir="/snapshot"
 snapshot_num="3"
 use_snapshots=true
@@ -71,10 +72,10 @@ mksnapshot () {
 }
 
 use_duplicity () {
-	echo "### duplicity backup -> $backup_dir"
-	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "$backup_dir"
+	echo "### duplicity backup -> $duplicity_dir"
+	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "$duplicity_dir"
 	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
-	duplicity --no-encryption remove-all-but-n-full 2 --force "$backup_dir"
+	duplicity --no-encryption remove-all-but-n-full 2 --force "$duplicity_dir"
 }	
 
 
@@ -101,7 +102,7 @@ if [ "X$use_duplicity" = "Xtrue" ]; then
 fi
 
 echo "Disk Space"
-df -h "$snapshot_dir" "$backup_dir"
+df -h "$snapshot_dir" "$backup_dir" "$duplicity_dir"
 echo "#########################"
 
 ## Not implemented TBD after this comment
