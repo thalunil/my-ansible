@@ -5,6 +5,8 @@ umask 027
 
 # defaults
 backup_dir="/backup"
+# if backing up to the local system disk please use an exclude statement of the specific directory
+# otherwise the backups backups up the backup....recursion ahead!
 duplicity_dir="file:///backup/duplicity/"
 snapshot_dir="/snapshot"
 snapshot_num="3"
@@ -73,7 +75,7 @@ mksnapshot () {
 
 use_duplicity () {
 	echo "### duplicity backup -> $duplicity_dir"
-	duplicity -v0 --no-encryption --exclude-other-filesystems --full-if-older-than 1M / "$duplicity_dir"
+	duplicity -v0 --no-encryption --exclude-other-filesystems --exclude /backup --full-if-older-than 1M / "$duplicity_dir"
 	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
 	duplicity --no-encryption remove-all-but-n-full 2 --force "$duplicity_dir"
 }	
