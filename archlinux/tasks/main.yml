@@ -146,6 +146,7 @@
     mode:     0644
     owner:    root
     group:    root
+  notify: update /etc/resolv.conf 
 
 - name: /etc/default/grub.template
   copy:
