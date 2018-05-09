@@ -23,3 +23,6 @@
 
 - name: update /etc/resolv.conf
   command: resolvconf -u
+
+- name: systemctl daemon-reload
+  command: systemctl daemon-reload

@@ -1,0 +1,15 @@
+# vim:ft=ansible:
+---
+- name: install dnscrypt-proxy package
+  pacman: name="dnscrypt-proxy" state=present
+
+- name: /etc/systemd/system/dnscrypt-proxy.socket.d/ - directory
+  file:
+    path:   /etc/systemd/system/dnscrypt-proxy.socket.d/
+    state:  directory
+
+- name: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
+  copy:
+    src:  dnscrypt-proxy-socket-override.conf
+    dest: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
+  notify: systemctl daemon-reload
