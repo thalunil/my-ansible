@@ -139,11 +139,10 @@
     - smartd
     - sshd
 
-# resolvconf configuration for using a localhost dns resolver
 - name: /etc/resolvconf.conf
-  copy:
-    src:      "resolvconf.conf"
-    dest:     "/etc/resolvconf.conf"
+  template:
+    src:      resolvconf.conf.j2
+    dest:     /etc/resolvconf.conf
     mode:     0644
     owner:    root
     group:    root
