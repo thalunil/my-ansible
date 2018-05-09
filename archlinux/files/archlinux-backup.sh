@@ -103,8 +103,8 @@ if [ "X$use_duplicity" = "Xtrue" ]; then
 	echo "#########################"
 fi
 
-echo "Disk Space"
-df -h "$snapshot_dir" "$backup_dir" "$duplicity_dir"
+echo "## local disk space"
+df -h -x tmpfs
 echo "#########################"
 
 ## Not implemented TBD after this comment
