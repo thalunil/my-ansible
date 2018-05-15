@@ -110,3 +110,5 @@ archlinux_packages:
     - powertop # A tool to diagnose issues with power consumption and power management
     - mlocate # Merging locate/updatedb implementation
     - baobab # A graphical directory tree analyzer
+    - torsocks # Wrapper to safely torify applications
+    - handbrake # Multithreaded video transcoder
