@@ -97,6 +97,14 @@ if [ "X$use_duplicity" = "Xtrue" ]; then
 		echo -n "### Starting at: "; date +%H:%M
 		use_duplicity
 		echo -n "### Finished at: "; date +%H:%M
+		cat << HERE
+### Duplicity info
+### Looking for files
+#### duplicity --no-encryption list-current-files <duplicity target specification> | grep "etc/"
+
+### Restore files
+#### duplicity -t 1D --no-encryption --file-to-restore home/thalunil/ --tempdir . <duplicity target specification> <target dir>
+HERE
 	else
 		echo "duplicity not found - please install"
 	fi
