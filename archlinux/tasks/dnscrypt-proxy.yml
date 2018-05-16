@@ -13,3 +13,13 @@
     src:  dnscrypt-proxy-socket-override.conf
     dest: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
   notify: systemctl daemon-reload
+
+- name: /etc/dnscrypt-proxy/dnscrypt-proxy.toml 
+  copy:
+    src:  dnscrypt-proxy.toml
+    dest: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+  notify: restart dnscrypt-proxy
+
+- name: service dnscrypt-proxy enabled + running
+  service: name="dnscrypt-proxy" enabled="yes" state="started"
+

@@ -26,3 +26,6 @@
 
 - name: systemctl daemon-reload
   command: systemctl daemon-reload
+
+- name: restart dnscrypt-proxy
+  service: name=dnscrypt-proxy state=restarted
