@@ -112,3 +112,4 @@ archlinux_packages:
     - baobab # A graphical directory tree analyzer
     - torsocks # Wrapper to safely torify applications
     - handbrake # Multithreaded video transcoder
+    - asciinema # Record and share terminal/console sessions
