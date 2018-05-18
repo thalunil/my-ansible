@@ -14,6 +14,21 @@
     dest: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
   notify: systemctl daemon-reload
 
+- name: mask avahi-daemon because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+  systemd: masked=yes name=avahi-daemon.socket
+
+- name: mask avahi-daemon because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+  systemd: masked=yes name=avahi-daemon.service
+
+- name: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+  copy:
+    src:  dnscrypt-proxy.toml
+    dest: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+  notify: restart dnscrypt-proxy
+
+- name: service dnscrypt-proxy enabled + running
+  service: name="dnscrypt-proxy" enabled="yes" state="started"
+
 - name: /etc/dnscrypt-proxy/dnscrypt-proxy.toml 
   copy:
     src:  dnscrypt-proxy.toml
