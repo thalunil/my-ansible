@@ -12,12 +12,14 @@ archlinux_backup: true
   #  - root
   #  - adm
 
+# locales to be generated (in locale.gen)
 archlinux_locales:
   - en_US.UTF-8 UTF-8
   - de_AT.UTF-8 UTF-8
   - de_DE.UTF-8 UTF-8
 
-archlinux_system_locale: en_US.UTF-8
+#archlinux_system_locale_LC_MESSAGES: en_US.UTF-8
+archlinux_system_locale: de_AT.UTF-8
 
 archlinux_server:
   - http://mirror1.htu.tugraz.at/archlinux/$repo/os/$arch

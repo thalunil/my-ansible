@@ -1,1 +1,4 @@
 LANG={{ archlinux_system_locale }}
+{% if archlinux_system_locale_LC_MESSAGES is defined %}
+LC_MESSAGES={{ archlinux_system_locale_LC_MESSAGES }}
+{% endif %}
