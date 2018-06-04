@@ -27,6 +27,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
+    - pacman-contrib # Contributed scripts and tools for pacman systems
     - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
     - cronie
     - acpi

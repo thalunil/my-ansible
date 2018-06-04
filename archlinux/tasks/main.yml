@@ -39,6 +39,17 @@
   pacman: name="{{item}}" state=present
   with_items: "{{archlinux_packages}}"
 
+- name: cronjob /etc/cron.daily/orphaned-packages
+  copy:
+    content: |
+      #!/bin/sh
+      echo "Orphaned packages: 'pacman -Rns \$(pacman -Qdtq)' for cleanup"
+      pacman -Qdtq\n
+    dest:     /etc/cron.daily/orphaned-packages
+    mode:     0755
+    owner:    root
+    group:    root
+
 - name: cronjob /etc/cron.daily/update-pacman-cache
   copy:
     content: "#!/bin/sh\n
