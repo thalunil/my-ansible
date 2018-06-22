@@ -27,93 +27,97 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
-    - imagemagick # An image viewing/manipulation program
-    - pacman-contrib # Contributed scripts and tools for pacman systems
-    - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
-    - cronie
-    - acpi
-    - opensmtpd
-    - neomutt
-    - hexchat
-    - binwalk
-    - diffoscope # in-depth comparison of files, archives, and directories
-    - meld # Compare files, directories and working copies
-    - diffuse # A graphical tool for merging and comparing text files
-    - pwgen # password generator 
-    - firejail # sandboxing applications with Linux namespaces
-    - catfish # a GUI file search tool
-    - tcpdump
-    - ethtool
-    - hdparm
-    - wipe
-    - elinks
-    - links
-    - lightdm
-    - mtr
-    - vorbis-tools
-    - ettercap
-    - qutebrowser
-    - p7zip
-    - unrar
-    - hwinfo
-    - john
-    - rdesktop
-    - remmina # remote desktop client written in GTK+
-    - sshfs
-    - wol
-    - youtube-dl
-    - bc
-    - galculator
-    - gnome-system-monitor
-    - openbsd-netcat
-    - rsync
-    - smartmontools
-    - stunnel
-    - nmap
-    - nbtscan # scanning IP networks for NetBIOS name information
-    - openvpn
-    - xscreensaver
-    - file-roller
-    - python-pip
-    - digikam
-    - geeqie
-    - gimp
-    - wireshark-gtk
-    - strace
-    - atop
-    - htop
-    - audacious
-    - git
-    - shellcheck # Shell script analysis tool
-    - unbound
-    - duplicity
-    - liferea # rss aggregator
-    - dillo # small, fast graphical web browser
-    - stellarium # space watching astronomy
-    - dvd+rw-tools # for xcfa cd-ripping program
-    - cd-discid # for xcfa cd-ripping program
-    - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
-    - sslscan # tools to scan SSL services, such as HTTPS to determine the ciphers that are supported
-    - calibre # ebook viewer - KDE
-    - mailnag # mail notification
-    - gajim # Jabber chat
-    - python-axolotl # for gajim OMEMO
-    - python-axolotl-curve25519 # for gajim OMEMO
-    - firefox
-    - firefox-developer-edition
-    - linux
-    - linux-headers
-    - linux-hardened
-    - linux-hardened-headers
-    - linux-lts
-    - linux-lts-headers
-    - virt-viewer # virt-viewer for SPICE connection to VMs
-    - base-devel # essential base developer toolZ
-    - x2goclient
-    - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning
-    - powertop # A tool to diagnose issues with power consumption and power management
-    - mlocate # Merging locate/updatedb implementation
-    - baobab # A graphical directory tree analyzer
-    - torsocks # Wrapper to safely torify applications
-    - handbrake # Multithreaded video transcoder
-    - asciinema # Record and share terminal/console sessions
+  - bochs # A portable x86 PC emulation software package, including GUI debugger
+  - tlp # Linux Advanced Power Management
+  - libreoffice-fresh # Libreoffice
+  - libreoffice-fresh-de # Libreoffice
+  - imagemagick # An image viewing/manipulation program
+  - pacman-contrib # Contributed scripts and tools for pacman systems
+  - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
+  - cronie
+  - acpi
+  - opensmtpd
+  - neomutt
+  - hexchat
+  - binwalk
+  - diffoscope # in-depth comparison of files, archives, and directories
+  - meld # Compare files, directories and working copies
+  - diffuse # A graphical tool for merging and comparing text files
+  - pwgen # password generator 
+  - firejail # sandboxing applications with Linux namespaces
+  - catfish # a GUI file search tool
+  - tcpdump
+  - ethtool
+  - hdparm
+  - wipe
+  - elinks
+  - links
+  - lightdm
+  - mtr
+  - vorbis-tools
+  - ettercap
+  - qutebrowser
+  - p7zip
+  - unrar
+  - hwinfo
+  - john
+  - rdesktop
+  - remmina # remote desktop client written in GTK+
+  - sshfs
+  - wol
+  - youtube-dl
+  - bc
+  - galculator
+  - gnome-system-monitor
+  - openbsd-netcat
+  - rsync
+  - smartmontools
+  - stunnel
+  - nmap
+  - nbtscan # scanning IP networks for NetBIOS name information
+  - openvpn
+  - xscreensaver
+  - file-roller
+  - python-pip
+  - digikam
+  - geeqie
+  - gimp
+  - wireshark-gtk
+  - strace
+  - atop
+  - htop
+  - audacious
+  - git
+  - shellcheck # Shell script analysis tool
+  - unbound
+  - duplicity
+  - liferea # rss aggregator
+  - dillo # small, fast graphical web browser
+  - stellarium # space watching astronomy
+  - dvd+rw-tools # for xcfa cd-ripping program
+  - cd-discid # for xcfa cd-ripping program
+  - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
+  - sslscan # tools to scan SSL services, such as HTTPS to determine the ciphers that are supported
+  - calibre # ebook viewer - KDE
+  - mailnag # mail notification
+  - gajim # Jabber chat
+  - python-axolotl # for gajim OMEMO
+  - python-axolotl-curve25519 # for gajim OMEMO
+  - firefox
+  - firefox-developer-edition
+  - linux
+  - linux-headers
+  - linux-hardened
+  - linux-hardened-headers
+  - linux-lts
+  - linux-lts-headers
+  - virt-viewer # virt-viewer for SPICE connection to VMs
+  - base-devel # essential base developer toolZ
+  - x2goclient
+  - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning
+  - powertop # A tool to diagnose issues with power consumption and power management
+  - mlocate # Merging locate/updatedb implementation
+  - baobab # A graphical directory tree analyzer
+  - torsocks # Wrapper to safely torify applications
+  - handbrake # Multithreaded video transcoder
+  - asciinema # Record and share terminal/console sessions
