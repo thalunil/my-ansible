@@ -20,8 +20,10 @@
     template:
       src:  systemd-logind-hidepid.conf.j2
       dest: /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+
 # Restrict access to kernel logs
 # 1 = active, 0 = disabled
+# more at: https://lwn.net/Articles/414813/
   - name: /etc/sysctl.d/dmesg-restrict.conf
     copy:
       content:  kernel.dmesg_restrict = 1
@@ -29,6 +31,14 @@
       mode:     0644
       owner:    root
       group:    root
+# Make dmesg suid so that group members of root can invoke it w/o sudo
+  - name: /usr/bin/dmesg setuid bit and chgrp to root
+    file:
+      path:   /usr/bin/dmesg
+      mode:   04750
+      owner:  root
+      group:  root
+# end of block
   when: archlinux_hardening
 
 - name: archlinux_hardening set to {{archlinux_hardening}} - disable hardening
