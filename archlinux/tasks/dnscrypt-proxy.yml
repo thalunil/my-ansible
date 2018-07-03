@@ -1,18 +1,19 @@
 # vim:ft=ansible:
 ---
+- name: service dnscrypt-proxy enabled + running
+  service: name="dnscrypt-proxy" enabled="yes" state="started"
+
+- name: socket dnscrypt-proxy disabled & stopped
+  systemd: name="dnscrypt-proxy.socket" enabled="no" state="stopped"
+  notify: systemctl daemon-reload
+
 - name: install dnscrypt-proxy package
   pacman: name="dnscrypt-proxy" state=present
 
-- name: /etc/systemd/system/dnscrypt-proxy.socket.d/ - directory
+- name: remove /etc/systemd/system/dnscrypt-proxy.socket.d/
   file:
-    path:   /etc/systemd/system/dnscrypt-proxy.socket.d/
-    state:  directory
-
-- name: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
-  copy:
-    src:  dnscrypt-proxy-socket-override.conf
-    dest: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
-  notify: systemctl daemon-reload
+    path: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
+    state: absent
 
 - name: mask avahi-daemon because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
   systemd: masked=yes name=avahi-daemon.socket
@@ -25,6 +26,3 @@
     src:  dnscrypt-proxy.toml
     dest: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
   notify: restart dnscrypt-proxy
-
-- name: service dnscrypt-proxy enabled + running
-  service: name="dnscrypt-proxy" enabled="yes" state="started"
