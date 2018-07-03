@@ -22,7 +22,7 @@ archlinux_locales:
 archlinux_system_locale: de_AT.UTF-8
 
 archlinux_server:
-  - http://mirror.digitalnova.at/archlinux/
+  - https://mirror.netcologne.de/archlinux/
   - http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
