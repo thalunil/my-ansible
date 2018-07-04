@@ -27,6 +27,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
+  - bind-utils # The ISC DNS tools
   - bochs # A portable x86 PC emulation software package, including GUI debugger
   - tlp # Linux Advanced Power Management
   - libreoffice-fresh # Libreoffice
