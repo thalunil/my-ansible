@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+#
+# TBD-borgbackup support (https://www.borgbackup.org/)
 
 date=`date +%F`
 umask 027
