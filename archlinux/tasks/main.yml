@@ -7,7 +7,7 @@
   when: archlinux_hardening is defined
 
 - include_tasks: dnscrypt-proxy.yml
-  when: use_dnscrypt-proxy is defined
+  when: use_dnscrypt_proxy is defined
 
 - name: create system groups
   group:
