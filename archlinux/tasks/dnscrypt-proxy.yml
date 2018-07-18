@@ -1,5 +1,11 @@
 # vim:ft=ansible:
 ---
+- name: socket avahi-daemon disabled and stopped: because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+  systemd: name=avahi-daemon.socket  enabled="no" state="stopped"
+
+- name: service avahi-daemon disabled and stopped: because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+  systemd: name=avahi-daemon.service enabled="no" state="stopped"
+
 - name: service dnscrypt-proxy enabled + running
   service: name="dnscrypt-proxy" enabled="yes" state="started"
 
@@ -14,12 +20,6 @@
   file:
     path: /etc/systemd/system/dnscrypt-proxy.socket.d/override.conf
     state: absent
-
-- name: mask avahi-daemon because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
-  systemd: masked=yes name=avahi-daemon.socket
-
-- name: mask avahi-daemon because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
-  systemd: masked=yes name=avahi-daemon.service
 
 - name: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
   copy:
