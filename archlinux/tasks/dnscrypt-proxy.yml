@@ -1,9 +1,9 @@
 # vim:ft=ansible:
 ---
-- name: socket avahi-daemon disabled and stopped: because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+- name: socket avahi-daemon disabled and stopped - because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
   systemd: name=avahi-daemon.socket  enabled="no" state="stopped"
 
-- name: service avahi-daemon disabled and stopped: because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
+- name: service avahi-daemon disabled and stopped - because avahi and dnscrypt-proxy are running on the same port (localhost tcp/5353)
   systemd: name=avahi-daemon.service enabled="no" state="stopped"
 
 - name: service dnscrypt-proxy enabled + running
