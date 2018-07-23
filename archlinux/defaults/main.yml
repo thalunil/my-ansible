@@ -27,6 +27,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
+  - ipcalc # Calculates IP broadcast, network, Cisco wildcard mask, and host ranges
   - radare2 # Open-source tools to disasm, debug, analyze and manipulate binary files
   - bind-tools # The ISC DNS tools
   - bochs # A portable x86 PC emulation software package, including GUI debugger
