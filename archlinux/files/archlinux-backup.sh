@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 #
+# Backup - Snapshot script, Alex 'thalunil' Bihlmaier
+# 24. July 2018
+#
 # TBD-borgbackup support (https://www.borgbackup.org/)
 
 date=`date +%F`
@@ -7,6 +10,7 @@ umask 027
 
 # defaults
 backup_dir="/backup"
+borg_dir="borg/"
 # if backing up to the local system disk please use an exclude statement of the specific directory
 # otherwise the backups backups up the backup....recursion ahead!
 duplicity_dir="file:///backup/duplicity/"
@@ -43,10 +47,15 @@ fi
 # delete_date is for snapshots which get purged after specified age
 delete_date=$(date -d "7 days ago" +%F)
 
-
 echo "#########################"
-echo "## Dumping Pacman Package List - $backup_dir/pkglist.txt"
-pacman -Qqe > "$backup_dir/pkglist.txt"
+# archlinux specific
+# type pacman checks the return code to see if pacman is a valid invokable executable
+if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
+	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
+	pacman -Qqe > "$backup_dir/pkglist.txt"
+else
+	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
+fi
 echo "#########################"
 
 # oldest (~ highest number) snapshot will get purged
@@ -82,20 +91,28 @@ use_duplicity () {
 	duplicity --no-encryption remove-all-but-n-full 2 --force "$duplicity_dir"
 }	
 
+run_borg () {
+	echo "### borgbackup -> $backup_dir/$borg_dir"
+}
 
-if [ "X$use_snapshots" = "Xtrue" ]; then
-	echo "## Archlinux thal snapshot script v1.0"
-	echo -n "### Starting at: "; date +%H:%M
+## BTRFS snapshots
+# Check to see if use_snapshots is true and if / is a valid btrfs filesystem
+echo "#########################"
+if [ "X$use_snapshots" = "Xtrue" ] && btrfs filesystem show / > /dev/null 2>&1; then
+	echo "## btrfs snapshot creation"
+	echo -n "## Starting at: "; date +%H:%M
 	purge_oldest_snapshot
 	rename_snapshots 
 	mksnapshot
-	echo -n "### Finished at: "; date +%H:%M
-	echo "#########################"
+	echo -n "## Finished at: "; date +%H:%M
+else
+	echo "## btrfs snapshot creation either disabled or / is not a valid btrfs filesystem"
 fi
 
+echo "#########################"
 if [ "X$use_duplicity" = "Xtrue" ]; then
 	echo "## \$use_duplicity is true - running duplicity"
-	if [ -x $(which duplicity) ]; then
+	if type duplicity > /dev/null 2>&1; then
 		echo -n "### Starting at: "; date +%H:%M
 		use_duplicity
 		echo -n "### Finished at: "; date +%H:%M
@@ -108,10 +125,27 @@ if [ "X$use_duplicity" = "Xtrue" ]; then
 #### duplicity -t 1D --no-encryption --file-to-restore home/thalunil/ --tempdir . <duplicity target specification> <target dir>
 HERE
 	else
-		echo "duplicity not found - please install"
+		echo "## duplicity not found - please install"
 	fi
-	echo "#########################"
+else
+	echo "## \$use_duplicity is not set - skipping duplicity"
 fi
+echo "#########################"
+
+echo "## BORGbackup - 24. July 2018"
+if [ "X$use_borg" = "Xtrue" ]; then
+	echo "## \$use_borg is true - running borgbackup"
+	if type borg > /dev/null 2>&1; then
+		echo -n "### Starting at: "; date +%H:%M
+		run_borg
+		echo -n "### Finished at: "; date +%H:%M
+	else
+		echo "## borgbackup not found - please install"
+	fi
+else
+	echo "## \$use_borg is not set - skipping borgbackup"
+fi
+echo "#########################"
 
 echo "## local disk space"
 df -h -x tmpfs
