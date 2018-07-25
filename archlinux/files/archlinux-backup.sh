@@ -56,7 +56,6 @@ if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
 else
 	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
 fi
-echo "#########################"
 
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
