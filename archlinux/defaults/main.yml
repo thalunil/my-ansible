@@ -27,6 +27,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
+  - whois
   - borg # Deduplicating backup program with compression and authenticated encryption
   - ipcalc # Calculates IP broadcast, network, Cisco wildcard mask, and host ranges
   - radare2 # Open-source tools to disasm, debug, analyze and manipulate binary files
