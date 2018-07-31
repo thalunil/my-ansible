@@ -3,14 +3,14 @@
 # Backup - Snapshot script, Alex 'thalunil' Bihlmaier
 # 24. July 2018
 #
-# TBD-borgbackup support (https://www.borgbackup.org/)
+# borgbackup support (https://www.borgbackup.org/)
 
 date=`date +%F`
 umask 027
 
 # defaults
 backup_dir="/backup"
-borg_dir="borg/"
+BORG_REPO="/backup/borg/"
 # if backing up to the local system disk please use an exclude statement of the specific directory
 # otherwise the backups backups up the backup....recursion ahead!
 duplicity_dir="file:///backup/duplicity/"
@@ -91,7 +91,13 @@ use_duplicity () {
 }	
 
 run_borg () {
-	echo "### borgbackup -> $backup_dir/$borg_dir"
+	echo "### borg repo \$BORG_REPO: $BORG_REPO"
+	echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
+	if borg check $BORG_REPO && [ -d "$BORG_BACKUP_DIR" ]; then
+		borg create $BORG_REPO::{now} "$BORG_BACKUP_DIR"
+	else
+		echo "### borgbackup failed..."
+	fi
 }
 
 ## BTRFS snapshots
@@ -129,30 +135,23 @@ HERE
 else
 	echo "## \$use_duplicity is not set - skipping duplicity"
 fi
-echo "#########################"
 
+echo "#########################"
 echo "## BORGbackup - 24. July 2018"
 if [ "X$use_borg" = "Xtrue" ]; then
 	echo "## \$use_borg is true - running borgbackup"
 	if type borg > /dev/null 2>&1; then
-		echo -n "### Starting at: "; date +%H:%M
+		echo -n "## Starting at: "; date +%H:%M
 		run_borg
-		echo -n "### Finished at: "; date +%H:%M
+		echo -n "## Finished at: "; date +%H:%M
 	else
 		echo "## borgbackup not found - please install"
 	fi
 else
 	echo "## \$use_borg is not set - skipping borgbackup"
 fi
-echo "#########################"
 
+echo "#########################"
 echo "## local disk space"
 df -h -x tmpfs
 echo "#########################"
-
-## Not implemented TBD after this comment
-exit 0
-
-echo "### Daily system backup - "$date" - "$target"/rsync"
-echo -n "### Starting at: "; date +%H:%M
-rsync -ax --delete / "$target/rsync"
