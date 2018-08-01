@@ -18,6 +18,7 @@ snapshot_dir="/snapshot"
 snapshot_num="3"
 use_snapshots=true
 use_duplicity=true
+#debug=true # uncomment to enable debugging
 
 # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
 if [[ -f /etc/archlinux-backup.conf ]]; then
@@ -70,7 +71,7 @@ rename_snapshots () {
 	for i in $(seq $((--snapshot_num)) -1 0)
 	do      
         	if [ -d "$snapshot_dir/$i" ]; then
-			echo "### INFO: SNAPshot: rotating $snapshot_dir/$i"
+			if [ -n "$debug" ]; then echo "### INFO: SNAPshot: rotating $snapshot_dir/$i"; fi
 			mv $snapshot_dir/$i $snapshot_dir/$((i+1))
 		fi
 	done
