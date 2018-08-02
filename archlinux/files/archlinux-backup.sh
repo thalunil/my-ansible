@@ -20,6 +20,21 @@ use_snapshots=true
 use_duplicity=true
 #debug=true # uncomment to enable debugging
 
+usage() {
+cat << EOF
+Benutzung:
+	-r: run backup/snapshot (e.g. via cron)
+
+Konfigurationsdatei /etc/archlinux-backup.conf:
+                    --------------------------
+ use_borg=true (to enable borgbackup)
+ borg_repo="<where to search for the borgbackup archive>"
+ BORG_BACKUP_DIR="<what directories to backup - space seperated>"
+EOF
+}
+
+if [ $# = 0 ]; then; usage; exit; fi
+
 # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
 if [[ -f /etc/archlinux-backup.conf ]]; then
 	source /etc/archlinux-backup.conf
