@@ -9,6 +9,9 @@ date=`date +%F`
 umask 027
 
 # defaults
+# delete_date is for snapshots which get purged after specified age
+delete_date=$(date -d "7 days ago" +%F)
+
 backup_dir="/backup"
 BORG_REPO="/backup/borg/"
 # if backing up to the local system disk please use an exclude statement of the specific directory
@@ -32,46 +35,6 @@ Konfigurationsdatei /etc/archlinux-backup.conf:
  BORG_BACKUP_DIR="<what directories to backup - space seperated>"
 EOF
 }
-
-if [ $# = 0 ]; then; usage; exit; fi
-
-# sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
-if [[ -f /etc/archlinux-backup.conf ]]; then
-	source /etc/archlinux-backup.conf
-else
-	echo "### WARNING: /etc/archlinux-backup.conf - configuration file not present"
-fi
-
-case "$snapshot_num" in
-[[:digit:]]*)
-	if [ ! $snapshot_num -ge 1 ]; then
-		echo "not a valid number - snapshot count must be greater than 1"
-		exit 1
-	fi
-      	;;
-*)
-       	echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num not set - using defaults"
-       	;;
-esac
-
-if ! [[ -d "$snapshot_dir" ]]; then
-	mkdir "$snapshot_dir" && chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
-else
-	chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
-fi
-
-# delete_date is for snapshots which get purged after specified age
-delete_date=$(date -d "7 days ago" +%F)
-
-echo "#########################"
-# archlinux specific
-# type pacman checks the return code to see if pacman is a valid invokable executable
-if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
-	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
-	pacman -Qqe > "$backup_dir/pkglist.txt"
-else
-	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
-fi
 
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
@@ -116,22 +79,58 @@ run_borg () {
 	fi
 }
 
-## BTRFS snapshots
-# Check to see if use_snapshots is true and if / is a valid btrfs filesystem
-echo "#########################"
-if [ "X$use_snapshots" = "Xtrue" ] && btrfs filesystem show / > /dev/null 2>&1; then
+run_full () {
+ # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
+ if [[ -f /etc/archlinux-backup.conf ]]; then
+ 	source /etc/archlinux-backup.conf
+ else
+	echo "### WARNING: /etc/archlinux-backup.conf - configuration file not present"
+ fi
+
+ case "$snapshot_num" in
+	 [[:digit:]]*)
+		if [ ! $snapshot_num -ge 1 ]; then
+			echo "not a valid number - snapshot count must be greater than 1"
+			exit 1
+		fi
+      		;;
+	*)
+       		echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num not set - using defaults"
+       		;;
+ esac
+
+ if ! [[ -d "$snapshot_dir" ]]; then
+	mkdir "$snapshot_dir" && chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
+ else
+	chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
+ fi
+
+ echo "#########################"
+ # archlinux specific
+ # type pacman checks the return code to see if pacman is a valid invokable executable
+ if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
+	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
+	pacman -Qqe > "$backup_dir/pkglist.txt"
+ else
+	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
+ fi
+
+ ## BTRFS snapshots
+ # Check to see if use_snapshots is true and if / is a valid btrfs filesystem
+ echo "#########################"
+ if [ "X$use_snapshots" = "Xtrue" ] && btrfs filesystem show / > /dev/null 2>&1; then
 	echo "## btrfs snapshot creation"
 	echo -n "## Starting at: "; date +%H:%M
 	purge_oldest_snapshot
 	rename_snapshots 
 	mksnapshot
 	echo -n "## Finished at: "; date +%H:%M
-else
+ else
 	echo "## btrfs snapshot creation either disabled or / is not a valid btrfs filesystem"
-fi
+ fi
 
-echo "#########################"
-if [ "X$use_duplicity" = "Xtrue" ]; then
+ echo "#########################"
+ if [ "X$use_duplicity" = "Xtrue" ]; then
 	echo "## \$use_duplicity is true - running duplicity"
 	if type duplicity > /dev/null 2>&1; then
 		echo -n "### Starting at: "; date +%H:%M
@@ -171,3 +170,15 @@ echo "#########################"
 echo "## local disk space"
 df -h -x tmpfs
 echo "#########################"
+}
+
+if [ $# = 0 ]; then; usage; exit; fi
+
+case $1 in
+	-r)
+		run_full
+		;;
+	*)
+		usage
+		;;
+esac
