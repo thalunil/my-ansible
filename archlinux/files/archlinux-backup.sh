@@ -39,7 +39,7 @@ EOF
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
 	if [ -d "$snapshot_dir/$snapshot_num" ]; then
-		if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"
+		if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"; fi
 		btrfs subvolume delete -v "$snapshot_dir/$snapshot_num"
 	fi
 	}
