@@ -39,7 +39,7 @@ EOF
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
 	if [ -d "$snapshot_dir/$snapshot_num" ]; then
-		echo "### INFO: SNAPshot: oldest (~ highest number) snapshot will get purged"
+		if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"
 		btrfs subvolume delete -v "$snapshot_dir/$snapshot_num"
 	fi
 	}
@@ -49,7 +49,7 @@ rename_snapshots () {
 	for i in $(seq $((--snapshot_num)) -1 0)
 	do      
         	if [ -d "$snapshot_dir/$i" ]; then
-			if [ -n "$debug" ]; then echo "### INFO: SNAPshot: rotating $snapshot_dir/$i"; fi
+			if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: rotating $snapshot_dir/$i"; fi
 			mv $snapshot_dir/$i $snapshot_dir/$((i+1))
 		fi
 	done
@@ -72,8 +72,9 @@ use_duplicity () {
 run_borg () {
 	echo "### borg repo \$BORG_REPO: $BORG_REPO"
 	echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
-	if borg check $BORG_REPO && [ -d "$BORG_BACKUP_DIR" ]; then
-		borg create $BORG_REPO::{now} "$BORG_BACKUP_DIR"
+	if borg check $BORG_REPO ; then
+		if [ -n "$debug" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
+		borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
 	else
 		echo "### borgbackup failed..."
 	fi
