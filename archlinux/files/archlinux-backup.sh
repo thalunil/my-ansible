@@ -13,7 +13,6 @@ umask 027
 delete_date=$(date -d "7 days ago" +%F)
 
 backup_dir="/backup"
-BORG_REPO="/backup/borg/"
 # if backing up to the local system disk please use an exclude statement of the specific directory
 # otherwise the backups backups up the backup....recursion ahead!
 duplicity_dir="file:///backup/duplicity/"
@@ -21,6 +20,9 @@ snapshot_dir="/snapshot"
 snapshot_num="3"
 use_snapshots=true
 use_duplicity=true
+USE_BORG=false
+BORG_REPO=""
+BORG_BACKUP_DIR=""
 #debug=true # uncomment to enable debugging
 
 usage() {
@@ -30,9 +32,9 @@ Benutzung:
 
 Konfigurationsdatei /etc/archlinux-backup.conf:
                     --------------------------
- use_borg=true (to enable borgbackup)
- borg_repo="<where to search for the borgbackup archive>"
- BORG_BACKUP_DIR="<what directories to backup - space seperated>"
+ USE_BORG=true (to enable borgbackup)
+ BORG_REPO="<where to search for the borgbackup archive>"
+ BORG_BACKUP_DIR="<what directories to backup - space separated>"
 EOF
 }
 
@@ -72,7 +74,7 @@ use_duplicity () {
 run_borg () {
 	echo "### borg repo \$BORG_REPO: $BORG_REPO"
 	echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
-	if borg check $BORG_REPO ; then
+	if borg check $BORG_REPO && [ -d ${=BORG_BACKUP_DIR} ]; then
 		if [ -n "$debug" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
 		borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
 	else
@@ -81,11 +83,8 @@ run_borg () {
 }
 
 run_full () {
- # sourcing archlinux-backup.conf in /etcm otherwise exit gracefully
  if [[ -f /etc/archlinux-backup.conf ]]; then
  	source /etc/archlinux-backup.conf
- else
-	echo "### WARNING: /etc/archlinux-backup.conf - configuration file not present"
  fi
 
  case "$snapshot_num" in
@@ -154,8 +153,8 @@ fi
 
 echo "#########################"
 echo "## BORGbackup - 24. July 2018"
-if [ "X$use_borg" = "Xtrue" ]; then
-	echo "## \$use_borg is true - running borgbackup"
+if [ "X$USE_BORG" = "Xtrue" ]; then
+	echo "## \$USE_BORG is true - running borgbackup"
 	if type borg > /dev/null 2>&1; then
 		echo -n "## Starting at: "; date +%H:%M
 		run_borg
@@ -164,7 +163,7 @@ if [ "X$use_borg" = "Xtrue" ]; then
 		echo "## borgbackup not found - please install"
 	fi
 else
-	echo "## \$use_borg is not set - skipping borgbackup"
+	echo "## \$USE_BORG is not set - skipping borgbackup"
 fi
 
 echo "#########################"

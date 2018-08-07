@@ -109,7 +109,6 @@ archlinux_packages:
   - python-axolotl # for gajim OMEMO
   - python-axolotl-curve25519 # for gajim OMEMO
   - firefox
-  - firefox-developer-edition
   - linux
   - linux-headers
   - linux-hardened
@@ -126,3 +125,4 @@ archlinux_packages:
   - torsocks # Wrapper to safely torify applications
   - handbrake # Multithreaded video transcoder
   - asciinema # Record and share terminal/console sessions
+  - lynis # Security and system auditing tool to harden Unix/Linux systems
