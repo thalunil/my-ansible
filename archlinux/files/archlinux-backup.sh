@@ -12,14 +12,14 @@ umask 027
 # delete_date is for snapshots which get purged after specified age
 delete_date=$(date -d "7 days ago" +%F)
 
-backup_dir="/backup"
 # if backing up to the local system disk please use an exclude statement of the specific directory
 # otherwise the backups backups up the backup....recursion ahead!
-duplicity_dir="file:///backup/duplicity/"
+backup_dir="/backup"
 snapshot_dir="/snapshot"
 snapshot_num="3"
 use_snapshots=true
-use_duplicity=true
+USE_DUPLICITY=false
+DUPLICITY_BACKUP_DIR=""
 USE_BORG=false
 BORG_REPO=""
 BORG_BACKUP_DIR=""
@@ -28,14 +28,24 @@ BORG_BACKUP_DIR=""
 usage() {
 cat << EOF
 Benutzung:
-	-r: run backup/snapshot (e.g. via cron)
+	-h: this information / help
+	-b: only run borgbackup (if activated)
 
 Konfigurationsdatei /etc/archlinux-backup.conf:
                     --------------------------
  USE_BORG=true (to enable borgbackup)
  BORG_REPO="<where to search for the borgbackup archive>"
  BORG_BACKUP_DIR="<what directories to backup - space separated>"
+
+ USE_DUPLICITY=true (to enable duplicity)
+ DUPLICITY_BACKUP_DIR="file:///backup/duplicity"
 EOF
+}
+
+setup () {
+ if [[ -f /etc/archlinux-backup.conf ]]; then
+ 	source /etc/archlinux-backup.conf
+ fi
 }
 
 # oldest (~ highest number) snapshot will get purged
@@ -64,29 +74,39 @@ mksnapshot () {
 	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
 
-use_duplicity () {
-	echo "### duplicity backup -> $duplicity_dir"
-	duplicity -v0 --no-encryption --exclude-other-filesystems --exclude /backup --full-if-older-than 1M / "$duplicity_dir"
+run_duplicity () {
+	echo "### duplicity backup -> $DUPLICITY_BACKUP_DIR"
+	duplicity -v0 --no-encryption --exclude-other-filesystems --exclude /backup --full-if-older-than 1M / "$DUPLICITY_BACKUP_DIR"
 	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
-	duplicity --no-encryption remove-all-but-n-full 2 --force "$duplicity_dir"
+	duplicity --no-encryption remove-all-but-n-full 2 --force "$DUPLICITY_BACKUP_DIR"
 }	
 
 run_borg () {
-	echo "### borg repo \$BORG_REPO: $BORG_REPO"
-	echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
-	if borg check $BORG_REPO && [ -d ${=BORG_BACKUP_DIR} ]; then
-		if [ -n "$debug" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
-		borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
+	echo "#########################"
+	echo "## BORGbackup - 24. July 2018"
+	if [ "X$USE_BORG" = "Xtrue" ]; then
+	echo "## \$USE_BORG is true - running borgbackup"
+	if type borg > /dev/null 2>&1; then
+		echo -n "## Starting at: "; date +%H:%M
+		echo "### borg repo \$BORG_REPO: $BORG_REPO"
+		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
+		if borg check $BORG_REPO; then
+			if [ -n "$debug" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
+			borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
+		else
+			echo "### borgbackup failed..."
+		fi
+
+		echo -n "## Finished at: "; date +%H:%M
 	else
-		echo "### borgbackup failed..."
+		echo "## borgbackup not found - please install"
 	fi
+else
+	echo "## \$USE_BORG is not set - skipping borgbackup"
+fi
 }
 
 run_full () {
- if [[ -f /etc/archlinux-backup.conf ]]; then
- 	source /etc/archlinux-backup.conf
- fi
-
  case "$snapshot_num" in
 	 [[:digit:]]*)
 		if [ ! $snapshot_num -ge 1 ]; then
@@ -130,11 +150,11 @@ run_full () {
  fi
 
  echo "#########################"
- if [ "X$use_duplicity" = "Xtrue" ]; then
-	echo "## \$use_duplicity is true - running duplicity"
+ if [ "X$USE_DUPLICITY" = "Xtrue" ]; then
+	echo "## \$USE_DUPLICITY is true - running duplicity"
 	if type duplicity > /dev/null 2>&1; then
 		echo -n "### Starting at: "; date +%H:%M
-		use_duplicity
+		run_duplicity
 		echo -n "### Finished at: "; date +%H:%M
 		cat << HERE
 ### Duplicity info
@@ -148,23 +168,10 @@ HERE
 		echo "## duplicity not found - please install"
 	fi
 else
-	echo "## \$use_duplicity is not set - skipping duplicity"
+	echo "## \$USE_DUPLICITY is not set - skipping duplicity"
 fi
 
-echo "#########################"
-echo "## BORGbackup - 24. July 2018"
-if [ "X$USE_BORG" = "Xtrue" ]; then
-	echo "## \$USE_BORG is true - running borgbackup"
-	if type borg > /dev/null 2>&1; then
-		echo -n "## Starting at: "; date +%H:%M
-		run_borg
-		echo -n "## Finished at: "; date +%H:%M
-	else
-		echo "## borgbackup not found - please install"
-	fi
-else
-	echo "## \$USE_BORG is not set - skipping borgbackup"
-fi
+run_borg
 
 echo "#########################"
 echo "## local disk space"
@@ -172,11 +179,15 @@ df -h -x tmpfs
 echo "#########################"
 }
 
-if [ $# = 0 ]; then; usage; exit; fi
+if [ $# = 0 ]; then; setup; run_full; exit; fi
 
 case $1 in
-	-r)
-		run_full
+	-h)
+		usage
+		;;
+	-b)
+		setup
+		run_borg
 		;;
 	*)
 		usage
