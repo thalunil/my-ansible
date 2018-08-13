@@ -27,6 +27,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 archlinux_packages:
+  - geany # Fast and lightweight IDE for GTK+
   - conky # Lightweight system monitor for X
   - whois
   - borg # Deduplicating backup program with compression and authenticated encryption
