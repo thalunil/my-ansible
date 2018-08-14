@@ -28,6 +28,7 @@ archlinux_server:
 
 archlinux_packages:
   - geany # Fast and lightweight IDE for GTK+
+  - gkrellm # System monitor package for GTK2
   - conky # Lightweight system monitor for X
   - whois
   - borg # Deduplicating backup program with compression and authenticated encryption
