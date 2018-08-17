@@ -23,7 +23,6 @@ DUPLICITY_BACKUP_DIR=""
 USE_BORG=false
 BORG_REPO=""
 BORG_BACKUP_DIR=""
-#debug=true # uncomment to enable debugging
 
 usage() {
 cat << EOF
@@ -39,6 +38,8 @@ Konfigurationsdatei /etc/archlinux-backup.conf:
 
  USE_DUPLICITY=true (to enable duplicity)
  DUPLICITY_BACKUP_DIR="file:///backup/duplicity"
+ 
+ DEBUG=true (to enable debugging)
 EOF
 }
 
@@ -51,7 +52,7 @@ setup () {
 # oldest (~ highest number) snapshot will get purged
 purge_oldest_snapshot () {
 	if [ -d "$snapshot_dir/$snapshot_num" ]; then
-		if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"; fi
+		if [ -n "$DEBUG" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"; fi
 		btrfs subvolume delete -v "$snapshot_dir/$snapshot_num"
 	fi
 	}
@@ -61,7 +62,7 @@ rename_snapshots () {
 	for i in $(seq $((--snapshot_num)) -1 0)
 	do      
         	if [ -d "$snapshot_dir/$i" ]; then
-			if [ -n "$debug" ]; then echo "### DEBUG: SNAPshot: rotating $snapshot_dir/$i"; fi
+			if [ -n "$DEBUG" ]; then echo "### DEBUG: SNAPshot: rotating $snapshot_dir/$i"; fi
 			mv $snapshot_dir/$i $snapshot_dir/$((i+1))
 		fi
 	done
@@ -91,7 +92,7 @@ run_borg () {
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
 		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
 		if borg check $BORG_REPO > /dev/null 2>&1; then
-			if [ -n "$debug" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
+			if [ -n "$DEBUG" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
 			borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
 		else
 			echo "### borgbackup failed..."
