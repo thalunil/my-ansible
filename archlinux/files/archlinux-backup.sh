@@ -91,7 +91,7 @@ run_borg () {
 		echo -n "## Starting at: "; date +%H:%M
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
 		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
-		if borg check $BORG_REPO > /dev/null 2>&1; then
+		if borg check $BORG_REPO ; then
 			if [ -n "$DEBUG" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
 			borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
 		else
