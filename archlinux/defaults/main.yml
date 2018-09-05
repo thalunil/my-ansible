@@ -32,6 +32,7 @@ archlinux_packages:
   - conky # Lightweight system monitor for X
   - whois
   - borg # Deduplicating backup program with compression and authenticated encryption
+  - python-llfuse # to mount borg-backup directories in filesystem
   - ipcalc # Calculates IP broadcast, network, Cisco wildcard mask, and host ranges
   - radare2 # Open-source tools to disasm, debug, analyze and manipulate binary files
   - bind-tools # The ISC DNS tools
