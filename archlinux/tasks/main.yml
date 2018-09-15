@@ -203,3 +203,6 @@
 
 - name: systemd-timesyncd service enabled and started
   service: name="systemd-timesyncd" enabled="yes" state="started"
+
+- name: cronie service enabled and started
+  service: name="cronie" enabled="yes" state="started"
