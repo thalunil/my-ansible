@@ -93,7 +93,7 @@ run_borg () {
 		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
 		if borg check --repository-only $BORG_REPO; then
 			if [ -n "$DEBUG" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
-			borg create -s -e "*/nobackup/" $BORG_REPO::{now} ${=BORG_BACKUP_DIR}
+			borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
 		else
 			echo "### borgbackup failed..."
 		fi
