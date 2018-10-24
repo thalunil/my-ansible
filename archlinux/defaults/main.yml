@@ -115,6 +115,7 @@ archlinux_packages:
   - python-axolotl # for gajim OMEMO
   - python-axolotl-curve25519 # for gajim OMEMO
   - firefox
+  - firefox-i18n-de # german localized firefox
   - linux
   - linux-headers
   - virt-viewer # virt-viewer for SPICE connection to VMs
