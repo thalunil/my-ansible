@@ -36,8 +36,7 @@
   meta: flush_handlers
   
 - name: install software with pacman
-  pacman: name="{{item}}" state=present
-  with_items: "{{archlinux_packages}}"
+  pacman: name='{{archlinux_packages}}' state=present
 
 - name: cronjob /etc/cron.daily/orphaned-packages
   copy:
