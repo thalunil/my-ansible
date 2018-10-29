@@ -107,8 +107,8 @@ else
 fi
 }
 
-run_full () {
- case "$snapshot_num" in
+run_btrfs_snapshot () {
+	case "$snapshot_num" in
 	 [[:digit:]]*)
 		if [ ! $snapshot_num -ge 1 ]; then
 			echo "not a valid number - snapshot count must be greater than 1"
@@ -118,26 +118,15 @@ run_full () {
 	*)
        		echo "### INFO: /etc/archlinux-backup.conf - \$snapshot_num not set - using defaults"
        		;;
- esac
-
+	esac
+# create snapshot directory
  if ! [[ -d "$snapshot_dir" ]]; then
 	mkdir "$snapshot_dir" && chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
  else
 	chmod 0750 "$snapshot_dir" && chown root:thalunil "$snapshot_dir"
- fi
-
- echo "#########################"
- # archlinux specific
- # type pacman checks the return code to see if pacman is a valid invokable executable
- if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
-	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
-	pacman -Qqe > "$backup_dir/pkglist.txt"
- else
-	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
- fi
-
- ## BTRFS snapshots
- # Check to see if use_snapshots is true and if / is a valid btrfs filesystem
+ fi	
+## BTRFS snapshots
+# Check to see if use_snapshots is true and if / is a valid btrfs filesystem
  echo "#########################"
  if [ "X$use_snapshots" = "Xtrue" ] && btrfs filesystem show / > /dev/null 2>&1; then
 	echo "## btrfs snapshot creation"
@@ -148,6 +137,18 @@ run_full () {
 	echo -n "## Finished at: "; date +%H:%M
  else
 	echo "## btrfs snapshot creation either disabled or / is not a valid btrfs filesystem"
+ fi
+}
+
+run_full () {
+ echo "#########################"
+ # archlinux specific
+ # type pacman checks the return code to see if pacman is a valid invokable executable
+ if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
+	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
+	pacman -Qqe > "$backup_dir/pkglist.txt"
+ else
+	echo "## archlinux: not a valid archlinux platform - skipping archlinux specifics"
  fi
 
  echo "#########################"
@@ -171,6 +172,8 @@ HERE
 else
 	echo "## \$USE_DUPLICITY is not set - skipping duplicity"
 fi
+
+run_btrfs_snapshot
 
 run_borg
 
