@@ -183,7 +183,7 @@
     src:    /usr/local/sbin/archlinux-backup
     dest:   /etc/cron.daily/archlinux-backup
     state:  link
-  when: archlinux_backup is defined
+  when: archlinux_backup == true
 
 - name: remove /etc/cron.daily/archlinux-backup symlink
   file:
