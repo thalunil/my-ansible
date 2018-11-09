@@ -4,6 +4,9 @@
 # 24. July 2018
 #
 # borgbackup support (https://www.borgbackup.org/)
+#
+# TBD
+# * rsnapshot support (Inkrementelle Snapshot mit Hardlinks)
 
 date=`date +%F`
 umask 027
