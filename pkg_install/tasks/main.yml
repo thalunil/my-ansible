@@ -1,0 +1,5 @@
+# vim:ft=ansible:
+---
+- name: package install on SuSE
+  import_tasks: suse.yml
+  when: ansible_facts['os_family']|lower == 'suse'

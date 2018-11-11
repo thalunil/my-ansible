@@ -1,0 +1,4 @@
+ansible_become: true
+
+suse_packages:
+  - mtr
