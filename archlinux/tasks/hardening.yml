@@ -6,7 +6,7 @@
 # Lynis security scanner/audit - weekly cronjob run
   - name: /etc/cron.d/lynis
     copy:
-      content:  "9  10  *  *  * root lynis --cronjob\n"
+      content:  "9  10  *  *  * root lynis --cronjob --warnings-only\n"
       dest:     /etc/cron.d/lynis
       mode:     0644
       owner:    root
