@@ -50,13 +50,9 @@
     group:    root
 
 - name: cronjob /etc/cron.daily/update-pacman-cache
-  copy:
-    content: "#!/bin/sh\n
-    pacman -Syq --noprogressbar\n"
+  file:
     dest:     /etc/cron.daily/update-pacman-cache
-    mode:     0755
-    owner:    root
-    group:    root
+    state:    absent
 
 - name: /etc/locale.gen
   template:
