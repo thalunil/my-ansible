@@ -1,4 +1,4 @@
 # vim:ft=ansible:
 ---
 - name: install software
-  zypper: name='{{suse_packages}}' state=present
+  zypper: name='{{packages}}' state=present

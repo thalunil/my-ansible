@@ -1,0 +1,26 @@
+packages:
+  - mtr
+  - geeqie
+  - git
+  - virtualbox
+  - virtualbox-qt
+  - virtualbox-host-source
+  - kernel-devel
+  - kernel-default-devel
+  - zsh
+  - syncthing
+  - nextcloud-client
+  - gajim
+  - whois # contains mkpasswd
+  - stunnel
+  - openvpn
+  - hexchat
+  - neomutt
+  - sshfs
+  - chromium
+  - audacious
+  - htop
+  - nmap
+  - xfwm4-themes
+  - evolution
+  - rsnapshot
