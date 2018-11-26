@@ -1,0 +1,12 @@
+--- 
+ansible_become: true
+
+# List of users
+zypper_repo_list: []
+
+# List of users
+zypper_repo_host: []
+
+# List of users
+zypper_repo_group: []
+

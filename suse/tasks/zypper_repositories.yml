@@ -1,0 +1,14 @@
+# vim:ft=ansible:
+---
+- name: repositories for suse
+  zypper_repository:
+    name:             "{{ item.name | default(name) }}"
+    repo:             "{{ item.repo | default(repo) }}"
+    state:            "{{ item.state | default(omit) }}"
+    auto_import_keys: "{{ item.auto_import_keys | default(auto_import_keys) }}"
+    runrefresh: yes
+  with_flattened:
+    - "{{ zypper_repo_list }}"
+    - "{{ zypper_repo_host }}"
+    - "{{ zypper_repo_group }}"
+
