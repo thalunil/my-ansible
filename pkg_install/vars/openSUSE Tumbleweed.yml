@@ -24,4 +24,4 @@ packages:
   - nmap
   - xfwm4-themes
   - evolution
-
+  - gnome-system-monitor
