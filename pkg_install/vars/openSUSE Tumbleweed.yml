@@ -25,3 +25,4 @@ packages:
   - xfwm4-themes
   - evolution
   - gnome-system-monitor
+  - borgbackup
