@@ -141,6 +141,16 @@
     src:  paccache.hook
     dest: /etc/pacman.d/hooks/paccache.hook
 
+- name: /etc/smtpd/smtpd.conf
+  copy:
+    src: smtpd.conf
+    dest: /etc/smtpd/smtpd.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - restart smtpd
+
 - name: ensure services running and enabled
   service: name="{{ item }}" enabled="yes" state="started"
   with_items:
