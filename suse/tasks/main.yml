@@ -1,3 +1,11 @@
 # vim:ft=ansible:
 ---
 - include_tasks: zypper_repositories.yml
+
+- name: /etc/tmpfiles.d/tmp-clean.conf
+  copy:
+    content:  "d /tmp 1777 root root 0"
+    dest:     "/etc/tmpfiles.d/tmp-clean.conf"
+    mode:     0644
+    owner:    root
+    group:    root
