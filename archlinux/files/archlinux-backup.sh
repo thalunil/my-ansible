@@ -101,7 +101,7 @@ run_borg () {
 			echo "### borgbackup failed..."
 		fi
 		echo "### borg repo: cleanup - 5 monthly - 14 daily"
-		borg prune -n -s --list --keep-monthly 5 --keep-daily 14 "$BORG_REPO"
+		borg prune --dry-run --stats --list --keep-monthly 5 --keep-daily 14 "$BORG_REPO"
 		echo "### borg repo: cleanup finished"
 		echo -n "## Finished at: "; date +%H:%M
 	else
