@@ -1,0 +1,56 @@
+# {{ ansible_managed }}
+
+## Prevent environment variables from influencing programs in an
+## unexpected or harmful way (CVE-2005-2959, CVE-2005-4158, CVE-2006-0151)
+Defaults	always_set_home
+Defaults	env_reset
+Defaults	env_keep = "LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_ATIME LC_ALL LANGUAGE LINGUAS XDG_SESSION_COOKIE"
+Defaults	mail_badpass
+## Path that will be used for every command run from sudo
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+## This requires a current sudo version, e.g. > 1.8.25p1
+## This obsoletes tty_tickets
+#Defaults	timestamp_type=global
+Defaults	!tty_tickets
+Defaults	timestamp_timeout=60
+Defaults	!insults
+Defaults	passprompt="[sudo] %p's password: "
+
+Cmnd_Alias      SHUTDOWN = /sbin/shutdown
+Cmnd_Alias      HALT = /sbin/halt
+Cmnd_Alias      REBOOT = /sbin/reboot
+
+## Uncomment to enable logging of a command's output, except for
+## sudoreplay and reboot.  Use sudoreplay to play back logged sessions.
+# Defaults log_output
+# Defaults!/usr/bin/sudoreplay !log_output
+# Defaults!REBOOT !log_output
+
+# User privilege specification
+root		ALL=(ALL) ALL
+
+# Allow members of group sudo/wheel to execute any command
+%wheel		ALL=(ALL) ALL
+%sudo		ALL=(ALL) ALL
+
+# Ansible User - no password needed - 20180303
+ansible		ALL=(ALL) NOPASSWD: ALL
+
+# simple maintenance can be used by members of group wheel/sudo without password
+%wheel		ALL=NOPASSWD: SHUTDOWN, HALT, REBOOT
+%sudo		ALL=NOPASSWD: SHUTDOWN, HALT, REBOOT
+
+{% if ansible_os_family == "Suse" %}
+%wheel		ALL=NOPASSWD: /usr/bin/zypper ref, /usr/bin/zypper dup
+{% endif %}
+# Backuppc
+{% if ansible_os_family == "OpenBSD" %}
+backuppc	ALL=NOPASSWD: /usr/local/bin/gtar
+borgbackup	ALL=NOPASSWD: /usr/libexec/sftp-server
+{% else %}
+backuppc	ALL=NOPASSWD: /bin/tar
+{% endif %}
+
+## Read drop-in files from /etc/sudoers.d
+## (the '#' here does not indicate a comment)
+#includedir /etc/sudoers.d

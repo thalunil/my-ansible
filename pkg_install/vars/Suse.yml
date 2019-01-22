@@ -25,3 +25,5 @@ packages:
   - evolution
   - rsnapshot
   - knock
+  - python2-axolotl
+  - python2-axolotl-curve25519
