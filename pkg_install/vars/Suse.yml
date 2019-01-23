@@ -25,5 +25,6 @@ packages:
   - evolution
   - rsnapshot
   - knock
-  - python2-axolotl
-  - python2-axolotl-curve25519
+  - python3-axolotl # for OMEMO with gajim
+  - python3-axolotl-curve25519 # for OMEMO with gajim
+  - ipcalc
