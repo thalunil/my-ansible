@@ -28,3 +28,5 @@ packages:
   - python3-axolotl # for OMEMO with gajim
   - python3-axolotl-curve25519 # for OMEMO with gajim
   - ipcalc
+  - gnome-search-tool
+  - nautilus # gnome file manager
