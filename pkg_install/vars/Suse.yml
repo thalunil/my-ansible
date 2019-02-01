@@ -30,3 +30,5 @@ packages:
   - ipcalc
   - gnome-search-tool
   - nautilus # gnome file manager
+  - gkrellm
+  - jq
