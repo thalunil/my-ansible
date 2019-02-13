@@ -32,3 +32,5 @@ packages:
   - nautilus # gnome file manager
   - gkrellm
   - jq
+  - bc
+  - virt-viewer
