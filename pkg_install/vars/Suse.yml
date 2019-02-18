@@ -34,3 +34,4 @@ packages:
   - jq
   - bc
   - virt-viewer
+  - redshift

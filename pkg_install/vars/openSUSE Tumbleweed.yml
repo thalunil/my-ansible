@@ -26,3 +26,4 @@ packages:
   - evolution
   - gnome-system-monitor
   - borgbackup
+  - redshift
