@@ -1,0 +1,4 @@
+# vim:ft=ansible:
+---
+- name: install software
+  apt: name='{{packages}}' state=present
