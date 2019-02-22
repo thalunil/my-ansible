@@ -27,3 +27,4 @@ packages:
   - gnome-system-monitor
   - borgbackup
   - redshift
+  - mousepad
