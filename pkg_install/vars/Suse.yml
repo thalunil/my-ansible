@@ -38,3 +38,5 @@ packages:
   - baobab
   - mousepad
   - youtube-dl
+  - atop
+  - gnome-system-monitor
