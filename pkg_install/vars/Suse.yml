@@ -40,3 +40,4 @@ packages:
   - youtube-dl
   - atop
   - gnome-system-monitor
+  - mc
