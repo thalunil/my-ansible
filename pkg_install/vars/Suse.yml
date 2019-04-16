@@ -35,9 +35,12 @@ packages:
   - bc
   - virt-viewer
   - redshift
+  - redshift-gtk
   - baobab
   - mousepad
   - youtube-dl
   - atop
   - gnome-system-monitor
   - mc
+  - geany
+  - figlet
