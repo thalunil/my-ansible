@@ -46,3 +46,4 @@ packages:
   - leafpad
   - figlet
   - unrar
+  - borgbackup
