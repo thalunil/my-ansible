@@ -47,3 +47,4 @@ packages:
   - figlet
   - unrar
   - borgbackup
+  - gvim
