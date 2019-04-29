@@ -10,3 +10,4 @@ zypper_repo_host: []
 # List of users
 zypper_repo_group: []
 
+suse_daemons: []
