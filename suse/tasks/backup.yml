@@ -1,0 +1,11 @@
+# vim:ft=ansible:
+---
+- name: backup script for suse systems
+  copy:
+    src:      "backup"
+    dest:     "/usr/local/bin/backup"
+    mode:     0755
+    owner:    root
+    group:    root
+
+
