@@ -8,7 +8,7 @@
 # TBD
 # * rsnapshot support (Inkrementelle Snapshot mit Hardlinks)
 
-date=`date +%F`
+DATE=`date +%F`
 umask 027
 
 # defaults
@@ -23,19 +23,17 @@ snapshot_num="3"
 USE_SNAPSHOT=false
 USE_DUPLICITY=false
 DUPLICITY_BACKUP_DIR=""
-USE_BORG=false
 BORG_REPO=""
 BORG_BACKUP_DIR=""
 
 usage() {
 cat << EOF
-Benutzung:
+Aufruf:
 	-h: this information / help
-	-b: only run borgbackup (if activated)
+	-b: run borgbackup
 
-Konfigurationsdatei /etc/archlinux-backup.conf:
-                    --------------------------
- USE_BORG=true (to enable borgbackup)
+Konfigurationsdatei /etc/backup.conf
+                    ----------------
  BORG_REPO="<where to search for the borgbackup archive>"
  BORG_BACKUP_DIR="<what directories to backup - space separated>"
 
@@ -47,8 +45,8 @@ EOF
 }
 
 setup () {
- if [[ -f /etc/archlinux-backup.conf ]]; then
- 	source /etc/archlinux-backup.conf
+ if [[ -f /etc/backup.conf ]]; then
+ 	source /etc/backup.conf
  fi
 }
 
@@ -74,7 +72,7 @@ rename_snapshots () {
 ## Snapshot routine for btrfs root filesystem
 mksnapshot () {
 	echo "### INFO: SNAPshot: creating btrfs snapshot of / - date of snapshot: see /snapshot.info"
-	echo "snapshot creation: $date" > /snapshot.info
+	echo "snapshot creation: $DATE" > /snapshot.info
 	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
 
@@ -87,9 +85,8 @@ run_duplicity () {
 
 run_borg () {
 	echo "#########################"
-	echo "## BORGbackup - 24. July 2018"
-	if [ "X$USE_BORG" = "Xtrue" ]; then
-	echo "## \$USE_BORG is true - running borgbackup"
+	echo "## BORGbackup - $DATE"
+	if [[ -d "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then usage; exit 1; fi
 	if type borg > /dev/null 2>&1; then
 		echo -n "## Starting at: "; date +%H:%M
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
@@ -97,19 +94,16 @@ run_borg () {
 		if borg check --repository-only $BORG_REPO; then
 			if [ -n "$DEBUG" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
 			borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
-		else
+			else
 			echo "### borgbackup failed..."
-		fi
+			fi
 		echo "### borg repo: cleanup - 5 monthly - 14 daily"
 		borg prune --dry-run --stats --list --keep-monthly 5 --keep-daily 14 "$BORG_REPO"
-		echo "### borg repo: cleanup finished"
-		echo -n "## Finished at: "; date +%H:%M
-	else
-		echo "## borgbackup not found - please install"
+			echo "### borg repo: cleanup finished"
+			echo -n "## Finished at: "; date +%H:%M
+		else
+			echo "## borgbackup not found - please install"
 	fi
-else
-	echo "## \$USE_BORG is not set - skipping borgbackup"
-fi
 }
 
 run_btrfs_snapshot () {
@@ -188,7 +182,7 @@ df -h -x tmpfs
 echo "#########################"
 }
 
-if [ $# = 0 ]; then; setup; run_full; exit; fi
+if [ $# = 0 ]; then; usage; exit; fi
 
 case $1 in
 	-h)
