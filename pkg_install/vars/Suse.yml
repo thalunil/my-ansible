@@ -48,3 +48,6 @@ packages:
   - unrar
   - gvim
   - lynis
+  - cdparanoia
+  - cd-discid
+  - sensors
