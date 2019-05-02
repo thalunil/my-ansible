@@ -1,9 +1,9 @@
 # vim:ft=ansible:
 ---
-- name: install software: borgbackup
-  zypper: name="{{ item }}" state=present
-  with_items:
-    - borgbackup2
+- name: install software
+  zypper:
+    name:   [ 'borgbackup' ]
+    state:  present
 
 - name: backup script for suse systems
   copy:
