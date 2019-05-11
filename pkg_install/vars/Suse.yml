@@ -47,3 +47,8 @@ packages:
   - leafpad
   - figlet
   - unrar
+  - gvim
+  - lynis
+  - cdparanoia
+  - cd-discid
+  - sensors

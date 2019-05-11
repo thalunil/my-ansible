@@ -1,0 +1,16 @@
+# vim:ft=ansible:
+---
+- name: install software
+  zypper:
+    name:   [ 'borgbackup' ]
+    state:  present
+
+- name: backup script for suse systems
+  copy:
+    src:      "backup"
+    dest:     "/usr/local/bin/backup"
+    mode:     0755
+    owner:    root
+    group:    root
+
+
