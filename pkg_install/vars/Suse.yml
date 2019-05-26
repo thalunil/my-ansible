@@ -1,6 +1,7 @@
 packages:
   - mtr
   - geeqie
+  - geeqie-lang
   - git
   - virtualbox
   - virtualbox-qt
