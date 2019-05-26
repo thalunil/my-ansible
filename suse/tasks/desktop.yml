@@ -1,2 +1,13 @@
+# vim:ft=ansible:
 ---
+- name: load variables
+  include_vars: "desktop.yml"
 
+# install software for suse desktop
+-  zypper:
+    name: "{{install_packages}}"
+    state: present
+
+-  zypper:
+    name: lightdm-gtk-greeter
+    state: absent

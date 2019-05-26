@@ -1,0 +1,7 @@
+install_packages:
+  - lightdm-slick-greeter
+  - lightdm-slick-greeter-branding-openSUSE
+  - xsane
+
+remove_packages:
+  - lightdm-gtk-greeter
