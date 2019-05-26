@@ -11,3 +11,5 @@ zypper_repo_host: []
 zypper_repo_group: []
 
 suse_daemons: []
+
+suse_desktop_enable: False

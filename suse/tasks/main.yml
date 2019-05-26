@@ -4,6 +4,10 @@
 
 - include_tasks: backup.yml
 
+- include_tasks: desktop.yml
+  when:
+    - suse_desktop_enable
+
 - name: /etc/tmpfiles.d/tmp-clean.conf
   copy:
     content:  "d /tmp 1777 root root 0"
