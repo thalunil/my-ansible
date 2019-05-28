@@ -8,6 +8,11 @@
     name: "{{install_packages}}"
     state: present
 
+- name: Slick configuration
+  template:
+    src: slick-greeter.conf.j2
+    dest: "{{ slick_greeter_conf }}"
+
 -  zypper:
     name: lightdm-gtk-greeter
     state: absent
