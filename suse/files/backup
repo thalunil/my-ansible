@@ -34,8 +34,8 @@ Aufruf:
 
 Konfigurationsdatei /etc/backup.conf
                     ----------------
- BORG_REPO="<where to search for the borgbackup archive>"
- BORG_BACKUP_DIR="<what directories to backup - space separated>"
+ BORG_REPO="<borgbackup archive>"
+ BORG_BACKUP_DIR="<backup directories - space separated>"
 
  USE_DUPLICITY=true (to enable duplicity)
  DUPLICITY_BACKUP_DIR="file:///backup/duplicity"
