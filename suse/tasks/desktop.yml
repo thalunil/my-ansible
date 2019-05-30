@@ -7,6 +7,10 @@
 -  zypper:
     name: "{{install_packages}}"
     state: present
+-  zypper:
+    name: "{{install_pattern}}"
+    state: present
+    type: pattern
 
 - name: Slick configuration
   template:

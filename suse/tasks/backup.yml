@@ -13,4 +13,7 @@
     owner:    root
     group:    root
 
-
+- name: /backup directory
+  file:
+    path: /backup
+    state: directory
