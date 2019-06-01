@@ -2,7 +2,26 @@ install_packages:
   - lightdm-slick-greeter
   - lightdm-slick-greeter-branding-openSUSE
   - xsane
-  #  - kde
+  - gkrellm
+  - nautilus
+  - gnome-search-tool
+  - virt-viewer
+  - redshift
+  - redshift-gtk
+  - gnome-system-monitor
+  - geany
+  - leafpad
+  - gvim
+  - mousepad
+  - baobab
+  - youtube-dl
+  - evolution
+  - pinta # simple Drawing/editing application
+
+install_pattern:
+  - kde
+  - xfce
 
 remove_packages:
   - lightdm-gtk-greeter
+  - pk-update-icon
