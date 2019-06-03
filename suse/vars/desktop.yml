@@ -16,6 +16,7 @@ install_packages:
   - baobab
   - youtube-dl
   - evolution
+  - pinta # simple Drawing/editing application
 
 install_pattern:
   - kde
@@ -23,3 +24,4 @@ install_pattern:
 
 remove_packages:
   - lightdm-gtk-greeter
+  - pk-update-icon
