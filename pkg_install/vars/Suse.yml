@@ -39,3 +39,5 @@ packages:
   - cd-discid
   - sensors
   - screen
+  - links
+  - elinks
