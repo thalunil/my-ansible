@@ -17,6 +17,12 @@
     src: slick-greeter.conf.j2
     dest: "{{ slick_greeter_conf }}"
 
--  zypper:
+- zypper:
     name: lightdm-gtk-greeter
     state: absent
+
+- name: Symlink für Displaymanager
+  file:
+    src:    /usr/lib/X11/displaymanagers/lightdm
+    dest:   /etc/alternatives/default-displaymanager
+    state:  link
