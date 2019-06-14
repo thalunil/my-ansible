@@ -18,7 +18,7 @@
     dest: "{{ slick_greeter_conf }}"
 
 - zypper:
-    name: lightdm-gtk-greeter
+    name: "{{ remove_packages }}"
     state: absent
 
 - name: Symlink für Displaymanager
