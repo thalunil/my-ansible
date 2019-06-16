@@ -18,6 +18,16 @@ install_packages:
   - evolution
   - pinta # simple Drawing/editing application
   - meld # visual diff tool
+  - WoeUSB
+  - evince # PDF viewer
+  - file-roller # archive manager for GNOME
+  - mpg123
+  - rhythmbox
+  - rhythmbox-lang
+  - sound-juicer
+  - sound-juicer-lang
+  - syncthing-gtk
+  - syncthing-gtk-lang
 
 install_pattern:
   - kde
@@ -26,3 +36,4 @@ install_pattern:
 remove_packages:
   - lightdm-gtk-greeter
   - pk-update-icon
+  - PackageKit
