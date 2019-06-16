@@ -17,6 +17,7 @@ install_packages:
   - youtube-dl
   - evolution
   - pinta # simple Drawing/editing application
+  - meld # visual diff tool
 
 install_pattern:
   - kde
