@@ -4,10 +4,13 @@
   include_vars: "desktop.yml"
 
 # install software for suse desktop
--  zypper:
+- name: Install Packages
+  zypper:
     name: "{{install_packages}}"
     state: present
--  zypper:
+
+- name: Install patterns
+  zypper:
     name: "{{install_pattern}}"
     state: present
     type: pattern
@@ -17,7 +20,8 @@
     src: slick-greeter.conf.j2
     dest: "{{ slick_greeter_conf }}"
 
-- zypper:
+- name: Remove packages 
+  zypper:
     name: "{{ remove_packages }}"
     state: absent
 

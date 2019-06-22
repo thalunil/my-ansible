@@ -28,6 +28,14 @@ install_packages:
   - sound-juicer-lang
   - syncthing-gtk
   - syncthing-gtk-lang
+  - ark
+  - dolphin
+  - gwenview5
+  - kate
+  - kcalc
+  - konsole
+  - okular
+  - spectacle
 
 install_pattern:
   - kde
