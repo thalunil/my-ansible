@@ -36,6 +36,7 @@ install_packages:
   - konsole
   - okular
   - spectacle
+  - pam_kwallet
 
 install_pattern:
   - kde
