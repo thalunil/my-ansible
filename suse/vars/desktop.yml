@@ -37,6 +37,8 @@ install_packages:
   - okular
   - spectacle
   - pam_kwallet
+  - ksshaskpass5
+  - kwalletmanager5
 
 install_pattern:
   - kde
