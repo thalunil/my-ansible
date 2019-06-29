@@ -86,7 +86,7 @@ run_duplicity () {
 run_borg () {
 	echo "#########################"
 	echo "## BORGbackup - $DATE"
-	if [[ -d "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then usage; exit 1; fi
+	if [[ ! -d "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then usage; exit 1; fi
 	if type borg > /dev/null 2>&1; then
 		echo -n "## Starting at: "; date +%H:%M
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
