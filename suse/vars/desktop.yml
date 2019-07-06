@@ -39,6 +39,7 @@ install_packages:
   - pam_kwallet
   - ksshaskpass5
   - kwalletmanager5
+  - kmix
 
 install_pattern:
   - kde
