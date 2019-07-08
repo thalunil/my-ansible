@@ -2,3 +2,8 @@
 ---
 - name: newaliases
   command: newaliases
+
+- name: postfix-reload
+  service:
+    name: postfix
+    state: reloaded

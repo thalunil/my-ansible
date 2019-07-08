@@ -18,12 +18,21 @@
 
 - name: /etc/aliases
   template:
-    src:    "aliases.j2"
-    dest:   "/etc/aliases
+    src:    aliases.j2
+    dest:   /etc/aliases
     mode:   0644
     owner:  root
-    group:  root"
+    group:  root
   notify: newaliases
+  
+- name: Postfix /etc/postfix/main.cf
+  template:
+    src:    postfix-main.cf.j2
+    dest:   /etc/postfix/main.cf
+    mode:   0644
+    owner:  root
+    group:  root
+  notify: postfix-reload
 
 - name: ensure services running and enabled
   service: name="{{ item }}" enabled="yes" state="started"
