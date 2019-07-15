@@ -43,7 +43,10 @@ install_packages:
 
 install_pattern:
   - kde
+  - kde_pim
   - xfce
+  - office
+  - games
 
 remove_packages:
   - lightdm-gtk-greeter
