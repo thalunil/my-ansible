@@ -16,9 +16,7 @@ Defaults	timestamp_timeout=60
 Defaults	!insults
 Defaults	passprompt="[sudo] %p's password: "
 
-Cmnd_Alias      SHUTDOWN = /sbin/shutdown
-Cmnd_Alias      HALT = /sbin/halt
-Cmnd_Alias      REBOOT = /sbin/reboot
+Cmnd_Alias      POWERCYCLE = /sbin/poweroff, /sbin/shutdown, /sbin/halt, /sbin/reboot
 
 ## Uncomment to enable logging of a command's output, except for
 ## sudoreplay and reboot.  Use sudoreplay to play back logged sessions.
@@ -29,16 +27,14 @@ Cmnd_Alias      REBOOT = /sbin/reboot
 # User privilege specification
 root		ALL=(ALL) ALL
 
-# Allow members of group sudo/wheel to execute any command
+# Allow members of group wheel to execute any command
 %wheel		ALL=(ALL) ALL
-%sudo		ALL=(ALL) ALL
 
 # Ansible User - no password needed - 20180303
 ansible		ALL=(ALL) NOPASSWD: ALL
 
 # simple maintenance can be used by members of group wheel/sudo without password
-%wheel		ALL=NOPASSWD: SHUTDOWN, HALT, REBOOT
-%sudo		ALL=NOPASSWD: SHUTDOWN, HALT, REBOOT
+%wheel		ALL=NOPASSWD: POWERCYCLE
 
 {% if ansible_os_family == "Suse" %}
 %wheel		ALL=NOPASSWD: /usr/bin/zypper ref, /usr/bin/zypper dup

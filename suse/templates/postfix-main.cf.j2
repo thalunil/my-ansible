@@ -710,7 +710,7 @@ masquerade_exceptions = root
 mydestination = $myhostname, localhost.$mydomain
 myhostname = {{ansible_hostname}}.{{ansible_domain}}
 mynetworks_style = subnet
-relayhost = 
+relayhost = {{postfix_relayhost}}
 
 alias_maps = hash:/etc/aliases
 canonical_maps = hash:/etc/postfix/canonical
