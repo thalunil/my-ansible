@@ -708,7 +708,7 @@ masquerade_classes = envelope_sender, header_sender, header_recipient
 masquerade_domains = 
 masquerade_exceptions = root
 mydestination = $myhostname, localhost.$mydomain
-myhostname = {{ansible_hostname}}.{{ansible_domain}}
+myhostname = {{ansible_hostname}}
 mynetworks_style = subnet
 relayhost = {{postfix_relayhost}}
 
