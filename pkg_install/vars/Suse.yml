@@ -3,9 +3,6 @@ packages:
   - geeqie
   - geeqie-lang
   - git
-  - virtualbox
-  - virtualbox-qt
-  - virtualbox-host-source
   - kernel-devel
   - kernel-default-devel
   - zsh
@@ -28,6 +25,8 @@ packages:
   - python-xml
   - python3-axolotl # for OMEMO with gajim
   - python3-axolotl-curve25519 # for OMEMO with gajim
+  - python3-httplib2
+  - python3-urllib3
   - ipcalc
   - jq
   - bc

@@ -42,6 +42,10 @@ install_packages:
   - kmix
   - vagrant
   - clementine
+  - virtualbox
+  - virtualbox-qt
+  - virtualbox-host-source
+
 
 install_pattern:
   - kde
