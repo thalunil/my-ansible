@@ -1,0 +1,5 @@
+---
+- name: /etc/apt/sources.list.d/proxmox.list
+  template:
+    src:  "proxmox.list.j2"
+    dest: "/etc/apt/sources.list.d/proxmox.list"

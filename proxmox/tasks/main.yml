@@ -1,0 +1,7 @@
+---
+
+- import_tasks: proxmox.yml
+  when:
+    - ansible_distribution == "Debian"
+    - proxmox_enable|bool
+  tags: proxmox
