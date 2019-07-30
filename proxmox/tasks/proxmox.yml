@@ -14,5 +14,5 @@
 - name: Install Proxmox VE
   apt:
     name:  proxmox-ve
-    state: installed
+    state: present
     update_cache: true
