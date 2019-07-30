@@ -1,0 +1,7 @@
+# vim:ft=ansible:
+---
+- name: apt_update
+  command: apt update
+
+- name: apt_fullupgrade
+  command: apt full-upgrade -y

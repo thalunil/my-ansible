@@ -1,5 +1,12 @@
 ---
+- name: Proxmox VE repository key http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg
+  get_url:
+    url:  http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg 
+    dest: /etc/apt/trusted.gpg.d/proxmox-ve-release-6.x.gpg
+
 - name: /etc/apt/sources.list.d/proxmox.list
   template:
     src:  "proxmox.list.j2"
     dest: "/etc/apt/sources.list.d/proxmox.list"
+  notify: 
+    - apt_update
