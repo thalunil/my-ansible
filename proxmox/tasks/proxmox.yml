@@ -10,3 +10,9 @@
     dest: "/etc/apt/sources.list.d/proxmox.list"
   notify: 
     - apt_update
+
+- name: Install Proxmox VE
+  apt:
+    name:  proxmox-ve
+    state: installed
+    update_cache: true
