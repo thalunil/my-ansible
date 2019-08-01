@@ -45,7 +45,7 @@ install_packages:
   - virtualbox
   - virtualbox-qt
   - virtualbox-host-source
-
+  - httperf
 
 install_pattern:
   - kde

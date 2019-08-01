@@ -6,7 +6,7 @@
 
 - include_tasks: desktop.yml
   when:
-    - suse_desktop_enable
+    - suse_desktop_enable|bool
 
 - name: /etc/tmpfiles.d/tmp-clean.conf
   copy:
