@@ -46,6 +46,7 @@ install_packages:
   - virtualbox-qt
   - virtualbox-host-source
   - httperf
+  - bonnie++
 
 install_pattern:
   - kde
