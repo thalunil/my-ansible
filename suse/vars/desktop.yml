@@ -47,6 +47,7 @@ install_packages:
   - virtualbox-host-source
   - httperf
   - bonnie++
+  - cadaver # WebDAV client
 
 install_pattern:
   - kde
