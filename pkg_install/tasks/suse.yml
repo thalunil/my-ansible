@@ -1,4 +1,7 @@
 # vim:ft=ansible:
 ---
 - name: install software
-  zypper: name='{{packages}}' state=present
+  zypper:
+    name:               '{{packages}}'
+    state:              present
+    disable_recommends: no
