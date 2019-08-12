@@ -1,0 +1,4 @@
+# vim:ft=ansible:
+---
+- name: reload smartd
+  service: name=smartd state=reloaded
