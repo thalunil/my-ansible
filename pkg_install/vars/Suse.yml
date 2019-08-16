@@ -22,7 +22,6 @@ packages:
   - xfwm4-themes
   - rsnapshot
   - knock
-  - python-xml
   - python3-axolotl # for OMEMO with gajim
   - python3-axolotl-curve25519 # for OMEMO with gajim
   - python3-httplib2

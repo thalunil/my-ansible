@@ -1,24 +1,3 @@
 ---
-- name: Set OS dependent variables
-  include_vars: "{{ item }}"
-  with_first_found:
-   - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
-   - "{{ ansible_distribution }}.yml"
-   - "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
-   - "{{ ansible_os_family }}.yml"
-   - default.yml
-
-- name: Install smartd package
-  package:
-    name: "{{ smartd_packages }}"
-    state: present
-
-- name: /etc/smartd.conf
-  template:
-    src:      smartd.conf.j2
-    dest:     /etc/smartd.conf
-    mode:     0644
-    owner:    root
-    group:    root
-  notify:
-    - reload smartd
+- include_tasks: smartd.yml
+  when: smartd_enable|bool

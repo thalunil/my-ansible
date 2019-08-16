@@ -1,3 +1,6 @@
 ---
 smartd_packages:
-  - smartd
+  - smartmontools
+
+smartd_service:
+  - smartmontools
