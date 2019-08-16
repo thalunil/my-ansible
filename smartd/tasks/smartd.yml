@@ -22,3 +22,9 @@
     group:    root
   notify:
     - reload smartd
+
+- name: Service enabled and running
+  service:
+    name: "{{ smartd_service }}"
+    enabled: true
+    state: started
