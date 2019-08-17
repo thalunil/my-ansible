@@ -3,4 +3,4 @@ smartd_packages:
   - smartmontools
 
 smartd_service:
-  - smartmontools
+  - "smartmontools"

@@ -4,6 +4,11 @@
     url:  http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg 
     dest: /etc/apt/trusted.gpg.d/proxmox-ve-release-6.x.gpg
 
+- name: remove enterprive repository
+  file:
+    dest:   "/etc/apt/sources.list.d/pve-enterprise.list"
+    state:  absent
+
 - name: /etc/apt/sources.list.d/proxmox.list
   template:
     src:  "proxmox.list.j2"
