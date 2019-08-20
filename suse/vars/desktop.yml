@@ -42,6 +42,7 @@ install_packages:
   - kmix
   - vagrant
   - clementine
+  - gstreamer-plugins-ugly
   - virtualbox
   - virtualbox-qt
   - virtualbox-host-source
