@@ -1,2 +1,6 @@
 ansible_become: true
 proxmox_enable: False
+
+proxmox_packages:
+  - glusterfs-server
+  - proxmox-ve

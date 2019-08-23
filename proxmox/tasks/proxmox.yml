@@ -18,6 +18,12 @@
 
 - name: Install Proxmox VE
   apt:
-    name:  proxmox-ve
+    name:  "{{ proxmox_packages }}"
     state: present
     update_cache: true
+
+- name: service glusterd enabled and started
+  service:
+    name:     glusterd
+    enabled:  true
+    state:    started
