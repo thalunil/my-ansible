@@ -4,3 +4,4 @@ proxmox_enable: False
 proxmox_packages:
   - glusterfs-server
   - proxmox-ve
+  - openvpn
