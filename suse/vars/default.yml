@@ -1,25 +1,17 @@
-packages:
+install_packages:
   - mtr
-  - geeqie
-  - geeqie-lang
   - git
   - kernel-devel
   - kernel-default-devel
   - zsh
   - syncthing
-  - nextcloud-client
-  - gajim
   - whois # contains mkpasswd
   - stunnel
   - openvpn
-  - hexchat
   - neomutt
   - sshfs
-  - chromium
-  - audacious
   - htop
   - nmap
-  - xfwm4-themes
   - rsnapshot
   - knock
   - python3-axolotl # for OMEMO with gajim
@@ -42,3 +34,5 @@ packages:
   - elinks
   - etckeeper
   - at
+  - yast2-online-update-configuration
+  - update-checker

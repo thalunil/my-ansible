@@ -9,10 +9,6 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: package install on SuSE
-  import_tasks: suse.yml
-  when: ansible_facts['os_family']|lower == 'suse'
-
 - name: package install on debian
   import_tasks: debian.yml
   when: ansible_facts['os_family']|lower == 'debian'

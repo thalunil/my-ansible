@@ -1,6 +1,17 @@
 # vim:ft=ansible:
 ---
+- name: Set variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - default.yml
+
 - include_tasks: zypper_repositories.yml
+
+- name: install suse standard software
+  zypper:
+    name:               "{{ install_packages }}"
+    state:              present
+    disable_recommends: no
 
 - include_tasks: backup.yml
 
@@ -37,3 +48,16 @@
 - name: ensure services running and enabled
   service: name="{{ item }}" enabled="yes" state="started"
   with_items: "{{ suse_daemons }}"
+
+- name: weekly suse auto-update
+  file:
+    src:    "/usr/lib/YaST2/bin/online_update"
+    dest:   "/etc/cron.weekly/opensuse.org-online_update"
+    state:  link
+- name: suse auto-update configuration
+  template:
+    src:    automatic_online_update.j2
+    dest:   /etc/sysconfig/automatic_online_update
+    mode:   0644
+    owner:  root
+    group:  root

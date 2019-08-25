@@ -49,6 +49,13 @@ install_packages:
   - httperf
   - bonnie++
   - cadaver # WebDAV client
+  - geeqie
+  - geeqie-lang
+  - nextcloud-client
+  - gajim
+  - hexchat
+  - chromium
+  - audacious
 
 install_pattern:
   - kde
