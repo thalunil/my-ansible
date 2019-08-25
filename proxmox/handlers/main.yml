@@ -5,3 +5,6 @@
 
 - name: apt_fullupgrade
   command: apt full-upgrade -y
+
+- name: systemctl daemon-reload
+  command: systemctl daemon-reload

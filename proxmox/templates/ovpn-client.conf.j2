@@ -1,0 +1,17 @@
+remote doom.kallisti.at
+dev tap0
+ifconfig 10.1.0.2 255.255.255.0
+
+# Our pre-shared static key
+secret static.key
+
+# Cipher to use
+cipher AES-256-CBC
+
+# Verbosity level.
+# 0 -- quiet except for fatal errors.
+# 1 -- mostly quiet, but display non-fatal network errors.
+# 3 -- medium output, good for normal operation.
+# 9 -- verbose, good for troubleshooting
+verb 3
+

@@ -27,3 +27,31 @@
     name:     glusterd
     enabled:  true
     state:    started
+
+- name: bridge-start + bridge-stop scripts
+  template:
+    src:    "bridge-start"
+    dest:   "/etc/openvpn"
+    mode:   0755
+    force:  no
+
+- name: openvpn client Konfiguration
+  template:
+    src:    "ovpn-client.conf.j2"
+    dest:   "/etc/openvpn/client/pve-client.conf"
+    force:  no
+
+- name: /etc/openvpn/client/static.key
+  file:
+    name:   "/etc/openvpn/client/static.key"
+    owner:   root
+    group:  root
+    mode:   0600
+    state:  touch
+
+- name: service openvpn client enabled and started
+  service:
+    name:     openvpn-client@pve-client
+    enabled:  true
+    state:    started
+  notify: systemctl daemon-reload
