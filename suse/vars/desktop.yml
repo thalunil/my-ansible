@@ -57,6 +57,8 @@ install_packages:
   - hexchat
   - chromium
   - audacious
+  - meson
+  - gcc-c++
 
 install_pattern:
   - kde
