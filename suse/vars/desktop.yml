@@ -49,6 +49,7 @@ install_packages:
   - httperf
   - bonnie++
   - cadaver # WebDAV client
+  - handbrake-gtk
 
 install_pattern:
   - kde
