@@ -4,9 +4,10 @@
 
 - name: sudo configuration
   template:
-    src:    "sudoers.j2"
-    dest:   "{{ sudo_config_file }}"
-    owner:  "root"
-    group:  "wheel"
-    mode:   0440
-    backup: yes
+    src:      "sudoers.j2"
+    dest:     "{{ sudo_config_file }}"
+    owner:    "root"
+    group:    "wheel"
+    mode:     0440
+    backup:   yes
+    validate: visudo -cf %s
