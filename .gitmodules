@@ -1,0 +1,3 @@
+[submodule "ansible-role-sudo"]
+	path = grog-sudo
+	url = https://github.com/GROG/ansible-role-sudo.git
