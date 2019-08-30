@@ -1,0 +1,14 @@
+---
+- name: ~/.zshrc.pre
+  copy:
+    src:    zshrc.pre
+    dest:   "~{{user}}/.zshrc.pre"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+
+- name: ~/.zshrc
+  copy:
+    src:    zshrc
+    dest:   "~{{user}}/.zshrc"
+    owner:  "{{user}}"
+    group:  "{{group}}"
