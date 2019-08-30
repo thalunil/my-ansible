@@ -11,3 +11,8 @@
     mode:     0440
     backup:   yes
     validate: visudo -cf %s
+
+- name: /etc/sudoers.d/
+  file:
+    path:   /etc/sudoers.d
+    state:  directory
