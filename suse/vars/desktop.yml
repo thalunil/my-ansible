@@ -59,6 +59,7 @@ install_packages:
   - audacious
   - meson
   - gcc-c++
+  - osc
 
 install_pattern:
   - kde
