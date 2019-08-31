@@ -5,6 +5,16 @@
     name:   [ 'borgbackup' ]
     state:  present
 
+- name: /backup directory
+  file:
+    path: /backup
+    state: directory
+
+- name: /usr/local/bin directory
+  file:
+    path:   /usr/local/bin
+    state:  directory
+
 - name: backup script for suse systems
   copy:
     src:      "backup"
@@ -12,8 +22,3 @@
     mode:     0755
     owner:    root
     group:    root
-
-- name: /backup directory
-  file:
-    path: /backup
-    state: directory
