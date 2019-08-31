@@ -1,0 +1,10 @@
+---
+- name: /etc/skel/.zshrc.pre
+  copy:
+    src:    zshrc.pre
+    dest:   "/etc/skel/.zshrc.pre"
+
+- name: ~/.zshrc
+  copy:
+    src:    zshrc
+    dest:   "/etc/skel/.zshrc"
