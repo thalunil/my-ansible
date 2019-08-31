@@ -1,0 +1,3 @@
+---
+smartd_service: "smartd"
+smartd_packages: "smartmontools"
