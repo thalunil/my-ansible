@@ -4,7 +4,7 @@
     src:    zshrc.pre
     dest:   "/etc/skel/.zshrc.pre"
 
-- name: ~/.zshrc
+- name: /etc/skel/.zshrc
   copy:
     src:    zshrc
     dest:   "/etc/skel/.zshrc"

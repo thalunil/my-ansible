@@ -22,3 +22,9 @@
     mode:     0755
     owner:    root
     group:    root
+
+- name: crontab /etc/cron.d/backup
+  copy:
+    dest:   "/etc/cron.d/backup"
+    content: |
+      @daily root /usr/local/bin/backup -b
