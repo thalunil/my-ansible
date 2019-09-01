@@ -109,10 +109,11 @@ arch_packages_list_group: []
 
 arch_desktop_enable: false
 
-display_manager: "sddm"
+display_manager: "lightdm"
 
 arch_desktop_packages:
   - xorg-server
+  - xorg-drivers
   - sddm
   - plasma
   - xfce4
@@ -122,6 +123,7 @@ arch_desktop_packages:
   - geeqie
   - gimp
   - lightdm
+  - lightdm-gtk-greeter
   - calibre # ebook viewer - KDE
   - audacious
   - galculator
