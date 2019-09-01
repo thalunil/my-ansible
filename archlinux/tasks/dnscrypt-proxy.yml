@@ -1,5 +1,10 @@
 # vim:ft=ansible:
 ---
+- name: install dnscrypt-proxy
+  pacman:
+    name:   "dnscrypt-proxy"
+    state:  present
+
 - name: socket avahi-daemon disabled and stopped
   systemd: name=avahi-daemon.socket enabled=no state=stopped
   notify: systemctl daemon-reload

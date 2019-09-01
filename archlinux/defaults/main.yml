@@ -26,12 +26,9 @@ archlinux_server:
   - http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
-archlinux_packages:
+arch_packages_list:
   - logwatch # Logwatch is a customizable log analysis system
 # - tenshi # a differnent log monitor
-  - geany # Fast and lightweight IDE for GTK+
-  - gkrellm # System monitor package for GTK2
-  - conky # Lightweight system monitor for X
   - whois
   - borg # Deduplicating backup program with compression and authenticated encryption
   - python-llfuse # to mount borg-backup directories in filesystem
@@ -40,8 +37,6 @@ archlinux_packages:
   - bind-tools # The ISC DNS tools
   - bochs # A portable x86 PC emulation software package, including GUI debugger
   - tlp # Linux Advanced Power Management
-  - libreoffice-fresh # Libreoffice
-  - libreoffice-fresh-de # Libreoffice
   - imagemagick # An image viewing/manipulation program
   - pacman-contrib # Contributed scripts and tools for pacman systems
   - gvfs-smb # Virtual filesystem implementation for GIO (SMB/CIFS backend; Windows client)
@@ -49,11 +44,7 @@ archlinux_packages:
   - acpi
   - opensmtpd
   - neomutt
-  - hexchat
   - binwalk
-  - diffoscope # in-depth comparison of files, archives, and directories
-  - meld # Compare files, directories and working copies
-  - diffuse # A graphical tool for merging and comparing text files
   - pwgen # password generator 
   - firejail # sandboxing applications with Linux namespaces
   - catfish # a GUI file search tool
@@ -63,7 +54,6 @@ archlinux_packages:
   - wipe
   - elinks
   - links
-  - lightdm
   - mtr
   - vorbis-tools
   - ettercap
@@ -73,13 +63,10 @@ archlinux_packages:
   - hwinfo
   - john
   - rdesktop
-  - remmina # remote desktop client written in GTK+
   - sshfs
   - wol
   - youtube-dl
   - bc
-  - galculator
-  - gnome-system-monitor
   - openbsd-netcat
   - rsync
   - smartmontools
@@ -87,45 +74,74 @@ archlinux_packages:
   - nmap
   - nbtscan # scanning IP networks for NetBIOS name information
   - openvpn
-  - xscreensaver
-  - file-roller
   - python-pip
-  - digikam
-  - geeqie
-  - gimp
-  - wireshark-gtk
+  #  - wireshark-gtk
   - strace
   - atop
   - htop
-  - audacious
   - git
   - shellcheck # Shell script analysis tool
   - unbound
   - duplicity
-  - liferea # rss aggregator
-  - dillo # small, fast graphical web browser
-  - stellarium # space watching astronomy
   - dvd+rw-tools # for xcfa cd-ripping program
   - cd-discid # for xcfa cd-ripping program
   - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
   - sslscan # tools to scan SSL services, such as HTTPS to determine the ciphers that are supported
-  - calibre # ebook viewer - KDE
   - mailnag # mail notification
-  - gajim # Jabber chat
   - python-axolotl # for gajim OMEMO
   - python-axolotl-curve25519 # for gajim OMEMO
-  - firefox
-  - firefox-i18n-de # german localized firefox
   - linux
   - linux-headers
-  - virt-viewer # virt-viewer for SPICE connection to VMs
   - base-devel # essential base developer toolZ
-  - x2goclient
   - python-beautifulsoup4 # needed for snallygaster webserver secrets scanning
   - powertop # A tool to diagnose issues with power consumption and power management
   - mlocate # Merging locate/updatedb implementation
-  - baobab # A graphical directory tree analyzer
   - torsocks # Wrapper to safely torify applications
   - handbrake # Multithreaded video transcoder
   - asciinema # Record and share terminal/console sessions
   - lynis # Security and system auditing tool to harden Unix/Linux systems
+
+# List of arch_packages_list_host
+arch_packages_list_host: []
+
+# List of arch_packages_list_group
+arch_packages_list_group: []
+
+arch_desktop_enable: false
+
+display_manager: "sddm"
+
+arch_desktop_packages:
+  - xorg-server
+  - sddm
+  - plasma
+  - xfce4
+  - firefox
+  - firefox-i18n-de # german localized firefox
+  - digikam
+  - geeqie
+  - gimp
+  - lightdm
+  - calibre # ebook viewer - KDE
+  - audacious
+  - galculator
+  - gnome-system-monitor
+  - x2goclient
+  - stellarium # space watching astronomy
+  - virt-viewer # virt-viewer for SPICE connection to VMs
+  - liferea # rss aggregator
+  - xscreensaver
+  - gajim # Jabber chat
+  - dillo # small, fast graphical web browser
+  - file-roller
+  - remmina # remote desktop client written in GTK+
+  - diffoscope # in-depth comparison of files, archives, and directories
+  - meld # Compare files, directories and working copies
+  - diffuse # A graphical tool for merging and comparing text files
+  - hexchat
+  - libreoffice-fresh # Libreoffice
+  - libreoffice-fresh-de # Libreoffice
+  - geany # Fast and lightweight IDE for GTK+
+  - gkrellm # System monitor package for GTK2
+  - conky # Lightweight system monitor for X
+  - baobab # A graphical directory tree analyzer

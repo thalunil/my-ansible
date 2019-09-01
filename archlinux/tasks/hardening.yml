@@ -49,7 +49,7 @@
       owner:  root
       group:  root
 # end of block
-  when: archlinux_hardening
+  when: archlinux_hardening|bool
 
 - name: archlinux_hardening set to {{archlinux_hardening}} - disable hardening
   block:
@@ -78,4 +78,4 @@
       mode:     0644
       owner:    root
       group:    root
-  when: archlinux_hardening == false
+  when: archlinux_hardening|bool == false

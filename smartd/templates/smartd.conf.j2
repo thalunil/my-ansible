@@ -18,7 +18,7 @@
 #   -s L/:        Run Extended Self Test every first Sunday in the
 #                 month. (Start earlier, it could take tens of hours.)
 #   -m :          Send a warning email 
-DEFAULT -a -s (S/../.././03|L/../(01|02|03|04|05|06|07)/7/01) -m root -n standby
+DEFAULT -a -o on -S on -s (S/../.././03|L/../(01|02|03|04|05|06|07)/7/01) -m root -n standby
 
 # The word DEVICESCAN will cause any remaining lines in this
 # configuration file to be ignored: it tells smartd to scan for all

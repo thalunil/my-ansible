@@ -1,13 +1,7 @@
 # vim:ft=ansible:
 ---
 - include_tasks: rsyslog.yml
-  when: use_rsyslog is defined 
-
-- include_tasks: hardening.yml
-  when: archlinux_hardening is defined
-
-- include_tasks: dnscrypt-proxy.yml
-  when: use_dnscrypt_proxy is defined
+  when: use_rsyslog is defined
 
 - name: create system groups
   group:
@@ -36,7 +30,9 @@
   meta: flush_handlers
   
 - name: install software with pacman
-  pacman: name='{{archlinux_packages}}' state=present
+  pacman:
+    name: "{{ query('flattened', ['{{ arch_packages_list }}', '{{ arch_packages_list_host }}', '{{ arch_packages_list_group }}']) }}"
+    state:  present
 
 - name: cronjob /etc/cron.daily/orphaned-packages
   copy:
@@ -66,16 +62,6 @@
     src:      locale.conf.j2
     dest:     /etc/locale.conf
     backup:   yes
-
-- name: /etc/smartd.conf
-  template:
-    src:      smartd.conf.j2
-    dest:     /etc/smartd.conf
-    mode:     0644
-    owner:    root
-    group:    root
-  notify:
-    - reload smartd
 
 - name: /etc/lightdm/lightdm-gtk-greeter.conf
   template:
@@ -142,12 +128,12 @@
     dest: /etc/pacman.d/hooks/paccache.hook
 
 - name: /etc/smtpd/smtpd.conf
-  copy:
-    src: smtpd.conf
-    dest: /etc/smtpd/smtpd.conf
-    owner: root
-    group: root
-    mode: 0640
+  template:
+    src:    "smtpd.conf.j2"
+    dest:   "/etc/smtpd/smtpd.conf"
+    owner:  "root"
+    group:  "root"
+    mode:   0640
   notify:
     - restart smtpd
 
@@ -155,7 +141,6 @@
   service: name="{{ item }}" enabled="yes" state="started"
   with_items:
     - smtpd
-    - smartd
     - sshd
     - tlp # Linux Advanced Power Management
 
@@ -211,3 +196,14 @@
 
 - name: cronie service enabled and started
   service: name="cronie" enabled="yes" state="started"
+
+- include_tasks: hardening.yml
+  when: archlinux_hardening is defined
+
+- include_tasks: dnscrypt-proxy.yml
+  when:
+    - use_dnscrypt_proxy|bool
+
+- include_tasks: desktop.yml
+  when:
+    - arch_desktop_enable|bool

@@ -6,9 +6,6 @@
   #command: makemap /etc/smtpd/aliases
   #become: true
 
-- name: reload smartd
-  service: name=smartd state=reloaded
-  
 - name: rebuild locales
   command: locale-gen
 

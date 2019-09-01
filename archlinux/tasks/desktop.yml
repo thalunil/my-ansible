@@ -1,0 +1,14 @@
+# vim:ft=ansible:
+---
+# install software for arch desktop
+- name: Install Packages
+  pacman:
+    name: "{{ arch_desktop_packages }}"
+    state: present
+
+- name: ensure display manager {{ display_manager }} is running and enabled
+  service:
+    name:     "{{ display_manager }}"
+    enabled:  "yes"
+    state:    "started"
+  when: display_manager is defined
