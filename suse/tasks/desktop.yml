@@ -1,4 +1,3 @@
-# vim:ft=ansible:
 ---
 - name: load variables
   include_vars: "desktop.yml"
@@ -30,4 +29,8 @@
   file:
     src:    /usr/lib/X11/displaymanagers/lightdm
     dest:   /etc/alternatives/default-displaymanager
+    state:  link
+  file:
+    src:    "/usr/lib/systemd/system/display-manager.service"
+    dest:   "/etc/systemd/system/display-manager.service"
     state:  link
