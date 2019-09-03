@@ -1,7 +1,6 @@
-# vim:ft=ansible:
 ---
 - include_tasks: rsyslog.yml
-  when: use_rsyslog is defined
+  when: rsyslog_enable|bool
 
 - name: create system groups
   group:
@@ -62,21 +61,6 @@
     src:      locale.conf.j2
     dest:     /etc/locale.conf
     backup:   yes
-
-- name: /etc/lightdm/lightdm-gtk-greeter.conf
-  template:
-    src:      lightdm-gtk-greeter.conf.j2
-    dest:     /etc/lightdm/lightdm-gtk-greeter.conf
-    mode:     0644
-    owner:    root
-    group:    root
-- name: /usr/share/pixmaps/lightdm-background.jpg
-  copy:
-    src:      lightdm-background.jpg
-    dest:     /usr/share/pixmaps/lightdm-background.jpg
-    mode:     0644
-    owner:    root
-    group:    root
 
 - copy:
     src:    pam.d-su

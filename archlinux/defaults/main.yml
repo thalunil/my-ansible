@@ -1,5 +1,7 @@
 ansible_become: true
 
+rsyslog_enable: false
+
 ## apply archlinux system hardening (true/false)
 archlinux_hardening: true
 
@@ -27,6 +29,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 arch_packages_list:
+  - zsh
   - vim
   - logwatch # Logwatch is a customizable log analysis system
 # - tenshi # a differnent log monitor

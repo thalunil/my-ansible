@@ -5,6 +5,21 @@
   pacman:
     name: "{{ arch_desktop_packages }}"
     state: present
+    
+- name: /etc/lightdm/lightdm-gtk-greeter.conf
+  template:
+    src:      lightdm-gtk-greeter.conf.j2
+    dest:     /etc/lightdm/lightdm-gtk-greeter.conf
+    mode:     0644
+    owner:    root
+    group:    root
+- name: /usr/share/pixmaps/lightdm-background.jpg
+  copy:
+    src:      lightdm-background.jpg
+    dest:     /usr/share/pixmaps/lightdm-background.jpg
+    mode:     0644
+    owner:    root
+    group:    root
 
 - name: ensure display manager {{ display_manager }} is running and enabled
   service:
