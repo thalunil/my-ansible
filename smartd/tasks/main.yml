@@ -1,3 +1,5 @@
 ---
 - include_tasks: smartd.yml
-  when: smartd_enable|bool
+  when:
+    - smartd_enable|bool
+    - ansible_virtualization_role == "host"

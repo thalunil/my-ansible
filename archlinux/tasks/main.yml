@@ -1,7 +1,12 @@
-# vim:ft=ansible:
 ---
 - include_tasks: rsyslog.yml
   when: use_rsyslog is defined
+
+- name: hostname
+  copy:
+    dest: "/etc/hostname"
+    content: |
+       {{ansible_hostname}}
 
 - name: create system groups
   group:
@@ -62,6 +67,11 @@
     src:      locale.conf.j2
     dest:     /etc/locale.conf
     backup:   yes
+
+- name: "Arch: /etc/vconsole.conf"
+  template:
+    src:    "vconsole.conf.j2"
+    dest:   "/etc/vconsole.conf"
 
 - name: /etc/lightdm/lightdm-gtk-greeter.conf
   template:
