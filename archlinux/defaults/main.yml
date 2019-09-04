@@ -1,5 +1,7 @@
 ansible_become: true
 
+rsyslog_enable: false
+
 ## apply archlinux system hardening (true/false)
 archlinux_hardening: true
 
@@ -30,6 +32,7 @@ archlinux_server:
 
 arch_packages_list:
   - btrfs-progs
+  - zsh
   - vim
   - logwatch # Logwatch is a customizable log analysis system
 # - tenshi # a differnent log monitor
