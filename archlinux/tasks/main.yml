@@ -2,11 +2,16 @@
 - include_tasks: rsyslog.yml
   when: rsyslog_enable|bool
 
-- name: hostname
+- name: "/etc/hostname"
   copy:
     dest: "/etc/hostname"
-    content: |
-       {{ansible_hostname}}
+    content: "{{inventory_hostname_short}}{{'\n'}}"
+
+- name: "Timezone"
+  file:
+    src:    "/usr/share/zoneinfo/{{ timezone }}"
+    dest:   "/etc/localtime"
+    state:  link
 
 - name: create system groups
   group:
