@@ -1,4 +1,7 @@
+---
 install_packages:
+  - cronie
+  - cronie-anacron
   - mtr
   - git
   - kernel-devel
