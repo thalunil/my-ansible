@@ -14,11 +14,15 @@ archlinux_backup: true
   #  - root
   #  - adm
 
+timezone: "Europe/Vienna"
+
 # locales to be generated (in locale.gen)
 archlinux_locales:
   - en_US.UTF-8 UTF-8
   - de_AT.UTF-8 UTF-8
   - de_DE.UTF-8 UTF-8
+
+keymap: "de-latin1"
 
 #archlinux_system_locale_LC_MESSAGES: en_US.UTF-8
 archlinux_system_locale: de_AT.UTF-8
@@ -29,6 +33,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 arch_packages_list:
+  - btrfs-progs
   - zsh
   - vim
   - logwatch # Logwatch is a customizable log analysis system
