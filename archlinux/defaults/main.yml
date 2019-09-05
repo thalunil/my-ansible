@@ -116,11 +116,17 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - syncthing
+  - syncthing-gtk
+  - nextcloud-client
+  - keepassxc
   - xorg-server
   - xorg-drivers
   - sddm
   - plasma
   - xfce4
+  - thunderbird
+  - thunderbird-i18n-de
   - firefox
   - firefox-i18n-de # german localized firefox
   - digikam
