@@ -60,6 +60,7 @@ install_packages:
   - meson
   - gcc-c++
   - osc
+  - john
 
 install_pattern:
   - kde
