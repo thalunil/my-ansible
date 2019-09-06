@@ -1,0 +1,43 @@
+---
+repo_version: "openSUSE_Tumbleweed"
+
+install_packages:
+  - cronie
+  - cronie-anacron
+  - mtr
+  - git
+  - kernel-devel
+  - kernel-default-devel
+  - zsh
+  - syncthing
+  - whois # contains mkpasswd
+  - stunnel
+  - openvpn
+  - neomutt
+  - sshfs
+  - htop
+  - nmap
+  - rsnapshot
+  - knock
+  - python3-axolotl # for OMEMO with gajim
+  - python3-axolotl-curve25519 # for OMEMO with gajim
+  - python3-httplib2
+  - python3-urllib3
+  - ipcalc
+  - jq
+  - bc
+  - atop
+  - mc
+  - figlet
+  - unrar
+  - lynis
+  - cdparanoia
+  - cd-discid
+  - sensors
+  - screen
+  - links
+  - elinks
+  - etckeeper
+  - at
+  - yast2-online-update-configuration
+  - update-checker

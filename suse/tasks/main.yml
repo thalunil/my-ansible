@@ -1,8 +1,11 @@
-# vim:ft=ansible:
 ---
 - name: Set variables
   include_vars: "{{ item }}"
   with_first_found:
+   - "{{ ansible_distribution }}_{{ ansible_distribution_version }}.yml"
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}_{{ ansible_distribution_version }}.yml"
+   - "{{ ansible_os_family }}.yml"
    - default.yml
 
 - include_tasks: zypper_repositories.yml
