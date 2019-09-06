@@ -24,7 +24,14 @@
     group:    root
 
 - name: crontab /etc/cron.d/backup
+  file:
+    path:   "/etc/cron.d/backup"
+    state:  absent
+
+- name: "Backup: /etc/cron.daily/backup"
   copy:
-    dest:   "/etc/cron.d/backup"
+    dest:   "/etc/cron.daily/backup"
+    mode:   0755
     content: |
-      @daily root /usr/local/bin/backup -b
+      #/bin/bash
+      /usr/local/bin/backup -b
