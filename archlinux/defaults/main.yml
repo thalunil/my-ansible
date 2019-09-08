@@ -121,6 +121,7 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - clementine
   - syncthing
   - syncthing-gtk
   - nextcloud-client
@@ -130,6 +131,7 @@ arch_desktop_packages:
   - sddm
   - plasma
   - xfce4
+  - xfce4-goodies
   - thunderbird
   - thunderbird-i18n-de
   - firefox

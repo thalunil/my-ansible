@@ -27,3 +27,8 @@
     enabled:  "yes"
     state:    "started"
   when: display_manager is defined
+
+- name: "Arch desktop: Xorg keyboard layout"
+  command: localectl set-x11-keymap de
+  args:
+    creates: /etc/X11/xorg.conf.d/00-keyboard.conf
