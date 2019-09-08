@@ -33,6 +33,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 arch_packages_list:
+  - sshpass
   - btrfs-progs
   - zsh
   - vim
