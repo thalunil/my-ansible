@@ -109,6 +109,7 @@ arch_packages_list:
   - handbrake # Multithreaded video transcoder
   - asciinema # Record and share terminal/console sessions
   - lynis # Security and system auditing tool to harden Unix/Linux systems
+  - screen
 
 # List of arch_packages_list_host
 arch_packages_list_host: []
