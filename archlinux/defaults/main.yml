@@ -122,6 +122,9 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - xorg
+  - xorg-fonts
+  - gnome-keyring
   - clementine
   - syncthing
   - syncthing-gtk
@@ -133,6 +136,10 @@ arch_desktop_packages:
   - plasma
   - xfce4
   - xfce4-goodies
+  - pavucontrol
+  - gstreamer
+  - gst-plugins-good
+  - gst-plugins-ugly
   - thunderbird
   - thunderbird-i18n-de
   - firefox
