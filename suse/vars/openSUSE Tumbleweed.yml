@@ -41,3 +41,4 @@ install_packages:
   - at
   - yast2-online-update-configuration
   - update-checker
+  - python-xml
