@@ -123,6 +123,7 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - redshift
   - cups
   - gutenprint
   - xorg
