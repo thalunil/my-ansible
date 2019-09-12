@@ -38,8 +38,9 @@ ansible		ALL=(ALL) NOPASSWD: ALL
 
 {% if ansible_os_family == "Suse" %}
 %wheel		ALL=NOPASSWD: /usr/bin/zypper ref, /usr/bin/zypper dup
-{% endif %}
-{% if ansible_os_family == "Debian" %}
+{% elif ansible_os_family == "Archlinux" %}
+%wheel		ALL=NOPASSWD: /usr/bin/pacman -Syu
+{% elif ansible_os_family == "Debian" %}
 %wheel		ALL=NOPASSWD: /usr/bin/aptitude full-upgrade, /usr/bin/aptitude update
 {% endif %}
 # Backuppc

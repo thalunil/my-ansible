@@ -123,6 +123,8 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - cups
+  - gutenprint
   - xorg
   - xorg-fonts
   - gnome-keyring
