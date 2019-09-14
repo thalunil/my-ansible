@@ -8,6 +8,10 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
+- name: OS is supported
+  assert:
+    that: __smartd_os_supported|bool
+
 - name: Install smartd package
   package:
     name: "{{ smartd_packages }}"
