@@ -154,12 +154,18 @@
   notify: update /etc/resolv.conf 
 
 - name: /etc/default/grub.template
-  copy:
-    src:      "grub-default"
+  file:
     dest:     "/etc/default/grub.template"
+    state:    absent
+
+- name: /etc/default/grub
+  template:
+    src:      "grub.j2"
+    dest:     "/etc/default/grub"
     mode:     0644
     owner:    root
     group:    root
+  notify: grub-mkconfig
 
 - name: /usr/local/sbin/archlinux-backup.sh
   copy:

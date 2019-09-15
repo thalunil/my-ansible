@@ -1,24 +1,22 @@
+# {{ ansible_managed }}
+
 # GRUB boot loader configuration
 
-# for choosing a different default grub entry you can either specificy the title or the number
-# GRUB_DEFAULT='Advanced options for Arch Linux>Arch Linux, with Linux linux'
-# or
-# GRUB_DEFAULT="1>2" # boots the third entry under the 2 second item
-GRUB_DEFAULT=saved
-GRUB_TIMEOUT=5
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=2
 GRUB_DISTRIBUTOR="Arch"
-GRUB_CMDLINE_LINUX_DEFAULT=""
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
 GRUB_CMDLINE_LINUX=""
 
 # Preload both GPT and MBR modules so that they are not missed
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 
 # Uncomment to enable booting from LUKS encrypted devices
-GRUB_ENABLE_CRYPTODISK=N
+#GRUB_ENABLE_CRYPTODISK=y
 
-# Uncomment to enable Hidden Menu, and optionally hide the timeout count
-#GRUB_HIDDEN_TIMEOUT=5
-#GRUB_HIDDEN_TIMEOUT_QUIET=true
+# Set to 'countdown' or 'hidden' to change timeout behavior,
+# press ESC key to display menu.
+GRUB_TIMEOUT_STYLE=menu
 
 # Uncomment to use basic console
 GRUB_TERMINAL_INPUT=console
@@ -55,7 +53,4 @@ GRUB_COLOR_HIGHLIGHT="light-cyan/blue"
 
 # Uncomment to make GRUB remember the last selection. This requires to
 # set 'GRUB_DEFAULT=saved' above.
-GRUB_SAVEDEFAULT="true"
-
-# No submenu for the entries
-GRUB_DISABLE_SUBMENU=y
+#GRUB_SAVEDEFAULT="true"
