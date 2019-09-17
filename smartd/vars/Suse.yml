@@ -1,4 +1,6 @@
 ---
+__smartd_os_supported: True
+
 smartd_packages:
   - smartmontools
 
