@@ -1,3 +1,2 @@
 ---
 sudo_config_file: "/etc/sudoers"
-sudo_package: "sudo"
