@@ -140,6 +140,8 @@ arch_desktop_packages:
   - xorg-drivers
   - sddm
   - plasma
+  - kde-applications
+  - kdemultimedia
   - xfce4
   - xfce4-goodies
   - pavucontrol
