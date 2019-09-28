@@ -148,6 +148,7 @@ arch_desktop_packages:
   - gstreamer
   - gst-plugins-good
   - gst-plugins-ugly
+  - gst-plugins-bad
   - thunderbird
   - thunderbird-i18n-de
   - firefox
@@ -180,3 +181,4 @@ arch_desktop_packages:
   - gkrellm # System monitor package for GTK2
   - conky # Lightweight system monitor for X
   - baobab # A graphical directory tree analyzer
+  - vlc
