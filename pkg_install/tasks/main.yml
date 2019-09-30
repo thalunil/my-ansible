@@ -1,4 +1,3 @@
-# vim:ft=ansible:
 ---
 - name: Set OS dependent variables
   include_vars: "{{ item }}"
@@ -9,6 +8,8 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: package install on debian
-  import_tasks: debian.yml
+- import_tasks: debian.yml
   when: ansible_facts['os_family']|lower == 'debian'
+
+- import_tasks: OpenBSD.yml
+  when: ansible_facts['os_family'] == 'OpenBSD'
