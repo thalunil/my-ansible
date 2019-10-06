@@ -62,6 +62,7 @@ install_packages:
   - osc
   - john
   - keepassxc
+  - filezilla
 
 install_pattern:
   - kde
