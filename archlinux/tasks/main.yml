@@ -141,7 +141,6 @@
   service: name="{{ item }}" enabled="yes" state="started"
   with_items:
     - smtpd
-    - sshd
     - tlp # Linux Advanced Power Management
 
 - name: /etc/resolvconf.conf
