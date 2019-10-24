@@ -63,6 +63,7 @@ install_packages:
   - john
   - keepassxc
   - filezilla
+  - aircrack-ng
 
 install_pattern:
   - kde
