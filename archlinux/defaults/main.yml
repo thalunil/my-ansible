@@ -183,3 +183,4 @@ arch_desktop_packages:
   - conky # Lightweight system monitor for X
   - baobab # A graphical directory tree analyzer
   - vlc
+  - rawtherapee
