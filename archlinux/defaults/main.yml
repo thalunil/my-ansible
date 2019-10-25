@@ -33,6 +33,7 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 arch_packages_list:
+  - base
   - linux-lts
   - sshpass
   - btrfs-progs
@@ -114,6 +115,7 @@ arch_packages_list:
   - screen
   - mc
   - wget
+  - keychain
 
 # List of arch_packages_list_host
 arch_packages_list_host: []
