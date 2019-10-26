@@ -4,3 +4,6 @@
 [submodule "postfix"]
 	path = postfix
 	url = https://github.com/arillso/ansible.postfix.git
+[submodule "sudo/sudo-weareinteractive"]
+	path = sudo/sudo-weareinteractive
+	url = https://github.com/weareinteractive/ansible-sudo.git
