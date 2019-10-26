@@ -1,0 +1,15 @@
+---
+- name: /etc/smtpd/smtpd.conf
+  template:
+    src:    "smtpd.conf.j2"
+    dest:   "/etc/smtpd/smtpd.conf"
+    owner:  "root"
+    group:  "root"
+    mode:   0640
+  notify:
+    - restart smtpd
+
+- name: "ensure service {{ item }} is running and enabled"
+  service: name="{{ item }}" enabled="yes" state="started"
+  with_items:
+    - smtpd

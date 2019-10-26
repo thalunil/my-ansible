@@ -1,7 +1,5 @@
 # vim:ft=ansible:
 ---
-- name: restart smtpd
-  service: name=smtpd state=restarted
   #- name: rebuild smtpd table aliases
   #command: makemap /etc/smtpd/aliases
   #become: true
