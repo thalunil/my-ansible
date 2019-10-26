@@ -1,0 +1,3 @@
+---
+opensmtpd_interface:    "localhost"
+opensmtpd_aliases_file: "/etc/aliases"
