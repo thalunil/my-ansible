@@ -186,3 +186,4 @@ arch_desktop_packages:
   - baobab # A graphical directory tree analyzer
   - vlc
   - rawtherapee
+  - evince
