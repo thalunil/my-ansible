@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "Login on $(hostname) $(date) $(who)" | mail -s "Login on $(hostname) $(who | awk '{print $1}')" {{ adminmail }}

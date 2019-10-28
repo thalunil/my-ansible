@@ -8,3 +8,9 @@
   copy:
     src:    zshrc
     dest:   "/etc/skel/.zshrc"
+
+- name: "/etc/profile.d/loginmail.sh"
+  template:
+    src:  "loginmail.sh.j2"
+    dest: "/etc/profile.d/loginmail.sh"
+  when: adminmail is defined
