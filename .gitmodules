@@ -1,9 +1,9 @@
 [submodule "ansible-role-sudo"]
 	path = grog-sudo
 	url = https://github.com/GROG/ansible-role-sudo.git
-[submodule "postfix"]
-	path = postfix
-	url = https://github.com/arillso/ansible.postfix.git
 [submodule "sudo-weareinteractive"]
 	path = sudo-weareinteractive
 	url = https://github.com/weareinteractive/ansible-sudo.git
+[submodule "postfix"]
+	path = postfix
+	url = https://github.com/thalunil/ansible.postfix.git

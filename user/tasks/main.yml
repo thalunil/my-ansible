@@ -1,0 +1,31 @@
+---
+- name: "user variable set: {{ user }} "
+  assert:
+    that: user != false
+
+- name: "~{{user}}/.config/redshift.conf"
+  copy:
+    dest:   "~{{user}}/.config/redshift.conf"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+    mode:   0644
+    content: |
+      [redshift]
+      location-provider=manual
+      brightness-day=0.7
+      brightness-night=0.5
+      [manual]
+      lat=47.26
+      lon=11.39
+
+- name: "~{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/"
+  file:
+    path:   "~{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/"
+    state:  directory
+- name: "~{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+  copy:
+    src:    "xfce4-keyboard-shortcuts.xml"
+    dest:   "~{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+    mode:   0644
