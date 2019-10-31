@@ -187,3 +187,5 @@ arch_desktop_packages:
   - vlc
   - rawtherapee
   - evince
+  - ruby
+  - tor

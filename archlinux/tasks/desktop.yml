@@ -1,19 +1,18 @@
-# vim:ft=ansible:
 ---
 # install software for arch desktop
-- name: Install Packages
+- name: "Arch desktop: Install Packages {{ arch_desktop_packages }}"
   pacman:
     name: "{{ arch_desktop_packages }}"
     state: present
     
-- name: /etc/lightdm/lightdm-gtk-greeter.conf
+- name: "Arch desktop: /etc/lightdm/lightdm-gtk-greeter.conf"
   template:
     src:      lightdm-gtk-greeter.conf.j2
     dest:     /etc/lightdm/lightdm-gtk-greeter.conf
     mode:     0644
     owner:    root
     group:    root
-- name: /usr/share/pixmaps/lightdm-background.jpg
+- name: "Arch desktop: /usr/share/pixmaps/lightdm-background.jpg"
   copy:
     src:      lightdm-background.jpg
     dest:     /usr/share/pixmaps/lightdm-background.jpg
@@ -21,7 +20,7 @@
     owner:    root
     group:    root
 
-- name: ensure display manager {{ display_manager }} is running and enabled
+- name: "Arch desktop: ensure display manager {{ display_manager }} is running and enabled"
   service:
     name:     "{{ display_manager }}"
     enabled:  "yes"
