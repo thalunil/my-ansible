@@ -3,7 +3,7 @@
   block:
 
 # Lynis security scanner/audit - weekly cronjob run
-  - name: /etc/cron.d/lynis
+  - name: "hardening: /etc/cron.d/lynis"
     copy:
       content:  "9  10  *  *  * root lynis --cronjob --warnings-only\n"
       dest:     /etc/cron.d/lynis
@@ -14,21 +14,26 @@
 # documentation: linux/Documentation/filesystems/proc.txt
 # https://wiki.archlinux.org/index.php/Security#hidepid
 # proc gid is provided by package filesystem
-  - name: /proc filesystem permissions
+  - name: "hardening: /proc filesystem permissions"
     lineinfile:
       path:   /etc/fstab
       regexp: "^proc"
       line:   "proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0"
 # for systemd-login to work correctly it also needs to be in the hidepid-privileged group
-  - name: /etc/systemd/system/systemd-logind.service.d/ 
+  - name: "hardening: /etc/systemd/system/systemd-logind.service.d/"
     file:
       path: /etc/systemd/system/systemd-logind.service.d/
       state:  directory
-# for systemd-login to work correctly it also needs to be in the hidepid-privileged group
-  - name: /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+  - name: "hardening: /etc/systemd/system/systemd-logind.service.d/hidepid.conf"
     template:
       src:  systemd-logind-hidepid.conf.j2
       dest: /etc/systemd/system/systemd-logind.service.d/hidepid.conf
+  - name: "hardening: add user {{user}} to group proc"
+    user:
+      name:   "{{ user }}"
+      append: yes
+      groups: proc
+    when: user is defined
 
 # Restrict access to kernel logs
 # 1 = active, 0 = disabled
