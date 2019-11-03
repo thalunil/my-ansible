@@ -1,9 +1,4 @@
-# vim:ft=ansible:
 ---
-  #- name: rebuild smtpd table aliases
-  #command: makemap /etc/smtpd/aliases
-  #become: true
-
 - name: rebuild locales
   command: locale-gen
 
