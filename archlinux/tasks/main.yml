@@ -78,7 +78,8 @@
     src:    "vconsole.conf.j2"
     dest:   "/etc/vconsole.conf"
 
-- copy:
+- name: "Arch: /etc/pam.d/su"
+  copy:
     src:    pam.d-su
     dest:   /etc/pam.d/su
     owner:  root
@@ -86,15 +87,17 @@
     mode:   0640
     backup: yes
  
-- copy:
+- name: "Arch: /etc/pam.d/su-l"
+  copy:
     src:    pam.d-su-l
     dest:   /etc/pam.d/su-l
     owner:  root
     group:  root
     mode:   0640
     backup: yes
-  
-- copy:
+   
+- name: "Arch: /etc/pam.d/passwd"
+  copy:
     src:    pam.d-passwd
     dest:   /etc/pam.d/passwd
     owner:  root
@@ -102,7 +105,8 @@
     mode:   0640
     backup: yes
 
-- copy:
+- name: "Arch: /etc/pam.d/system-login"
+  copy:
     src:    pam.d-system-login
     dest:   /etc/pam.d/system-login
     owner:  root
@@ -110,7 +114,7 @@
     mode:   0640
     backup: yes
  
-- name: pacman configuration - /etc/pacman.conf
+- name: "Arch: pacman configuration - /etc/pacman.conf"
   copy:
     src:    pacman.conf
     dest:   /etc/pacman.conf
@@ -118,11 +122,11 @@
     group:  wheel
     mode:   0644
     backup: yes
-- name: /etc/pacman.d/hooks
+- name: "Arch: /etc/pacman.d/hooks"
   file:
     path:  /etc/pacman.d/hooks
     state: directory
-- name: /etc/pacman.d/hooks/paccache.hook
+- name: "Arch: /etc/pacman.d/hooks/paccache.hook"
   copy:
     src:  paccache.hook
     dest: /etc/pacman.d/hooks/paccache.hook
