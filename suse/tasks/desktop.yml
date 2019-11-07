@@ -34,3 +34,9 @@
     src:    "/usr/lib/systemd/system/display-manager.service"
     dest:   "/etc/systemd/system/display-manager.service"
     state:  link
+
+- name: "/etc/udev/rules.d/49-onlykey.rules"
+  copy:
+    src:  "udev-onlykey-rules"
+    dest: "/etc/udev/rules.d/49-onlykey.rules"
+  notify: "udevadm reload"

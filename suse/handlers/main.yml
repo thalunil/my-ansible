@@ -7,3 +7,5 @@
   service:
     name: postfix
     state: reloaded
+- name: udevadm reload
+  command: udevadm control --reload
