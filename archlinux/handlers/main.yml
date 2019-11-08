@@ -25,3 +25,6 @@
 
 - name: grub-mkconfig
   command: grub-mkconfig -o /boot/grub/grub.cfg
+
+- name: udevadm reload
+  command: udevadm control --reload
