@@ -9,11 +9,6 @@ archlinux_hardening: true
 ## comment out to disable - the backup script will then be deactivated
 archlinux_backup: true
 
-## variable to provide group membership for ansible user, e.g.
-#archlinux_system_groups:
-  #  - root
-  #  - adm
-
 timezone: "Europe/Vienna"
 
 # locales to be generated (in locale.gen)

@@ -13,19 +13,21 @@
     dest:   "/etc/localtime"
     state:  link
 
-- name: create system groups
+- name: create system groups "{{archlinux_system_groups}}"
   group:
     name:   "{{item}}"
     system: yes
   with_items: "{{archlinux_system_groups}}"
   when: archlinux_system_groups is defined
 
-- name: add user "{{ansible_user}}" to system groups "{{archlinux_system_groups}}"
+- name: add user "{{user}}" to system groups "{{archlinux_system_groups}}"
   user:
-    name:   "{{ansible_user}}"
+    name:   "{{user}}"
     append: yes
     groups: "{{archlinux_system_groups}}"
-  when: archlinux_system_groups is defined
+  when:
+    - archlinux_system_groups is defined
+    - user is defined
 
 - name: /etc/pacman.d/mirrorlist
   template:
