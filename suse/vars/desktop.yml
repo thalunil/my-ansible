@@ -64,6 +64,7 @@ install_packages:
   - keepassxc
   - filezilla
   - aircrack-ng
+  - fio
 
 install_pattern:
   - kde

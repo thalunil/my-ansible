@@ -29,3 +29,11 @@
     owner:  "{{user}}"
     group:  "{{group}}"
     mode:   0644
+
+- name: "~{{user}}/.config/Thunar/uca.xml"
+  copy:
+    src:    "thunar-uca.xml"
+    dest:   "~{{user}}/.config/Thunar/uca.xml"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+    mode:   0644

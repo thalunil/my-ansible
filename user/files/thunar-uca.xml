@@ -5,13 +5,13 @@
 	<name>Terminal hier öffnen</name>
 	<unique-id>1553627502455899-1</unique-id>
 	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
-	<description>Beispiel für eine eigene Aktion</description>
+	<description></description>
 	<patterns>*</patterns>
 	<startup-notify/>
 	<directories/>
 </action>
 <action>
-	<icon>gnome-search-tool</icon>
+	<icon>preferences-system-search</icon>
 	<name>Dateisuche</name>
 	<unique-id>1572419551742519-1</unique-id>
 	<command>catfish --path=%f</command>

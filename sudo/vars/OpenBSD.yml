@@ -1,3 +1,3 @@
 ---
-sudo_package: "sudo-1.8.27"
+sudo_package: "sudo--"
 sudo_config_file: "/etc/sudoers"
