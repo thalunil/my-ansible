@@ -1,0 +1,114 @@
+# basic options
+setopt nobeep                  # i hate beeps
+setopt autocd                  # change to dirs without cd
+setopt nocheckjobs             # don't warn me about bg processes when exiting
+setopt nohup                   # and don't kill them, either
+
+# history related stuff.
+export HISTSIZE=5000
+export SAVEHIST=5000
+export HISTFILE=~/.zsh_history
+setopt hist_ignore_dups        # ignore same commands run twice+
+setopt appendhistory           # don't overwrite history 
+
+# path
+export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+
+# newsserver
+export NNTPSERVER=news.netcologne.de
+
+# outdated setting, no longer used
+#export GREP_OPTIONS='--exclude-dir=\.svn'
+#isfreebsd && export GREP_OPTIONS=''
+
+# prompt (if running screen, show window #)
+if [ x$WINDOW != x ]; then
+    export PS1="%m[$WINDOW]%# "
+else
+    export PS1='%1m | %? | %1~ | %# '
+fi
+
+autoload -U compinit
+compinit
+
+# ssh hostname completion
+if [ -s $HOME/.ssh/known_hosts ]; then
+ local _myhosts
+ _myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+ zstyle ':completion:*' hosts $_myhosts
+fi 
+
+# Locales special for OpenBSD
+# https://www.openbsd.org/faq/faq8.html#locales
+isopenbsd && export LC_CTYPE="en_US.UTF-8"
+
+# Aliases
+if which neomutt > /dev/null 2>&1
+then
+	alias mutt="neomutt"
+fi
+alias diff="diff --color"
+isopenbsd && unalias diff
+alias -g l="ls --color -h"
+alias -g la="ls --color -Ah"
+alias -g ll="ls --color -la"
+alias -g du="du -hs"
+alias -g df="df -h"
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g CA="2>&1 | cat -A"
+alias -g C='| wc -l'
+alias -g D="DISPLAY=:0.0"
+alias -g DN=/dev/null
+alias -g ED="export DISPLAY=:0.0"
+alias -g EG='|& egrep'
+alias -g EH='|& head'
+alias -g EL='|& less'
+alias -g ELS='|& less -S'
+alias -g ETL='|& tail -20'
+alias -g ET='|& tail'
+alias -g F=' | fmt -'
+alias -g G='| egrep'
+alias -g H='| head'
+alias -g HL='|& head -20'
+alias -g Sk="*~(*.bz2|*.gz|*.tgz|*.zip|*.z)"
+alias -g LL="2>&1 | less"
+alias -g L="| less"
+alias -g LS='| less -S'
+alias -g MM='| most'
+alias -g M='| more'
+alias -g NE="2> /dev/null"
+alias -g NS='| sort -n'
+alias -g NUL="> /dev/null 2>&1"
+alias -g PIPE='|'
+alias -g R=' > /c/aaa/tee.txt '
+alias -g RNS='| sort -nr'
+alias -g S='| sort'
+alias -g TL='| tail -20'
+alias -g T='| tail'
+alias -g US='| sort -u'
+alias -g VM=/var/log/messages
+alias -g X0G='| xargs -0 egrep'
+alias -g X0='| xargs -0'
+alias -g XG='| xargs egrep'
+alias -g X='| xargs'
+alias -g vi=vim
+alias -s pdf=evince
+alias -s php=php
+
+bew() { perl -le 'print unpack "B*","'$1'"' }
+web() { perl -le 'print pack "B*","'$1'"' }
+hew() { perl -le 'print unpack "H*","'$1'"' }
+weh() { perl -le 'print pack "H*","'$1'"' }
+pversion()    { perl -M$1 -le "print $1->VERSION" } # i. e."pversion LWP -> 5.79"
+getlinks ()   { perl -ne 'while ( m/"((www|ftp|http):\/\/.*?)"/gc ) { print $1, "\n"; }' $* }
+gethrefs ()   { perl -ne 'while ( m/href="([^"]*)"/gc ) { print $1, "\n"; }' $* }
+getanames ()  { perl -ne 'while ( m/a name="([^"]*)"/gc ) { print $1, "\n"; }' $* }
+getforms ()   { perl -ne 'while ( m:(\</?(input|form|select|option).*?\>):gic ) { print $1, "\n"; }' $* }
+getstrings () { perl -ne 'while ( m/"(.*?)"/gc ) { print $1, "\n"; }' $*}
+getanchors () { perl -ne 'while ( m/<AB>([^<AB><BB>\n]+)<BB>/gc ) { print $1, "\n"; }' $* }
+showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
+vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
+vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
+urlshorten () { curl -F c=@- https://ptpb.pw/u <<< $1 }

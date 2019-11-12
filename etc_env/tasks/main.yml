@@ -1,13 +1,13 @@
 ---
-- name: /etc/skel/.zshrc.pre
-  copy:
-    src:    zshrc.pre
-    dest:   "/etc/skel/.zshrc.pre"
-
 - name: /etc/skel/.zshrc
   copy:
     src:    zshrc
     dest:   "/etc/skel/.zshrc"
+
+- name: /etc/skel/.zshrc.local
+  copy:
+    src:    zshrc.local
+    dest:   "/etc/skel/.zshrc.local"
 
 - name: "/etc/profile.d/loginmail.sh"
   template:
