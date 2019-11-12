@@ -37,3 +37,9 @@
     src:  "udev-onlykey-rules"
     dest: "/etc/udev/rules.d/49-onlykey.rules"
   notify: "udevadm reload"
+
+# https://wiki.archlinux.org/index.php/Firefox
+- name: "Arch desktop: firefox settings lock"
+  copy:
+    src:  ""
+    dest: "/usr/lib/firefox/defaults/pref/channel-prefs.js"
