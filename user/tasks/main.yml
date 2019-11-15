@@ -35,6 +35,10 @@
     group:  "{{group}}"
     mode:   0644
 
+- name: "~{{user}}/.config/Thunar/"
+  file:
+    path:   "~{{user}}/.config/Thunar/"
+    state:  directory
 - name: "~{{user}}/.config/Thunar/uca.xml"
   copy:
     src:    "thunar-uca.xml"
