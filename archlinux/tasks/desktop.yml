@@ -38,8 +38,20 @@
     dest: "/etc/udev/rules.d/49-onlykey.rules"
   notify: "udevadm reload"
 
+# https://www.reddit.com/r/firefox/comments/bspfnz/remember_to_protect_yourselves_against_idn/
+# test IDN domain: https://www.xn--80ak6aa92e.com/
 # https://wiki.archlinux.org/index.php/Firefox
 - name: "Arch desktop: firefox settings lock"
   copy:
-    src:  ""
-    dest: "/usr/lib/firefox/defaults/pref/channel-prefs.js"
+    content: |
+      pref("general.config.obscure_value", 0);
+      pref("general.config.filename", "mozilla.cfg");
+    dest: "/usr/lib/firefox/defaults/pref/local-settings.js"
+- name: "Arch desktop: firefox settings lock"
+  copy:
+    content: |
+      // e.g to disable Pocket, uncomment the following line
+      lockPref("browser.pocket.enabled", false);
+      lockPref("network.IDN_show_punycode", true);
+    dest: "/usr/lib/firefox/defaults/pref/mozilla.cfg"
+
