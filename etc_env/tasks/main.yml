@@ -9,6 +9,18 @@
     src:    zshrc.local
     dest:   "/etc/skel/.zshrc.local"
 
+- name: "/etc/zsh/zprofile"
+  copy:
+    src:  zprofile
+    dest: "/etc/zsh/zprofile"
+  when: ansible_distribution == "Debian"
+
+- name: "/etc/zprofile"
+  copy:
+    src:  zprofile
+    dest: "/etc/zprofile"
+  when: ansible_facts['os_family']|lower == 'suse'
+
 - name: "/etc/profile.d/loginmail.sh"
   template:
     src:  "loginmail.sh.j2"

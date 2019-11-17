@@ -1,2 +1,14 @@
 #!/bin/sh
-echo "Login on $(hostname) $(date) $(who)" | mail -s "Login on $(hostname) $(who | awk '{print $1}')" {{ adminmail }}
+# Send a mail when invoking a login/interactive shell
+if [[ "$-" == *i* ]]; then
+MAILTEXT="\
+LOGIN
+-----
+Host:     $(hostname)
+Date:     $(date)
+User:     $USER
+Shell:    $SHELL
+"
+MAILSUBJECT="Login: $(hostname) - $USER"
+echo "$MAILTEXT" | mutt -s "$MAILSUBJECT" {{adminmail}}
+fi
