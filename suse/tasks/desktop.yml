@@ -3,29 +3,29 @@
   include_vars: "desktop.yml"
 
 # install software for suse desktop
-- name: Install Packages
+- name: "desktop: Install Packages"
   zypper:
     name: "{{install_packages}}"
     state: present
 
-- name: Install patterns
+- name: "desktop: Install patterns"
   zypper:
     name: "{{install_pattern}}"
     state: present
     type: pattern
     disable_recommends: no
 
-- name: Slick configuration
+- name: "desktop: Slick configuration"
   template:
     src: slick-greeter.conf.j2
     dest: "{{ slick_greeter_conf }}"
 
-- name: Remove packages 
+- name: "desktop: Remove packages"
   zypper:
     name: "{{ remove_packages }}"
     state: absent
 
-- name: Symlink für Displaymanager
+- name: "desktop: Symlink für Displaymanager"
   file:
     src:    /usr/lib/X11/displaymanagers/lightdm
     dest:   /etc/alternatives/default-displaymanager
@@ -35,7 +35,7 @@
     dest:   "/etc/systemd/system/display-manager.service"
     state:  link
 
-- name: "/etc/udev/rules.d/49-onlykey.rules"
+- name: "desktop: /etc/udev/rules.d/49-onlykey.rules"
   copy:
     src:  "udev-onlykey-rules"
     dest: "/etc/udev/rules.d/49-onlykey.rules"
