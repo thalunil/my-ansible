@@ -185,3 +185,4 @@ arch_desktop_packages:
   - evince
   - ruby
   - tor
+  - midori

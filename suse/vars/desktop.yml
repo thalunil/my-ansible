@@ -65,6 +65,7 @@ install_packages:
   - filezilla
   - aircrack-ng
   - fio
+  - midori
 
 install_pattern:
   - kde
