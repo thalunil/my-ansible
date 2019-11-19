@@ -3,10 +3,11 @@
   assert:
     that: user != false
 
+- name: ~/.zshrc.pre file
+  copy: src=zshrc.local dest=~{{user}}/.zshrc.pre owner={{user}} group={{group}}
+
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
-- name: ~/.zshrc.local file
-  copy: src=zshrc.local dest=~{{user}}/.zshrc.local owner={{user}} group={{group}}
 
 - name: "~{{user}}/.config/redshift.conf"
   copy:
