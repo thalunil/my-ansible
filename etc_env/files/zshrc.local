@@ -112,3 +112,9 @@ showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
 vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
 vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
 urlshorten () { curl -F c=@- https://ptpb.pw/u <<< $1 }
+
+# And at last, source a local-local shell configuration
+# I have this at UIBK....
+if [ -s $HOME/.zshrc.local2 ]; then
+	source HOME/.zshrc.local2
+fi
