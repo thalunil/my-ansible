@@ -14,13 +14,6 @@ setopt appendhistory           # don't overwrite history
 # path
 export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 
-# newsserver
-export NNTPSERVER=news.netcologne.de
-
-# outdated setting, no longer used
-#export GREP_OPTIONS='--exclude-dir=\.svn'
-#isfreebsd && export GREP_OPTIONS=''
-
 # prompt (if running screen, show window #)
 if [ x$WINDOW != x ]; then
     export PS1="%m[$WINDOW]%# "
@@ -38,17 +31,12 @@ if [ -s $HOME/.ssh/known_hosts ]; then
  zstyle ':completion:*' hosts $_myhosts
 fi 
 
-# Locales special for OpenBSD
-# https://www.openbsd.org/faq/faq8.html#locales
-isopenbsd && export LC_CTYPE="en_US.UTF-8"
-
 # Aliases
 if which neomutt > /dev/null 2>&1
 then
 	alias mutt="neomutt"
 fi
 alias diff="diff --color"
-isopenbsd && unalias diff
 alias -g l="ls --color -h"
 alias -g la="ls --color -Ah"
 alias -g ll="ls --color -la"
@@ -68,7 +56,6 @@ alias -g EL='|& less'
 alias -g ELS='|& less -S'
 alias -g ETL='|& tail -20'
 alias -g ET='|& tail'
-alias -g F=' | fmt -'
 alias -g G='| egrep'
 alias -g H='| head'
 alias -g HL='|& head -20'
