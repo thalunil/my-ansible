@@ -15,3 +15,4 @@ suse_daemons: []
 suse_desktop_enable: False
 slick_greeter_conf: "/etc/lightdm/slick-greeter.conf"
 postfix_relayhost: ""
+nameserver: ""

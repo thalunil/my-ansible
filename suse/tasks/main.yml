@@ -7,6 +7,15 @@
    - "{{ ansible_os_family }}_{{ ansible_distribution_version }}.yml"
    - "{{ ansible_os_family }}.yml"
    - default.yml
+   
+- name: "suse: /etc/sysconfig/network/config"
+  template:
+    src:    templates/network-config.j2
+    dest:   /etc/sysconfig/network/config
+    mode:   0644
+    owner:  root
+    group:  root
+  notify: netconfig update -f
 
 - include_tasks: zypper_repositories.yml
 

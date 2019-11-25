@@ -9,3 +9,6 @@
 
 - name: udevadm reload
   command: udevadm control --reload
+
+- name: netconfig update -f
+  command: netconfig update -f
