@@ -10,14 +10,14 @@
     dest:   "/etc/skel/.zshrc.local"
 
 - name: "/etc/zsh/zprofile"
-  copy:
-    src:  zprofile
+  template:
+    src:  "zprofile.j2"
     dest: "/etc/zsh/zprofile"
   when: ansible_distribution == "Debian"
 
 - name: "/etc/zprofile"
-  copy:
-    src:  zprofile
+  template:
+    src:  "zprofile.j2"
     dest: "/etc/zprofile"
   when: ansible_facts['os_family']|lower == 'suse'
 
