@@ -1,0 +1,6 @@
+---
+- name: "create backup user - for backup jobs"
+  user:
+    name:   "backup"
+    append: yes
+    shell:  "/usr/bin/nologin"
