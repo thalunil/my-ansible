@@ -186,3 +186,4 @@ arch_desktop_packages:
   - ruby
   - tor
   - midori
+  - figlet
