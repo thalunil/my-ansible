@@ -4,10 +4,8 @@
 # MUA check
 if type neomutt > /dev/null; then
 	MAILCMD=neomutt
-elif type mutt > /dev/null; then
-	MAILCMD=mutt
 else
-	echo "no mutt found - exiting"
+	echo "no neomutt found - exiting"
 	exit 0
 fi
 
@@ -21,5 +19,5 @@ User:     $USER
 Shell:    $SHELL
 "
 MAILSUBJECT="Login: $(hostname) - $USER"
-echo "$MAILTEXT" | "$MAILCMD" -s "$MAILSUBJECT" {{adminmail}}
+echo "$MAILTEXT" | "$MAILCMD" -B -s "$MAILSUBJECT" {{adminmail}}
 fi
