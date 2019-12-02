@@ -3,10 +3,12 @@
 
 # MUA check
 if type neomutt > /dev/null; then
-	MAILCMD=neomutt
+	MAILCMD="neomutt -B"
+elif type mail > /dev/null; then
+	MAILCMD="mail"
 else
-	echo "no neomutt found - exiting"
-	exit 0
+	echo "### loginmail inactive - no suitable MUA found"
+	return 1
 fi
 
 if [[ "$-" == *i* ]]; then
@@ -19,5 +21,5 @@ User:     $USER
 Shell:    $SHELL
 "
 MAILSUBJECT="Login: $(hostname) - $USER"
-echo "$MAILTEXT" | "$MAILCMD" -B -s "$MAILSUBJECT" {{adminmail}}
+echo "$MAILTEXT" | "$MAILCMD" -s "$MAILSUBJECT" {{adminmail}}
 fi
