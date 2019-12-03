@@ -4,3 +4,4 @@
     name:   "backup"
     append: yes
     shell:  "/usr/bin/nologin"
+    system: true
