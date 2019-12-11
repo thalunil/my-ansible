@@ -125,6 +125,7 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - iotop
   - redshift
   - cups
   - gutenprint

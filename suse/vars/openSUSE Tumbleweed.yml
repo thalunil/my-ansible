@@ -2,6 +2,7 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
+  - iotop
   - ksh
   - cronie
   - cronie-anacron
