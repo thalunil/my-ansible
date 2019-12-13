@@ -181,7 +181,11 @@ NETCONFIG_DNS_FORWARDER_FALLBACK="yes"
 # List of DNS domain names used for host-name lookup.
 # It is written as search list into the /etc/resolv.conf file.
 #
-NETCONFIG_DNS_STATIC_SEARCHLIST="{{ search_domain }}"
+NETCONFIG_DNS_STATIC_SEARCHLIST="
+{% if search_domain is defined %}
+{{ search_domain }}
+{% endif %}
+"
 
 ## Type:        string
 ## Default:     ""
