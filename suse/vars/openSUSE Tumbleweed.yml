@@ -2,6 +2,7 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
+  - fd # fd is an alternative to /usr/bin/find
   - iotop
   - ksh
   - cronie
