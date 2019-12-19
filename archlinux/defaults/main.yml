@@ -37,6 +37,7 @@ arch_packages_list:
   - btrfs-progs
   - zsh
   - vim
+  - vim-plugins
   - logwatch # Logwatch is a customizable log analysis system
 # - tenshi # a differnent log monitor
   - whois
