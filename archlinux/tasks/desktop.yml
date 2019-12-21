@@ -24,7 +24,6 @@
   service:
     name:     "{{ display_manager }}"
     enabled:  "yes"
-    state:    "started"
   when: display_manager is defined
 
 - name: "Arch desktop: Xorg keyboard layout"

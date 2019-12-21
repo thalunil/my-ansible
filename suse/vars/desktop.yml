@@ -1,4 +1,7 @@
+---
 install_packages:
+  - xaos
+  - fractal
   - lightdm-slick-greeter
   - lightdm-slick-greeter-branding-openSUSE
   - xsane
