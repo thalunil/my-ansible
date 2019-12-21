@@ -19,10 +19,9 @@
   template:
     src:  "zprofile.j2"
     dest: "/etc/zprofile"
-  when: ansible_facts['os_family']|lower == 'suse'
+  when: ansible_distribution != "Debian"
 
 - name: "/etc/profile.d/loginmail.sh"
-  template:
-    src:  "loginmail.sh.j2"
-    dest: "/etc/profile.d/loginmail.sh"
-  when: adminmail is defined
+  file:
+    dest:   "/etc/profile.d/loginmail.sh"
+    state:  absent

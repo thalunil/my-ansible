@@ -57,7 +57,7 @@
     group:  root
   notify: postfix-reload
 
-- name: ensure services running and enabled
+- name: "ensure services running and enabled: {{ suse_daemons }}"
   service: name="{{ item }}" enabled="yes" state="started"
   with_items: "{{ suse_daemons }}"
 

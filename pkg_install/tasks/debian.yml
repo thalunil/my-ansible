@@ -1,9 +1,6 @@
 # vim:ft=ansible:
 ---
-- name: /etc/apt/sources.list
+- name: "/etc/apt/sources.list"
   template:
     src:  sources.list.j2
     dest: /etc/apt/sources.list
-
-- name: install software on Debian
-  apt: name='{{packages}}' state=present update_cache=yes

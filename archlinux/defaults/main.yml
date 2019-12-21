@@ -29,6 +29,7 @@ archlinux_server:
 
 arch_packages_list:
   - fd # Simple, fast and user-friendly alternative to find
+  - ripgrep # A search tool that combines the usability of ag with the raw speed of grep
   - ksh
   - base
   - linux-lts
@@ -36,6 +37,7 @@ arch_packages_list:
   - btrfs-progs
   - zsh
   - vim
+  - vim-plugins
   - logwatch # Logwatch is a customizable log analysis system
 # - tenshi # a differnent log monitor
   - whois

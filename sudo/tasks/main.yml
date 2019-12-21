@@ -12,7 +12,7 @@
     src:      "sudoers.j2"
     dest:     "{{ sudo_config_file }}"
     owner:    "root"
-    group:    "wheel"
+    group:    "root"
     mode:     0440
     backup:   yes
     validate: visudo -cf %s
