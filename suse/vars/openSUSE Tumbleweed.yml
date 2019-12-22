@@ -2,6 +2,12 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
+  - vim
+  - vim-plugin-powerline
+  - vim-plugin-colorschemes
+  - vim-plugin-diffchanges
+  - vim-plugin-fugitive
+  - vim-plugin-NERDtree
   - fd # fd is an alternative to /usr/bin/find
   - ripgrep # ripgrep is a line oriented search tool
   - iotop
