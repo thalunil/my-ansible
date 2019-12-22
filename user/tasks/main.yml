@@ -9,6 +9,9 @@
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
 
+- name: ~/.vimrc file
+  copy: src=vimrc dest=~{{user}}/.vimrc owner={{user}} group={{group}}
+
 - name: "~{{user}}/.config/redshift.conf"
   copy:
     dest:   "~{{user}}/.config/redshift.conf"
