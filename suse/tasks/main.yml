@@ -73,3 +73,6 @@
     mode:   0644
     owner:  root
     group:  root
+
+- include_tasks: munin-node.yml
+  when: enable_munin_node|bool
