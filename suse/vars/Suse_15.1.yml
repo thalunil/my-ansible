@@ -2,7 +2,7 @@
 repo_version: "openSUSE_Leap_15.1"
 
 install_packages:
-  - munin-node #  Network-wide graphing framework (node)
+  - logwatch # Tool to analyze and report on system logs
   - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
   - vim

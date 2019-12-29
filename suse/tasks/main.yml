@@ -74,5 +74,6 @@
     owner:  root
     group:  root
 
+# Munin - Network-wide graphing framework (node)
 - include_tasks: munin-node.yml
   when: enable_munin_node|bool
