@@ -1,11 +1,18 @@
 ---
-- name: "Munin: install {{ item }}"
+- name: "Munin: add perl repository because of dependency for cidr_allow/cidr_deny access control feature"
+  command: |
+    zypper addrepo https://download.opensuse.org/repositories/devel:languages:perl/openSUSE_Leap_15.1/devel:languages:perl.repo
+  args:
+    creates: /etc/zypp/repos.d/devel_languages_perl.repo
+
+- name: "Munin: install {{ packages }}"
   zypper:
-    name:               "{{ item }}"
+    name:               "{{ packages }}"
     state:              present
-  with_items:
-    - perl-Net-CIDR-Lite
-    - munin-node
+  vars:
+    packages:
+      - perl-Net-CIDR
+      - munin-node
 
 - name: "Munin: /etc/munin/munin-node.conf"
   template:
