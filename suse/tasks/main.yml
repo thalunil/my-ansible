@@ -7,7 +7,12 @@
    - "{{ ansible_os_family }}_{{ ansible_distribution_version }}.yml"
    - "{{ ansible_os_family }}.yml"
    - default.yml
-   
+
+- name: "/etc/hostname"
+  copy:
+    dest:     "/etc/hostname"
+    content:  "{{ansible_host}}"
+
 - name: "suse: /etc/sysconfig/network/config"
   template:
     src:    templates/network-config.j2
