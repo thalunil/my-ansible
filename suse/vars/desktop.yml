@@ -63,6 +63,7 @@ install_packages:
   - gcc-c++
   - osc
   - build # script for building RPMs for SUSE Linux in a chroot
+  - rpm-build
   - john
   - keepassxc
   - filezilla
