@@ -62,6 +62,7 @@ install_packages:
   - meson
   - gcc-c++
   - osc
+  - build # script for building RPMs for SUSE Linux in a chroot
   - john
   - keepassxc
   - filezilla
