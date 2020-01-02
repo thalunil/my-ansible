@@ -82,3 +82,11 @@
 # Munin - Network-wide graphing framework (node)
 - include_tasks: munin-node.yml
   when: enable_munin_node|bool
+
+# Group dialout
+- name: 'add user {{ user }} to group "dialout"'
+  user:
+    name:   "{{user}}"
+    append: yes
+    groups: "dialout"
+  when: user is defined
