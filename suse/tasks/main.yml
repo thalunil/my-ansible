@@ -36,6 +36,10 @@
   when:
     - suse_desktop_enable|bool
 
+- include_tasks: server.yml
+  when:
+    - suse_server_enable|bool
+
 - name: /etc/tmpfiles.d/tmp-clean.conf
   copy:
     content:  "d /tmp 1777 root root 0"

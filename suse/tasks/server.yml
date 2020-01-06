@@ -1,0 +1,8 @@
+---
+- name: "server: load variables"
+  include_vars: "server.yml"
+
+- name: "server: Remove packages"
+  zypper:
+    name: "{{ remove_packages }}"
+    state: absent
