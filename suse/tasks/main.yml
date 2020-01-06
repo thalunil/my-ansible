@@ -94,3 +94,12 @@
     append: yes
     groups: "dialout"
   when: user is defined
+
+- include_tasks: mount.yml
+  with_flattened:
+    - "{{ mount_list}}"
+    - "{{ mount_host }}"
+    - "{{ mount_group }}"
+  loop_control:
+    loop_var: mount
+  when: mount is defined

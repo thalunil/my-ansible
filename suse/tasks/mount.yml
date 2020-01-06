@@ -1,0 +1,9 @@
+---
+- name: "mount {{ mount.src }} in {{ mount.path }}"
+  mount:
+    path:   "{{ mount.path }}"
+    src:    "{{ mount.src }}"
+    opts:   "{{ mount.opts }}"
+    state:  "{{ mount.state }}"
+    fstype: "{{ mount.fstype }}"
+

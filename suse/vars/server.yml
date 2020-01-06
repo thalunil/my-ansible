@@ -1,3 +1,6 @@
 ---
+install_packages:
+        - keepalived
+
 remove_packages:
         - plymouth

@@ -23,4 +23,9 @@ nameserver: ""
 
 enable_munin_node: false
 
-remove_packages: []
+install_packages: []
+remove_packages:  []
+
+mount_list: []
+mount_host: []
+mount_group: []
