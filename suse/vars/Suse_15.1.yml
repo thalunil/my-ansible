@@ -2,6 +2,9 @@
 repo_version: "openSUSE_Leap_15.1"
 
 install_packages:
+  - sslscan # tools to scan SSL services
+  - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
+  - ShellCheck # Shell script analysis tool
   - logwatch # Tool to analyze and report on system logs
   - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
