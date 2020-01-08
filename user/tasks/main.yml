@@ -3,8 +3,10 @@
   assert:
     that: user != false
 
-- name: ~/.zshrc.pre file
-  copy: src=zshrc.pre dest=~{{user}}/.zshrc.pre owner={{user}} group={{group}}
+- name: "~/.zshrc.pre removed"
+  file:
+    dest:   ~{{user}}/.zshrc.pre
+    state:  absent
 
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
