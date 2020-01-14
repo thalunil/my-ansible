@@ -11,6 +11,21 @@
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
 
+- name: ~/.zshrc.grml file
+  copy: src=zshrc.grml dest=~{{user}}/.zshrc.grml owner={{user}} group={{group}}
+
+- name: "~{{user}}/.liquidprompt/"
+  file:
+    path:   "~{{user}}/.liquidprompt"
+    state:  directory
+
+- name: "~{{user}}/.liquidprompt/liquidprompt"
+  copy:
+    src:    "liquidprompt"
+    dest:   "~{{user}}/.liquidprompt/liquidprompt"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+
 - name: ~/.vimrc file
   copy: src=vimrc dest=~{{user}}/.vimrc owner={{user}} group={{group}}
 

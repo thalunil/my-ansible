@@ -21,6 +21,9 @@ export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 autoload -U compinit
 compinit
 
+# shell prompt
+export PS1='%n@%m:%~> '
+
 # ssh hostname completion
 if [ -s $HOME/.ssh/known_hosts ]; then
  local _myhosts
@@ -28,15 +31,18 @@ if [ -s $HOME/.ssh/known_hosts ]; then
  zstyle ':completion:*' hosts $_myhosts
 fi 
 
-# Aliases
+# prefer neomutt when available
 if which neomutt > /dev/null 2>&1
 then
 	alias mutt="neomutt"
 fi
+
+# ls options
+alias l="ls --color -h --group-directories-first"
+alias la="ls --color -Ah --group-directories-first"
+alias ll="ls --color -la --group-directories-first"
+
 alias diff="diff --color"
-alias -g l="ls --color -h"
-alias -g la="ls --color -Ah"
-alias -g ll="ls --color -la"
 alias -g du="du -hs"
 alias -g df="df -h"
 alias -g ...='../..'
@@ -97,3 +103,8 @@ vimpm ()       { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
 vimhelp ()     { vim -c "help $1" -c on -c "au! VimEnter *" }
 urlshorten ()  { curl -F c=@- https://ptpb.pw/u <<< $1 }
 empty_trash () { gio trash --empty }
+
+# source a local zshrc
+if [ -s "$HOME"/.zshrc.local ]; then
+	source "$HOME"/.zshrc.local
+fi
