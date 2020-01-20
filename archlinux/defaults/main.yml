@@ -28,7 +28,6 @@ archlinux_server:
   - http://mirror.kaminski.io/archlinux/$repo/os/$arch
 
 arch_packages_list:
-  - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
   - fd # Simple, fast and user-friendly alternative to find
   - ripgrep # A search tool that combines the usability of ag with the raw speed of grep
@@ -130,6 +129,8 @@ arch_desktop_enable: false
 display_manager: "lightdm"
 
 arch_desktop_packages:
+  - libva-vdpau-driver
+  - libva-intel-driver
   - xaos
   - fractal
   - iotop
