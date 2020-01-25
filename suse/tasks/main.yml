@@ -7,8 +7,13 @@
    - "{{ ansible_os_family }}_{{ ansible_distribution_version }}.yml"
    - "{{ ansible_os_family }}.yml"
    - default.yml
-   
-- name: "suse: /etc/sysconfig/network/config"
+
+- name: "/etc/hostname"
+  copy:
+    dest:     "/etc/hostname"
+    content:  "{{ansible_host}}"
+
+- name: "/etc/sysconfig/network/config"
   template:
     src:    templates/network-config.j2
     dest:   /etc/sysconfig/network/config
@@ -19,7 +24,7 @@
 
 - include_tasks: zypper_repositories.yml
 
-- name: install suse standard software
+- name: "install suse standard software: {{ install_packages }}"
   zypper:
     name:               "{{ install_packages }}"
     state:              present
@@ -30,6 +35,10 @@
 - include_tasks: desktop.yml
   when:
     - suse_desktop_enable|bool
+
+- include_tasks: server.yml
+  when:
+    - suse_server_enable|bool
 
 - name: /etc/tmpfiles.d/tmp-clean.conf
   copy:
@@ -73,3 +82,24 @@
     mode:   0644
     owner:  root
     group:  root
+
+# Munin - Network-wide graphing framework (node)
+- include_tasks: munin-node.yml
+  when: enable_munin_node|bool
+
+# Group dialout
+- name: 'add user {{ user }} to group "dialout"'
+  user:
+    name:   "{{user}}"
+    append: yes
+    groups: "dialout"
+  when: user is defined
+
+- include_tasks: mount.yml
+  with_flattened:
+    - "{{ mount_list}}"
+    - "{{ mount_host }}"
+    - "{{ mount_group }}"
+  loop_control:
+    loop_var: mount
+  when: mount is defined

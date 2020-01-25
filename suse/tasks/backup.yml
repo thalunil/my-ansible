@@ -1,21 +1,20 @@
-# vim:ft=ansible:
 ---
-- name: install software
+- name: "backup - install software"
   zypper:
     name:   [ 'borgbackup' ]
     state:  present
 
-- name: /backup directory
+- name: "backup - /backup directory"
   file:
     path: /backup
     state: directory
 
-- name: /usr/local/bin directory
+- name: "backup - /usr/local/bin directory"
   file:
     path:   /usr/local/bin
     state:  directory
 
-- name: backup script for suse systems
+- name: "backup- backup script for suse systems"
   copy:
     src:      "backup"
     dest:     "/usr/local/bin/backup"
@@ -23,12 +22,12 @@
     owner:    root
     group:    root
 
-- name: crontab /etc/cron.d/backup
+- name: "backup - crontab /etc/cron.d/backup"
   file:
     path:   "/etc/cron.d/backup"
     state:  absent
 
-- name: "Backup: /etc/cron.daily/backup"
+- name: "backup - /etc/cron.daily/backup"
   copy:
     dest:   "/etc/cron.daily/backup"
     mode:   0755

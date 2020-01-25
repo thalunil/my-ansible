@@ -4,12 +4,13 @@ setopt autocd                  # change to dirs without cd
 setopt nocheckjobs             # don't warn me about bg processes when exiting
 setopt nohup                   # and don't kill them, either
 
-# history related stuff.
+# history related
 export HISTSIZE=5000
 export SAVEHIST=5000
 export HISTFILE=~/.zsh_history
 setopt hist_ignore_dups        # ignore same commands run twice+
 setopt appendhistory           # don't overwrite history 
+setopt nosharehistory          # do not share history between different zsh sessions
 
 # path
 export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin

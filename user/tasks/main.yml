@@ -3,11 +3,31 @@
   assert:
     that: user != false
 
-- name: ~/.zshrc.pre file
-  copy: src=zshrc.pre dest=~{{user}}/.zshrc.pre owner={{user}} group={{group}}
+- name: "~/.zshrc.pre removed"
+  file:
+    dest:   ~{{user}}/.zshrc.pre
+    state:  absent
 
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
+
+- name: ~/.zshrc.grml file
+  copy: src=zshrc.grml dest=~{{user}}/.zshrc.grml owner={{user}} group={{group}}
+
+- name: "~{{user}}/.liquidprompt/"
+  file:
+    path:   "~{{user}}/.liquidprompt"
+    state:  directory
+
+- name: "~{{user}}/.liquidprompt/liquidprompt"
+  copy:
+    src:    "liquidprompt"
+    dest:   "~{{user}}/.liquidprompt/liquidprompt"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+
+- name: ~/.vimrc file
+  copy: src=vimrc dest=~{{user}}/.vimrc owner={{user}} group={{group}}
 
 - name: "~{{user}}/.config/redshift.conf"
   copy:

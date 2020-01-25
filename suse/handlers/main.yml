@@ -12,3 +12,6 @@
 
 - name: netconfig update -f
   command: netconfig update -f
+
+- name: restart munin-node
+  service: name=munin-node state=restarted

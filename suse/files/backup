@@ -86,23 +86,25 @@ run_duplicity () {
 run_borg () {
 	echo "#########################"
 	echo "## BORGbackup - $DATE"
-	if [[ ! -d "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then usage; exit 1; fi
+	if [[ -z "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then
+		echo "Failed! Either '$BORG_REPO' or '$BORG_BACKUP_DIR' is empty!"
+		echo "'$BORG_REPO': $BORG_REPO"
+		echo "'$BORG_BACKUP_DIR': $BORG_BACKUP_DIR"
+		echo
+		usage
+		exit 1;
+	fi
 	if type borg > /dev/null 2>&1; then
 		echo -n "## Starting at: "; date +%H:%M
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
 		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
-		if borg check --repository-only $BORG_REPO; then
-			if [ -n "$DEBUG" ]; then echo "### DEBUG: borg create -s -e */nobackup/ $BORG_REPO::{now} $BORG_BACKUP_DIR" ; fi
-			borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
-			else
-			echo "### borgbackup failed..."
-			fi
-		echo "### borg repo: cleanup - 5 monthly - 14 daily"
-		borg prune --dry-run --stats --list --keep-monthly 5 --keep-daily 14 "$BORG_REPO"
-			echo "### borg repo: cleanup finished"
-			echo -n "## Finished at: "; date +%H:%M
-		else
-			echo "## borgbackup not found - please install"
+		borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
+		echo "### borg repo: Cleanup DRY RUN - 6 monthly - 14 daily"
+		borg prune --dry-run --stats --list --keep-monthly 6 --keep-daily 21 "$BORG_REPO"
+		echo "### borg repo: cleanup finished"
+		echo -n "## Finished at: "; date +%H:%M
+	else
+		echo "## borgbackup not found - please install"
 	fi
 }
 

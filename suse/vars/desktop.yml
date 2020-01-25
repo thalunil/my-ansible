@@ -1,7 +1,6 @@
 ---
 install_packages:
   - xaos
-  - fractal
   - lightdm-slick-greeter
   - lightdm-slick-greeter-branding-openSUSE
   - xsane
@@ -63,12 +62,16 @@ install_packages:
   - meson
   - gcc-c++
   - osc
+  - build # script for building RPMs for SUSE Linux in a chroot
+  - rpm-build
   - john
   - keepassxc
   - filezilla
   - aircrack-ng
   - fio
   - midori
+  - vlc
+  - mplayer
 
 install_pattern:
   - kde

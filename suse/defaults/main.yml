@@ -15,7 +15,17 @@ suse_daemons:
   - atd
   - nscd
 
-suse_desktop_enable: False
+suse_desktop_enable: false
+suse_server_enable: false
 slick_greeter_conf: "/etc/lightdm/slick-greeter.conf"
 postfix_relayhost: ""
 nameserver: ""
+
+enable_munin_node: false
+
+install_packages: []
+remove_packages:  []
+
+mount_list: []
+mount_host: []
+mount_group: []

@@ -1,6 +1,0 @@
-# vim:ft=ansible:
----
-- name: "/etc/apt/sources.list"
-  template:
-    src:  sources.list.j2
-    dest: /etc/apt/sources.list
