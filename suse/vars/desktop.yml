@@ -19,6 +19,7 @@ install_packages:
   - youtube-dl
   - evolution
   - pinta # simple Drawing/editing application
+  - gthumb # simple image editor
   - meld # visual diff tool
   - WoeUSB
   - evince # PDF viewer
