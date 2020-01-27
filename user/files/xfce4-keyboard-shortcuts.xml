@@ -40,7 +40,8 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="exo-open --launch TerminalEmulator"/>
       <property name="&lt;Super&gt;p" type="string" value="xfce4-display-settings --minimal"/>
       <property name="override" type="bool" value="true"/>
-      <property name="&lt;Alt&gt;F1" type="string" value="xfce4-terminal"/>
+      <property name="&lt;Super&gt;t" type="string" value="xfce4-terminal"/>
+
     </property>
   </property>
   <property name="xfwm4" type="empty">
