@@ -117,6 +117,7 @@ arch_packages_list:
   - wget
   - keychain
   - fio
+  - tree
 
 # List of arch_packages_list_host
 arch_packages_list_host: []

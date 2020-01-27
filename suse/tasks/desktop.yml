@@ -3,7 +3,7 @@
   include_vars: "desktop.yml"
 
 # install software for suse desktop
-- name: "desktop: Install Packages"
+- name: "desktop: Install Packages: {{install_packages}}"
   zypper:
     name: "{{install_packages}}"
     state: present

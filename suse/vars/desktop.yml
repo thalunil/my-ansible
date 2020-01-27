@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - xsel
   - xaos
   - lightdm-slick-greeter
   - lightdm-slick-greeter-branding-openSUSE
@@ -19,6 +20,7 @@ install_packages:
   - youtube-dl
   - evolution
   - pinta # simple Drawing/editing application
+  - gthumb # simple image editor
   - meld # visual diff tool
   - WoeUSB
   - evince # PDF viewer
