@@ -20,6 +20,7 @@ install_packages:
   - evolution
   - pinta # simple Drawing/editing application
   - gthumb # simple image editor
+  - gthumb-lang
   - meld # visual diff tool
   - WoeUSB
   - evince # PDF viewer
