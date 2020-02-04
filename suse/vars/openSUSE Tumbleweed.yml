@@ -2,6 +2,9 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
+  - xfce4-screensaver # Screensaver for XFCE
+  - xscreensaver-data # screensavers
+  - xscreensaver-data-extra # more screensavers
   - sslscan # tools to scan SSL services
   - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
   - ShellCheck # Shell script analysis tool
