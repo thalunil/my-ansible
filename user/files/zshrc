@@ -184,6 +184,9 @@ plugins=(git)
 #fi
 
 # User configuration
+# report about cpu-/system-/user-time of command if running longer than
+# 5 seconds
+export REPORTTIME=5
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
