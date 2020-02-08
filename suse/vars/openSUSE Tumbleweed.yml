@@ -2,6 +2,7 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
+  - nmon # top-like tool
   - xfce4-screensaver # Screensaver for XFCE
   - xscreensaver-data # screensavers
   - xscreensaver-data-extra # more screensavers
