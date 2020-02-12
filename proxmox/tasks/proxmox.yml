@@ -40,13 +40,6 @@
     name:   "/etc/openvpn/client/static.key"
     state:  absent
 
-- name: service openvpn client enabled and started
-  service:
-    name:     openvpn-client@pve-client
-    enabled:  true
-    state:    started
-  notify: systemctl daemon-reload
-
 - name: remove enterprive repository
   file:
     dest:   "/etc/apt/sources.list.d/pve-enterprise.list"
