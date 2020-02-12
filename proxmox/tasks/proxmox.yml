@@ -31,18 +31,14 @@
     force:  no
 
 - name: openvpn client Konfiguration
-  template:
-    src:    "ovpn-client.conf.j2"
+  file:
     dest:   "/etc/openvpn/client/pve-client.conf"
-    force:  no
+    state:  absent
 
 - name: /etc/openvpn/client/static.key
   file:
     name:   "/etc/openvpn/client/static.key"
-    owner:   root
-    group:  root
-    mode:   0600
-    state:  touch
+    state:  absent
 
 - name: service openvpn client enabled and started
   service:
