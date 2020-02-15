@@ -11,7 +11,7 @@
 - name: "/etc/hostname"
   copy:
     dest:     "/etc/hostname"
-    content:  "{{ansible_host}}"
+    content:  "{{ansible_host}}\n"
 
 - name: "/etc/sysconfig/network/config"
   template:
