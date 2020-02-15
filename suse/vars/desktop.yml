@@ -16,6 +16,7 @@ install_packages:
   - leafpad
   - gvim
   - mousepad
+  - scite # Source Code Editor based on Scintilla
   - baobab
   - youtube-dl
   - evolution
