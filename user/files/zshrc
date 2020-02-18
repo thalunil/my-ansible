@@ -1,8 +1,8 @@
-# basic options
 setopt nobeep                  # i hate beeps
 setopt autocd                  # change to dirs without cd
 setopt nocheckjobs             # don't warn me about bg processes when exiting
 setopt nohup                   # and don't kill them, either
+setopt longlistjobs            # display PID when suspending processes as well
 
 # history related
 export HISTSIZE=5000
@@ -12,7 +12,6 @@ setopt hist_ignore_dups        # ignore same commands run twice+
 setopt appendhistory           # don't overwrite history 
 setopt nosharehistory          # do not share history between different zsh sessions
 setopt extended_history        # save each command's beginning timestamp and the duration
-setopt longlistjobs            # display PID when suspending processes as well
 
 # path
 export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
@@ -20,7 +19,7 @@ export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 autoload -U compinit
 compinit
 
-# shell prompt
+# simple shell prompt
 export PS1='%n@%m:%~> '
 
 # ssh hostname completion
@@ -31,8 +30,7 @@ if [ -s $HOME/.ssh/known_hosts ]; then
 fi 
 
 # prefer neomutt when available
-if which neomutt > /dev/null 2>&1
-then
+if which neomutt > /dev/null 2>&1; then
 	alias mutt="neomutt"
 fi
 
@@ -83,14 +81,11 @@ alias -g X0='| xargs -0'
 alias -g XG='| xargs egrep'
 alias -g X='| xargs'
 alias -g vi=vim
-alias -s pdf=evince
-alias -s php=php
 
 bew() { perl -le 'print unpack "B*","'$1'"' }
 web() { perl -le 'print pack "B*","'$1'"' }
 hew() { perl -le 'print unpack "H*","'$1'"' }
 weh() { perl -le 'print pack "H*","'$1'"' }
-pversion()     { perl -M$1 -le "print $1->VERSION" } # i. e."pversion LWP -> 5.79"
 getlinks ()    { perl -ne 'while ( m/"((www|ftp|http):\/\/.*?)"/gc ) { print $1, "\n"; }' $* }
 gethrefs ()    { perl -ne 'while ( m/href="([^"]*)"/gc ) { print $1, "\n"; }' $* }
 getanames ()   { perl -ne 'while ( m/a name="([^"]*)"/gc ) { print $1, "\n"; }' $* }
@@ -103,8 +98,15 @@ vimhelp ()     { vim -c "help $1" -c on -c "au! VimEnter *" }
 urlshorten ()  { curl -F c=@- https://ptpb.pw/u <<< $1 }
 empty_trash () { gio trash --empty }
 
-upgrade () {
-	zypper dup
+function istumbleweed () {
+        grep "VERSION = tumbleweed" /etc/SUSE-brand > /dev/null 2>&1 && return 0
+}
+
+function upgrade () {
+        if istumbleweed ; then sudo zypper dup --no-allow-vendor-change
+        else
+                echo "upgrade function not yet supported"
+        fi
 }
 
 ### oh-my-zsh ###

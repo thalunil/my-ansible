@@ -103,3 +103,9 @@
   loop_control:
     loop_var: mount
   when: mount is defined
+
+- name: "/etc/sudoers.d/suse"
+  copy:
+    dest: "/etc/sudoers.d/suse"
+    content: |
+      %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper dup --no-allow-vendor-change
