@@ -30,6 +30,8 @@
     src:    /usr/lib/X11/displaymanagers/lightdm
     dest:   /etc/alternatives/default-displaymanager
     state:  link
+
+- name: "desktop: Symlink für Displaymanager"
   file:
     src:    "/usr/lib/systemd/system/display-manager.service"
     dest:   "/etc/systemd/system/display-manager.service"
