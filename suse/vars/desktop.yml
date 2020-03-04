@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - flatpak
   - xsel
   - xaos
   - lightdm-slick-greeter
