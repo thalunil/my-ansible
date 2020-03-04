@@ -27,9 +27,10 @@
 
 - name: "desktop: Symlink für Displaymanager"
   file:
-    src:    /usr/lib/X11/displaymanagers/lightdm
+    src:    /usr/lib/X11/displaymanagers/{{display_manager}}
     dest:   /etc/alternatives/default-displaymanager
     state:  link
+  notify: "display_manager restart"
 
 - name: "desktop: Symlink für Displaymanager"
   file:

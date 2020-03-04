@@ -1,4 +1,9 @@
 ---
+- name: "display_manager restart"
+  service:
+    name:  display-manager
+    state: restarted
+
 - name: newaliases
   command: newaliases
 
