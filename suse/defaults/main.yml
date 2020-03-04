@@ -1,4 +1,6 @@
 --- 
+display_manager: "lightdm"
+
 ansible_become: true
 
 # List of users
