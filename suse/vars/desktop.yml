@@ -1,6 +1,8 @@
 ---
 install_packages:
   - flatpak
+  - tcpdump
+  - wireshark
   - xsel
   - xaos
   - lightdm-slick-greeter
