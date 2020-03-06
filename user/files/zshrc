@@ -106,6 +106,7 @@ function is_leap () {
 }
 
 function upgrade () {
+# https://en.opensuse.org/System_Updates
         if is_tumbleweed ; then sudo zypper dup --no-allow-vendor-change
 	elif is_leap ; then sudo zypper up
         else
