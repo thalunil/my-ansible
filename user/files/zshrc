@@ -98,12 +98,16 @@ vimhelp ()     { vim -c "help $1" -c on -c "au! VimEnter *" }
 urlshorten ()  { curl -F c=@- https://ptpb.pw/u <<< $1 }
 empty_trash () { gio trash --empty }
 
-function istumbleweed () {
+function is_tumbleweed () {
         grep "VERSION = tumbleweed" /etc/SUSE-brand > /dev/null 2>&1 && return 0
+}
+function is_leap () {
+        grep -E "VERSION = [[:digit:]]+\.[[:digit:]]" /etc/SUSE-brand > /dev/null 2>&1 && return 0
 }
 
 function upgrade () {
-        if istumbleweed ; then sudo zypper dup --no-allow-vendor-change
+        if is_tumbleweed ; then sudo zypper dup --no-allow-vendor-change
+	elif is_leap ; then sudo zypper up
         else
                 echo "upgrade function not yet supported"
         fi
