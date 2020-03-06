@@ -109,3 +109,4 @@
     dest: "/etc/sudoers.d/suse"
     content: |
       %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper dup --no-allow-vendor-change
+      %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper up
