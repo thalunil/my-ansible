@@ -61,7 +61,7 @@ install_packages:
   - handbrake-gtk
   - geeqie
   - geeqie-lang
-  - nextcloud-client
+  - nextcloud-desktop
   - gajim
   - hexchat
   - chromium
@@ -79,6 +79,7 @@ install_packages:
   - midori
   - vlc
   - mplayer
+  - julia
 
 install_pattern:
   - kde
