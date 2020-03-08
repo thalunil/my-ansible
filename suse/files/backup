@@ -17,6 +17,8 @@ snapshot_num="3"
 USE_SNAPSHOT=false
 BORG_REPO=""
 BORG_BACKUP_DIR=""
+BORG_PRUNE_DAILY="21"
+BORG_PRUNE_MONTHLY="6"
 
 usage() {
 cat << EOF
@@ -57,7 +59,6 @@ mksnapshot () {
 }
 
 run_borg () {
-	echo "#########################"
 	echo "## BORGbackup - $DATE"
 	if [[ -z "$BORG_REPO" ]] || [[ -z "$BORG_BACKUP_DIR" ]]; then
 		echo "Failed! Either '$BORG_REPO' or '$BORG_BACKUP_DIR' is empty!"
@@ -69,11 +70,11 @@ run_borg () {
 	fi
 	if type borg > /dev/null 2>&1; then
 		echo -n "## Starting at: "; date +%H:%M
-		echo "### borg repo \$BORG_REPO: $BORG_REPO"
-		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
+		echo "### borg repo (\$BORG_REPO): $BORG_REPO"
+		echo "### backup directories (\$BORG_BACKUP_DIR): $BORG_BACKUP_DIR"
 		borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
-		echo "### borg repo: Cleanup - Keep 6 monthly/14 daily backups"
-		borg prune --stats --list --keep-monthly 6 --keep-daily 21 "$BORG_REPO"
+		echo "### borg repo: Cleanup - Keep $BORG_PRUNE_MONTHLY monthly/$BORG_PRUNE_DAILY daily backups"
+		borg prune --stats --list --keep-monthly $BORG_PRUNE_MONTHLY --keep-daily $BORG_PRUNE_DAILY "$BORG_REPO"
 		echo "### borg repo: cleanup finished"
 		echo -n "## Finished at: "; date +%H:%M
 	else
