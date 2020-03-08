@@ -1,12 +1,9 @@
 #!/usr/bin/env zsh
 #
-# Backup - Snapshot script, Alex 'thalunil' Bihlmaier
-# 30. April 2019
+# backup-script, Alex 'thalunil' Bihlmaier
+# 20200308
 #
-# borgbackup support (https://www.borgbackup.org/)
-#
-# TBD
-# * rsnapshot support (Inkrementelle Snapshot mit Hardlinks)
+# using borgbackup (https://www.borgbackup.org/)
 
 DATE=`date +%F`
 umask 027
@@ -14,15 +11,10 @@ umask 027
 # defaults
 # delete_date is for snapshots which get purged after specified age
 delete_date=$(date -d "7 days ago" +%F)
-
-# if backing up to the local system disk please use an exclude statement of the specific directory
-# otherwise the backups backups up the backup....recursion ahead!
 backup_dir="/backup"
 snapshot_dir="/snapshot"
 snapshot_num="3"
 USE_SNAPSHOT=false
-USE_DUPLICITY=false
-DUPLICITY_BACKUP_DIR=""
 BORG_REPO=""
 BORG_BACKUP_DIR=""
 
@@ -36,11 +28,7 @@ Konfigurationsdatei /etc/backup.conf
                     ----------------
  BORG_REPO="<borgbackup archive>"
  BORG_BACKUP_DIR="<backup directories - space separated>"
-
- USE_DUPLICITY=true (to enable duplicity)
- DUPLICITY_BACKUP_DIR="file:///backup/duplicity"
- 
- DEBUG=true (to enable debugging)
+ DEBUG=true (enable debugging)
 EOF
 }
 
@@ -49,14 +37,6 @@ setup () {
  	source /etc/backup.conf
  fi
 }
-
-# oldest (~ highest number) snapshot will get purged
-purge_oldest_snapshot () {
-	if [ -d "$snapshot_dir/$snapshot_num" ]; then
-		if [ -n "$DEBUG" ]; then echo "### DEBUG: SNAPshot: oldest (~ highest number) snapshot will get purged"; fi
-		btrfs subvolume delete -v "$snapshot_dir/$snapshot_num"
-	fi
-	}
 
 # rename the old/previous snapshot to subsequent numbers
 rename_snapshots () {
@@ -76,13 +56,6 @@ mksnapshot () {
 	btrfs subvolume snapshot / "$snapshot_dir"/0
 }
 
-run_duplicity () {
-	echo "### duplicity backup -> $DUPLICITY_BACKUP_DIR"
-	duplicity -v0 --no-encryption --exclude-other-filesystems --exclude /backup --full-if-older-than 1M / "$DUPLICITY_BACKUP_DIR"
-	echo "### Deleting old duplicity sets (preserve 2 full backup chains)"
-	duplicity --no-encryption remove-all-but-n-full 2 --force "$DUPLICITY_BACKUP_DIR"
-}	
-
 run_borg () {
 	echo "#########################"
 	echo "## BORGbackup - $DATE"
@@ -99,8 +72,8 @@ run_borg () {
 		echo "### borg repo \$BORG_REPO: $BORG_REPO"
 		echo "### borg backup directories \$BORG_BACKUP_DIR: $BORG_BACKUP_DIR" 
 		borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
-		echo "### borg repo: Cleanup DRY RUN - 6 monthly - 14 daily"
-		borg prune --dry-run --stats --list --keep-monthly 6 --keep-daily 21 "$BORG_REPO"
+		echo "### borg repo: Cleanup - Keep 6 monthly/14 daily backups"
+		borg prune --stats --list --keep-monthly 6 --keep-daily 21 "$BORG_REPO"
 		echo "### borg repo: cleanup finished"
 		echo -n "## Finished at: "; date +%H:%M
 	else
@@ -143,8 +116,7 @@ run_btrfs_snapshot () {
 
 run_full () {
  echo "#########################"
- # archlinux specific
- # type pacman checks the return code to see if pacman is a valid invokable executable
+ # Archlinux
  if [ -e "/etc/arch-release" ] && type pacman > /dev/null 2>&1; then
 	echo "## archlinux: Dumping Pacman Package List - $backup_dir/pkglist.txt"
 	pacman -Qqe > "$backup_dir/pkglist.txt"
@@ -153,26 +125,6 @@ run_full () {
  fi
 
  echo "#########################"
- if [ "X$USE_DUPLICITY" = "Xtrue" ]; then
-	echo "## \$USE_DUPLICITY is true - running duplicity"
-	if type duplicity > /dev/null 2>&1; then
-		echo -n "### Starting at: "; date +%H:%M
-		run_duplicity
-		echo -n "### Finished at: "; date +%H:%M
-		cat << HERE
-### Duplicity info
-### Looking for files
-#### duplicity --no-encryption list-current-files <duplicity target specification> | grep "etc/"
-
-### Restore files
-#### duplicity -t 1D --no-encryption --file-to-restore home/thalunil/ --tempdir . <duplicity target specification> <target dir>
-HERE
-	else
-		echo "## duplicity not found - please install"
-	fi
-else
-	echo "## \$USE_DUPLICITY is not set - skipping duplicity"
-fi
 
 run_btrfs_snapshot
 
