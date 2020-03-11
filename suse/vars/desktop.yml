@@ -80,6 +80,7 @@ install_packages:
   - vlc
   - mplayer
   - julia
+  - gimp
 
 install_pattern:
   - kde
