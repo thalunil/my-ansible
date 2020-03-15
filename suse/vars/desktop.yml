@@ -81,6 +81,7 @@ install_packages:
   - mplayer
   - julia
   - gimp
+  - rawtherapee
 
 install_pattern:
   - kde
