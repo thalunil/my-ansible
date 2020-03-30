@@ -82,6 +82,7 @@ install_packages:
   - julia
   - gimp
   - rawtherapee
+  - tor
 
 install_pattern:
   - kde
