@@ -14,7 +14,7 @@
     path:   /usr/local/bin
     state:  directory
 
-- name: "backup- backup script for suse systems"
+- name: "backup - backup script for suse systems"
   copy:
     src:      "backup"
     dest:     "/usr/local/bin/backup"

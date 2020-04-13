@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Backup MariaDB Database $(date +%F) (via mysqldump)..."
+
+time mysqldump --single-transaction --quick --lock-tables=false --all-databases | bzip2 -c > /backup/mariadb/mysqldump/mariadb-full-backup-$(date +%F).sql
+

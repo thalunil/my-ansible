@@ -5,3 +5,32 @@
     append: yes
     shell:  "/usr/bin/nologin"
     system: true
+
+- name: "/backup/mariadb/mysqldump/ directory"
+  file:
+    path:   /backup/mariadb/mysqldump/
+    state:  directory
+    mode:   0700
+
+- name: "/usr/local/bin/backup-mariadb"
+  copy:
+    src:      "backup-mariadb"
+    dest:     "/usr/local/bin/backup-mariadb"
+    mode:     0755
+    owner:    root
+    group:    root
+
+# cronjob when backup_mariadb is true AND backup_mariadb_user is set
+- name: "/etc/cron.d/backup-mariadb"
+  template:
+    src:    "backup-mariadb-cronjob.j2"
+    dest:   "/etc/cron.d/backup-mariadb"
+  when:
+    - backup_mariadb|bool
+    - backup_mariadb_user != "undef"
+# remove cronjob when backup_mariadb is false
+- name: "remove /etc/cron.d/backup-mariadb - backup_mariadb is false"
+  file:
+    dest:   "/etc/cron.d/backup-mariadb"
+    state:  absent
+  when: not backup_mariadb
