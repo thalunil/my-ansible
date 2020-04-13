@@ -22,11 +22,6 @@
     owner:    root
     group:    root
 
-- name: "backup - crontab /etc/cron.d/backup"
-  file:
-    path:   "/etc/cron.d/backup"
-    state:  absent
-
 - name: "backup - /etc/cron.daily/backup"
   copy:
     dest:   "/etc/cron.daily/backup"
