@@ -29,3 +29,10 @@
     content: |
       #/bin/bash
       /usr/local/bin/backup -b
+  when: enable_backup
+
+- name: "backup - /etc/cron.daily/backup"
+  file:
+    dest:   "/etc/cron.daily/backup"
+    state:  absent
+  when: not enable_backup

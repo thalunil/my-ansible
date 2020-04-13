@@ -1,7 +1,8 @@
 --- 
-display_manager: "lightdm"
+enable_backup:    false
+display_manager:  "lightdm"
 
-ansible_become: true
+ansible_become:   true
 
 # List of users
 zypper_repo_list: []
