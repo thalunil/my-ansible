@@ -1,10 +1,13 @@
 #!/bin/bash
 
-echo "Backup MariaDB Database $(date +%F) (via mysqldump)..."
+umask 077
+BACKUP_PATH=/backup/mariadb/mysqldump/
+cd $BACKUP_PATH
 
-echo "Running mysqldump"
+echo "Backup MariaDB Database $(date +%F) to $BACKUP_PATH (via mysqldump)..."
+
+echo "Running mysqldump:"
 time mysqldump --single-transaction --quick --lock-tables=false --all-databases > mariadb-full-backup-$(date +%F).sql
 
-echo "Compress via bzip2"
-time bzip2 /backup/mariadb/mysqldump/mariadb-full-backup-$(date +%F).sql
-
+echo "Compress via bzip2:"
+time bzip2 mariadb-full-backup-$(date +%F).sql
