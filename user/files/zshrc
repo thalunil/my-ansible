@@ -188,10 +188,9 @@ ZSH_THEME="gallifrey"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# Uncomment to enable oh-my-zsh
-#if [ -s "$ZSH"/oh-my-zsh.sh ]; then
-#  source $ZSH/oh-my-zsh.sh
-#fi
+if [ -s "$ZSH"/oh-my-zsh.sh ]; then
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 # report about cpu-/system-/user-time of command if running longer than
