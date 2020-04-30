@@ -3,7 +3,7 @@ repo_version: "openSUSE_Leap_15.1"
 
 install_packages:
   - munin-node
-  - perl-Net-CIDR-Lite
+  - perl-Net-CIDR # in 15.1 we need repo "obs://build.opensuse.org/devel:languages:perl"
   - nmon # top-like tool
   - sslscan # tools to scan SSL services
   - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
