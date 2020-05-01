@@ -105,7 +105,7 @@ function is_leap () {
         grep -E "VERSION = [[:digit:]]+\.[[:digit:]]" /etc/SUSE-brand > /dev/null 2>&1 && return 0
 }
 
-function upgrade () {
+function dup () {
 # https://en.opensuse.org/System_Updates
         if is_tumbleweed ; then sudo zypper dup --no-allow-vendor-change
 	elif is_leap ; then sudo zypper up
