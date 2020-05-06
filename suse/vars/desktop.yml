@@ -73,6 +73,7 @@ install_packages:
   - rpm-build
   - john
   - keepassxc
+  - keepassxc-lang
   - filezilla
   - aircrack-ng
   - fio
