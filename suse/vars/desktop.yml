@@ -59,6 +59,7 @@ install_packages:
   - bonnie++
   - cadaver # WebDAV client
   - handbrake-gtk
+  - handbrake-gtk-lang
   - geeqie
   - geeqie-lang
   - nextcloud-desktop
