@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - opus-tools
   - flatpak
   - tcpdump
   - wireshark
