@@ -22,6 +22,8 @@ install_packages:
   - scite # Source Code Editor based on Scintilla
   - baobab
   - youtube-dl
+  - youtube-dl-gui
+  - youtube-dl-lang
   - evolution
   - pinta # simple Drawing/editing application
   - gthumb # simple image editor
