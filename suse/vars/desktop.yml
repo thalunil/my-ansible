@@ -24,7 +24,7 @@ install_packages:
   - baobab
   - youtube-dl
   - youtube-dl-gui
-  - youtube-dl-lang
+  - youtube-dl-gui-lang
   - evolution
   - pinta # simple Drawing/editing application
   - gthumb # simple image editor
