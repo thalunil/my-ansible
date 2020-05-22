@@ -12,7 +12,6 @@ install_packages:
   - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
   - vim
-  - vim-plugin-powerline
   - vim-plugin-colorschemes
   - vim-plugin-diffchanges
   - vim-plugin-fugitive
