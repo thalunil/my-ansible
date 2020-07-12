@@ -84,6 +84,7 @@ install_packages:
   - midori
   - vlc
   - vlc-lang
+  - mpv
   - mplayer
   - julia
   - gimp
