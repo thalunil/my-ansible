@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - qdirstat # graphical disk space usage of directories
   - opus-tools
   - flatpak
   - tcpdump
@@ -88,6 +89,7 @@ install_packages:
   - mplayer
   - julia
   - gimp
+  - gimp-lang
   - rawtherapee
   - tor
 

@@ -1,4 +1,5 @@
 --- 
+priority:         99
 enable_backup:    false
 display_manager:  "lightdm"
 
