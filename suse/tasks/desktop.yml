@@ -31,12 +31,14 @@
     dest:   /etc/alternatives/default-displaymanager
     state:  link
   notify: "display_manager restart"
+  when: display_manager is defined
 
 - name: "desktop: Symlink für Displaymanager"
   file:
     src:    "/usr/lib/systemd/system/display-manager.service"
     dest:   "/etc/systemd/system/display-manager.service"
     state:  link
+  when: display_manager is defined
 
 - name: "desktop: /etc/udev/rules.d/49-onlykey.rules"
   copy:
