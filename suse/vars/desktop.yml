@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - stellarium # astronomy simulation
   - qdirstat # graphical disk space usage of directories
   - opus-tools
   - flatpak
@@ -85,6 +86,7 @@ install_packages:
   - midori
   - vlc
   - vlc-lang
+  - mpv
   - mplayer
   - julia
   - gimp
