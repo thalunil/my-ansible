@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - powertop # top for power usage
   - lame # mp3 encoder
   - stellarium # astronomy simulation
   - qdirstat # graphical disk space usage of directories
