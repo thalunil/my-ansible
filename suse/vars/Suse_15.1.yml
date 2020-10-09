@@ -2,6 +2,7 @@
 repo_version: "openSUSE_Leap_15.1"
 
 install_packages:
+  - ncdu # Ncurses disk usage
   - munin-node
   - nmon # top-like tool
   - sslscan # tools to scan SSL services
@@ -11,7 +12,6 @@ install_packages:
   - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
   - vim
-  - vim-plugin-powerline
   - vim-plugin-colorschemes
   - vim-plugin-diffchanges
   - vim-plugin-fugitive

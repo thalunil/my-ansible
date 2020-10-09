@@ -2,6 +2,7 @@
 repo_version: "openSUSE_Leap_15.2"
 
 install_packages:
+  - encfs # encrypted file system
   - nmon # top-like tool
   - sslscan # tools to scan SSL services
   - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
@@ -10,7 +11,6 @@ install_packages:
   - lnav # log file navigator, lnav, is an enhanced log file viewer
   - multitail
   - vim
-  - vim-plugin-powerline
   - vim-plugin-colorschemes
   - vim-plugin-diffchanges
   - vim-plugin-fugitive

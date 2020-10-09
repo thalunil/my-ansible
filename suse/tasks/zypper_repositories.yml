@@ -6,6 +6,7 @@
     state:            "{{ item.state | default(omit) }}"
     auto_import_keys: "{{ item.auto_import_keys | default(auto_import_keys) }}"
     runrefresh: yes
+    priority:	      "{{ item.priority | default(priority) }}"
   with_flattened:
     - "{{ zypper_repo_list }}"
     - "{{ zypper_repo_host }}"
