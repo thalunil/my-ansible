@@ -33,3 +33,40 @@
         priority: 90
   when:
     - ansible_distribution == 'openSUSE Tumbleweed'
+
+- name: "Repositories for OpenSUSE Leap"
+  block:
+    - zypper_repository:
+        name:     "OpenSUSE-oss"
+        repo:     "http://download.opensuse.org/distribution/leap/$releasever/repo/oss/"
+        state:    "present"
+        priority: 90
+    - zypper_repository:
+        name:     "OpenSUSE-update-oss"
+        repo:     "http://download.opensuse.org/update/leap/$releasever/oss"
+        state:    "present"
+        priority: 90
+    - zypper_repository:
+        name:     "OpenSUSE-non-oss"
+        repo:     "http://download.opensuse.org/distribution/leap/$releasever/repo/non-oss/"
+        state:    "present"
+        priority: 90
+    - zypper_repository:
+        name:     "OpenSUSE-update-non-oss"
+        repo:     "http://download.opensuse.org/update/leap/$releasever/non-oss/"
+        state:    "present"
+        priority: 90
+    - zypper_repository:
+        name:   "repo-oss"
+        state:  "absent"
+    - zypper_repository:
+        name:   "repo-non-oss"
+        state:  "absent"
+    - zypper_repository:
+        name:   "repo-update"
+        state:  "absent"
+    - zypper_repository:
+        name:   "repo-update-non-oss"
+        state:  "absent"
+  when:
+    - ansible_distribution == 'openSUSE Leap'
