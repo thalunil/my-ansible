@@ -15,8 +15,8 @@
     state:  directory
 
 - name: "backup - backup script for suse systems"
-  copy:
-    src:      "backup"
+  template:
+    src:      "backup.j2"
     dest:     "/usr/local/bin/backup"
     mode:     0755
     owner:    root
@@ -28,6 +28,7 @@
     mode:   0755
     content: |
       #/bin/bash
+      sleep $((RANDOM%15+5))m
       /usr/local/bin/backup -b
   when: enable_backup
 
