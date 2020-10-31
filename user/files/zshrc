@@ -114,6 +114,17 @@ function dup () {
         fi
 }
 
+function squeeze_video () {
+ if [ $# = 0 ]; then;
+	echo "Please provide a video-file to encode"
+ elif ! type HandBrakeCLI > /dev/null 2>&1; then
+	echo "Unable to find HandbrakeCLI; Please install HandbrakeCLI."
+ else
+	echo "Squeezing video with HandbrakeCLI..."
+	time HandBrakeCLI -i "$1" -o "$1.mkv" -v 0 -f av_mkv -e mpeg4 -q 20 -E opus -B 160 --all-audio
+ fi
+}
+
 ### oh-my-zsh ###
 # GIT URL https://github.com/ohmyzsh/ohmyzsh.git
 
