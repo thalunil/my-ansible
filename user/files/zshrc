@@ -121,7 +121,7 @@ function squeeze_video () {
 	echo "Unable to find HandbrakeCLI; Please install HandbrakeCLI."
  else
 	echo "Squeezing video with HandbrakeCLI..."
-	time HandBrakeCLI -i "$1" -o "$1.mkv" -v 0 -f av_mkv -e mpeg4 -q 20 -E opus -B 160 --all-audio
+	time HandBrakeCLI -i "$1" -o "${1%.*}.mkv" -v 0 -f av_mkv -e vp8 -q 20 -E opus -B 160 --all-audio
  fi
 }
 
