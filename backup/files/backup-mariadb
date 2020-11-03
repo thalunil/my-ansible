@@ -16,4 +16,7 @@ mysqldump --single-transaction --quick --lock-tables=false --all-databases > "ma
 echo "Compressing via gzip:"
 gzip "mariadb-full-backup-$(date +%F).sql"
 
+echo "Removing old backups:"
+find $BACKUP_PATH -ctime +100 -print -delete
+
 echo -n "Finished at: "; date +%H:%M
