@@ -1,3 +1,4 @@
 ---
+backup_enable:        false
 backup_mariadb:       false
 backup_mariadb_user:  "undef"
