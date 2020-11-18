@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - k3b # burning and ripping CDs
   - dvdbackup
   - powertop # top for power usage
   - lame # mp3 encoder
