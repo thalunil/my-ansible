@@ -2,12 +2,12 @@
 ---
 - include_tasks: variables.yml
 
-- name: "Sudo: install package"
+- name: "install package: {{ sudo_package }}"
   package:
     name:   "{{ sudo_package }}"
     state:  present
 
-- name: sudo configuration
+- name: "{{ sudo_config_file }}"
   template:
     src:      "sudoers.j2"
     dest:     "{{ sudo_config_file }}"
