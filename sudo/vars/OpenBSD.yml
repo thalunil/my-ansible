@@ -1,3 +1,4 @@
 ---
 sudo_package: "sudo--"
 sudo_config_file: "/etc/sudoers"
+sudo_config_file_group: "wheel"
