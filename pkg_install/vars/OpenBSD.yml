@@ -1,5 +1,6 @@
 ---
 packages:
   - git
-  - screen
+  - screen--
   - vim--no_x11
+  - zsh
