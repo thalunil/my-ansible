@@ -1,4 +1,4 @@
 ---
 opensmtpd_config:       "/etc/mail/smtpd.conf"
 opensmtpd_aliases_file: "/etc/mail/aliases"
-opensmtpd_interface:    "lo0"
+opensmtpd_interface:    "socket"

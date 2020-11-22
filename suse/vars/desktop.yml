@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - clusterssh
   - k3b # burning and ripping CDs
   - dvdbackup
   - powertop # top for power usage
