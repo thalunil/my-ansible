@@ -12,7 +12,12 @@
   copy:
     dest: "/etc/profile.d/version.sh"
     content: |
-      echo "Running on: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      if [ -e /etc/os-release ]; then
+        . /etc/os-release
+      else
+        . /usr/lib/os-release
+      fi
+      echo "Running on: $PRETTY_NAME"
 
 - name: "/etc/hostname"
   copy:
