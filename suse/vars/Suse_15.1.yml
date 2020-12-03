@@ -2,7 +2,6 @@
 repo_version: "openSUSE_Leap_15.1"
 
 install_packages:
-  - lsb-release # distribution information
   - ncdu # Ncurses disk usage
   - munin-node
   - nmon # top-like tool
