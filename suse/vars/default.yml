@@ -1,6 +1,6 @@
 ---
 install_packages:
-  - lsb_release # distribution information
+  - lsb-release # distribution information
   - cronie
   - cronie-anacron
   - mtr

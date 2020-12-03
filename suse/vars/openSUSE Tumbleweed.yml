@@ -2,7 +2,7 @@
 repo_version: "openSUSE_Tumbleweed"
 
 install_packages:
-  - lsb_release # distribution information
+  - lsb-release # distribution information
   - sshpass
   - nmon # top-like tool
   - xfce4-screensaver # Screensaver for XFCE
