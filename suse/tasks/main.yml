@@ -8,6 +8,12 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
+- name: "/etc/motd"
+  copy:
+    dest: "/etc/motd"
+    content: |
+      Have a lot of fun...on {{ ansible_distribution }} {{ ansible_distribution_version }}
+
 - name: "/etc/hostname"
   copy:
     dest:     "/etc/hostname"
