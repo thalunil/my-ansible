@@ -8,11 +8,11 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: "/etc/motd"
+- name: "/etc/profile.d/version.sh"
   copy:
-    dest: "/etc/motd"
+    dest: "/etc/profile.d/version.sh"
     content: |
-      Have a lot of fun...on {{ ansible_distribution }} {{ ansible_distribution_version }}
+      echo "Running on: {{ ansible_distribution }} {{ ansible_distribution_version }}"
 
 - name: "/etc/hostname"
   copy:
