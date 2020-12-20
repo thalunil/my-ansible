@@ -67,6 +67,15 @@
     owner:  root
     group:  root
   notify: newaliases
+
+- name: Postfix /etc/postfix/generic
+  template:
+    src:    postfix-generic.j2
+    dest:   /etc/postfix/generic
+    mode:   0644
+    owner:  root
+    group:  root
+  notify: postfix-generic-table
   
 - name: Postfix /etc/postfix/main.cf
   template:

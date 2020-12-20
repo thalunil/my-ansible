@@ -12,6 +12,9 @@
     name: postfix
     state: reloaded
 
+- name: postfix-generic-table
+  command: postmap /etc/postfix/generic
+
 - name: udevadm reload
   command: udevadm control --reload
 

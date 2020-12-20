@@ -819,3 +819,6 @@ relay_domains = $mydestination, hash:/etc/postfix/relay
 #debug_peer_list = example.com
 #debug_peer_level = 3
 
+# Address rewriting for outgoing SMTP mail
+# http://www.postfix.org/ADDRESS_REWRITING_README.html#generic
+smtp_generic_maps = hash:/etc/postfix/generic
