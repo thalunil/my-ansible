@@ -13,5 +13,5 @@
         - "{{ role_path }}/vars"
         - "{{ playbook_dir }}/vars"
 
-- import_tasks: OpenBSD.yml
+- include_tasks: OpenBSD.yml
   when: ansible_facts['os_family'] == 'OpenBSD'
