@@ -8,6 +8,15 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
+- name: "Set hostname: {{ansible_hostname}}"
+  hostname:
+    name: "{{ansible_hostname}}"
+
+- name: "/etc/hosts"
+  template:
+    src:    "templates/hosts.j2"
+    dest:   "/etc/hosts"
+
 - name: "/etc/profile.d/version.sh"
   copy:
     dest: "/etc/profile.d/version.sh"
@@ -18,11 +27,6 @@
         . /usr/lib/os-release
       fi
       echo "Running on: $PRETTY_NAME"
-
-- name: "/etc/hostname"
-  copy:
-    dest:     "/etc/hostname"
-    content:  "{{ansible_host}}\n"
 
 - name: "/etc/sysconfig/network/config"
   template:
