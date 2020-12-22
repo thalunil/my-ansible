@@ -6,7 +6,7 @@
       MAILTO=root
       SHELL=/bin/bash
       NEXTCLOUD_PATH="{{ nextcloud_path }}"
-      0/5 * * * *  www-data if [ -e "$NEXTCLOUD_PATH/cron.php" ]; then sleep $((RANDOM\%60))s; php -f "$NEXTCLOUD_PATH/cron.php"; fi
+      */5 * * * *  www-data if [ -e "$NEXTCLOUD_PATH/cron.php" ]; then sleep $((RANDOM\%60))s; php -f "$NEXTCLOUD_PATH/cron.php"; fi
     dest:     /etc/cron.d/nextcloud
     mode:     0644
     owner:    root
