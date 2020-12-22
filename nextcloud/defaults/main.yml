@@ -1,0 +1,3 @@
+---
+ansible_become: true
+nextcloud_path: "/webroot/nextcloud"
