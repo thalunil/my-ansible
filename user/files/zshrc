@@ -104,11 +104,15 @@ function is_tumbleweed () {
 function is_leap () {
         grep -E "VERSION = [[:digit:]]+\.[[:digit:]]" /etc/SUSE-brand > /dev/null 2>&1 && return 0
 }
+function is_debian () {
+	if [ -f /etc/debian_version2 ]; then return 0; fi
+}
 
 function dup () {
 # https://en.opensuse.org/System_Updates
-        if is_tumbleweed ; then sudo zypper dup 
-	elif is_leap ; then sudo zypper up 
+        if is_tumbleweed; then sudo zypper dup
+	elif is_leap; then sudo zypper up
+	elif is_debian; then sudo apt dist-upgrade
         else
                 echo "upgrade function not yet supported"
         fi

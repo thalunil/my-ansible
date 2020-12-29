@@ -8,10 +8,25 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: "/etc/hostname"
+- name: "Set hostname: {{ansible_hostname}}"
+  hostname:
+    name: "{{ansible_hostname}}"
+
+- name: "/etc/hosts"
+  template:
+    src:    "templates/hosts.j2"
+    dest:   "/etc/hosts"
+
+- name: "/etc/profile.d/version.sh"
   copy:
-    dest:     "/etc/hostname"
-    content:  "{{ansible_host}}\n"
+    dest: "/etc/profile.d/version.sh"
+    content: |
+      if [ -e /etc/os-release ]; then
+        . /etc/os-release
+      else
+        . /usr/lib/os-release
+      fi
+      echo "Running on: $PRETTY_NAME"
 
 - name: "/etc/sysconfig/network/config"
   template:
@@ -56,6 +71,15 @@
     owner:  root
     group:  root
   notify: newaliases
+
+- name: Postfix /etc/postfix/generic
+  template:
+    src:    postfix-generic.j2
+    dest:   /etc/postfix/generic
+    mode:   0644
+    owner:  root
+    group:  root
+  notify: postfix-generic-table
   
 - name: Postfix /etc/postfix/main.cf
   template:

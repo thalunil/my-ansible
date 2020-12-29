@@ -1,0 +1,3 @@
+---
+- include_tasks: nextcloud.yml
+  when: nextcloud_enable|bool
