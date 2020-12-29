@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - guvcview
   - clusterssh
   - k3b # burning and ripping CDs
   - dvdbackup
@@ -78,6 +79,7 @@ install_packages:
   - hexchat
   - chromium
   - audacious
+  - audacity
   - meson
   - gcc-c++
   - osc
