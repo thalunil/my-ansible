@@ -7,3 +7,6 @@
 [submodule "sudo-weareinteractive"]
 	path = sudo-weareinteractive
 	url = https://github.com/thalunil/ansible-sudo.git
+[submodule "sshd"]
+	path = sshd
+	url = https://github.com/willshersystems/ansible-sshd.git
