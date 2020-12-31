@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - MozillaThunderbird
   - guvcview
   - clusterssh
   - k3b # burning and ripping CDs
