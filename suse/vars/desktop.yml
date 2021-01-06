@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - kid3
   - MozillaThunderbird
   - guvcview
   - clusterssh
