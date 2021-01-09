@@ -20,8 +20,3 @@
     src:  "zprofile.j2"
     dest: "/etc/zprofile"
   when: ansible_distribution != "Debian"
-
-- name: "/etc/profile.d/loginmail.sh"
-  file:
-    dest:   "/etc/profile.d/loginmail.sh"
-    state:  absent
