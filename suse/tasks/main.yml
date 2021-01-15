@@ -80,6 +80,7 @@
     owner:  root
     group:  root
   notify: postfix-generic-table
+  when: configure_postfix
   
 - name: Postfix /etc/postfix/main.cf
   template:
@@ -89,7 +90,8 @@
     owner:  root
     group:  root
   notify: postfix-reload
-
+  when: configure_postfix
+  
 - name: "ensure services running and enabled: {{ suse_daemons }}"
   service: name="{{ item }}" enabled="yes" state="started"
   with_items: "{{ suse_daemons }}"
