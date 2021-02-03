@@ -81,6 +81,7 @@ alias -g X0='| xargs -0'
 alias -g XG='| xargs egrep'
 alias -g X='| xargs'
 alias -g vi=vim
+alias standby="systemctl suspend"
 
 bew() { perl -le 'print unpack "B*","'$1'"' }
 web() { perl -le 'print pack "B*","'$1'"' }
