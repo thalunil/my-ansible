@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - kfind # file search tool
   - kid3
   - MozillaThunderbird
   - guvcview
