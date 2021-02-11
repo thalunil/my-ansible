@@ -9,27 +9,38 @@
     path: /backup
     state: directory
 
-- name: "backup - /usr/local/bin directory"
-  file:
-    path:   /usr/local/bin
-    state:  directory
-
 - name: "backup - backup script for suse systems"
-  template:
-    src:      "backup.j2"
-    dest:     "/usr/local/bin/backup"
-    mode:     0755
-    owner:    root
-    group:    root
+  file:
+    path:   "/usr/local/bin/backup"
+    state:  absent
 
 - name: "backup - /etc/cron.daily/backup"
   copy:
     dest:   "/etc/cron.daily/backup"
     mode:   0755
+    force:  no
     content: |
-      #/bin/bash
+      #!/bin/bash
       sleep $((RANDOM%15+5))m
-      /usr/local/bin/backup -b
+
+      #BORG_PRUNE_DAILY="21"
+      #BORG_PRUNE_MONTHLY="6"
+      #BORG_REPO="<borg repo url>"
+      #BORG_BACKUP_DIR="/dir1 /dir2"
+
+      echo -n "## BORGbackup - ";  date +%F
+      if type borg > /dev/null 2>&1; then
+       echo -n "## Starting at: "; date +%H:%M
+       echo "### borg repo (\$BORG_REPO): $BORG_REPO"
+       echo "### backup directories (\$BORG_BACKUP_DIR): $BORG_BACKUP_DIR"
+       borg create -s -e "*/nobackup/" $BORG_REPO::{hostname}-{now} ${=BORG_BACKUP_DIR}
+       echo "### borg repo: Cleanup - Keep $BORG_PRUNE_MONTHLY monthly/$BORG_PRUNE_DAILY daily backups"
+       borg prune --stats --list --keep-monthly $BORG_PRUNE_MONTHLY --keep-daily $BORG_PRUNE_DAILY "$BORG_REPO"
+       echo "### borg repo: cleanup finished"
+       echo -n "## Finished at: "; date +%H:%M
+      else
+       echo "## borgbackup not found - please install"
+      fi
   when: enable_backup
 
 - name: "backup - /etc/cron.daily/backup"
