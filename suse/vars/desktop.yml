@@ -78,6 +78,7 @@ install_packages:
   - geeqie
   - geeqie-lang
   - nextcloud-desktop
+  - nextcloud-desktop-lang
   - gajim
   - hexchat
   - chromium
