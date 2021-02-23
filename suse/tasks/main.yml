@@ -136,3 +136,9 @@
     content: |
       %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper dup --no-allow-vendor-change
       %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper up
+
+- name: "/usr/local/bin/screenoff"
+  copy:
+    src:  "screenoff"
+    dest: "/usr/local/bin/screenoff"
+    mode: 0755
