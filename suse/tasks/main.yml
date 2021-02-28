@@ -8,9 +8,9 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: "Set hostname: {{ansible_hostname}}"
+- name: "Set hostname: {{inventory_hostname_short}}"
   hostname:
-    name: "{{ansible_hostname}}"
+    name: "{{inventory_hostname_short}}"
 
 - name: "/etc/hosts"
   template:
