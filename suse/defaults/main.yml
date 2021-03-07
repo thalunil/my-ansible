@@ -1,4 +1,7 @@
 --- 
+# switch to disable postfix configuration
+configure_postfix: true
+
 priority:         99
 enable_backup:    false
 

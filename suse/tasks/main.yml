@@ -8,9 +8,9 @@
    - "{{ ansible_os_family }}.yml"
    - default.yml
 
-- name: "Set hostname: {{ansible_hostname}}"
+- name: "Set hostname: {{inventory_hostname_short}}"
   hostname:
-    name: "{{ansible_hostname}}"
+    name: "{{inventory_hostname_short}}"
 
 - name: "/etc/hosts"
   template:
@@ -80,6 +80,7 @@
     owner:  root
     group:  root
   notify: postfix-generic-table
+  when: configure_postfix
   
 - name: Postfix /etc/postfix/main.cf
   template:
@@ -89,7 +90,8 @@
     owner:  root
     group:  root
   notify: postfix-reload
-
+  when: configure_postfix
+  
 - name: "ensure services running and enabled: {{ suse_daemons }}"
   service: name="{{ item }}" enabled="yes" state="started"
   with_items: "{{ suse_daemons }}"
@@ -134,3 +136,9 @@
     content: |
       %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper dup --no-allow-vendor-change
       %wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/zypper up
+
+- name: "/usr/local/bin/screenoff"
+  copy:
+    src:  "screenoff"
+    dest: "/usr/local/bin/screenoff"
+    mode: 0755

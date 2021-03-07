@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sleep 1
+if pgrep xscreensaver; then
+ xscreensaver-command -activate
+else
+# send dpms poweroff signal via xserver
+ xset dpms force off
+fi

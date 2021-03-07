@@ -1,5 +1,8 @@
 ---
 install_packages:
+  - kfind # file search tool
+  - kid3
+  - MozillaThunderbird
   - guvcview
   - clusterssh
   - k3b # burning and ripping CDs
@@ -75,6 +78,7 @@ install_packages:
   - geeqie
   - geeqie-lang
   - nextcloud-desktop
+  - nextcloud-desktop-lang
   - gajim
   - hexchat
   - chromium

@@ -11,16 +11,3 @@
 # we source the general profile file here so we dont have to
 # reimplement it
 if [ -f /etc/profile ]; then; source /etc/profile; fi
-
-# Send a mail when invoking a login/interactive shell
-MAILCMD="mail"
-MAILTEXT="\
-LOGIN
------
-Host:     $(hostname)
-Date:     $(date)
-User:     $USER
-Shell:    $SHELL
-"
-MAILSUBJECT="Login: $(hostname) - $USER"
-echo "$MAILTEXT" | "$MAILCMD" -s "$MAILSUBJECT" "{{ adminmail if adminmail is defined else "root"}}"

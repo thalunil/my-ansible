@@ -1,0 +1,209 @@
+---
+- include_tasks: rsyslog.yml
+  when: rsyslog_enable|bool
+
+- name: "/etc/hostname"
+  copy:
+    dest: "/etc/hostname"
+    content: "{{inventory_hostname_short}}{{'\n'}}"
+
+- name: "Timezone"
+  file:
+    src:    "/usr/share/zoneinfo/{{ timezone }}"
+    dest:   "/etc/localtime"
+    state:  link
+
+- name: create system groups "{{archlinux_system_groups}}"
+  group:
+    name:   "{{item}}"
+    system: yes
+  with_items: "{{archlinux_system_groups}}"
+  when: archlinux_system_groups is defined
+
+- name: add user "{{user}}" to system groups "{{archlinux_system_groups}}"
+  user:
+    name:   "{{user}}"
+    append: yes
+    groups: "{{archlinux_system_groups}}"
+  when:
+    - archlinux_system_groups is defined
+    - user is defined
+
+- name: /etc/pacman.d/mirrorlist
+  template:
+    src:    mirrorlist.j2
+    dest:   /etc/pacman.d/mirrorlist
+    owner:  root
+    group:  wheel
+    mode:   0644
+  notify: rebuild pacman cache
+
+- name: run handler immediately - we need a current pacman cache
+  meta: flush_handlers
+  
+- name: install software with pacman
+  pacman:
+    name: "{{ query('flattened', ['{{ arch_packages_list }}', '{{ arch_packages_list_host }}', '{{ arch_packages_list_group }}']) }}"
+    state:  present
+
+- name: cronjob /etc/cron.daily/orphaned-packages
+  copy:
+    content: |
+      #!/bin/sh
+      echo "Orphaned packages: 'pacman -Rns \$(pacman -Qdtq)' for cleanup"
+      pacman -Qdtq\n
+    dest:     /etc/cron.daily/orphaned-packages
+    mode:     0755
+    owner:    root
+    group:    root
+
+- name: cronjob /etc/cron.daily/update-pacman-cache
+  file:
+    dest:     /etc/cron.daily/update-pacman-cache
+    state:    absent
+
+- name: /etc/locale.gen
+  template:
+    src:      locale.gen.j2
+    dest:     /etc/locale.gen
+    backup:   yes
+  notify: rebuild locales
+
+- name: /etc/locale.conf
+  template:
+    src:      locale.conf.j2
+    dest:     /etc/locale.conf
+    backup:   yes
+
+- name: "Arch: /etc/vconsole.conf"
+  template:
+    src:    "vconsole.conf.j2"
+    dest:   "/etc/vconsole.conf"
+
+- name: "Arch: /etc/pam.d/su"
+  copy:
+    src:    pam.d-su
+    dest:   /etc/pam.d/su
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+ 
+- name: "Arch: /etc/pam.d/su-l"
+  copy:
+    src:    pam.d-su-l
+    dest:   /etc/pam.d/su-l
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+   
+- name: "Arch: /etc/pam.d/passwd"
+  copy:
+    src:    pam.d-passwd
+    dest:   /etc/pam.d/passwd
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+
+- name: "Arch: /etc/pam.d/system-login"
+  copy:
+    src:    pam.d-system-login
+    dest:   /etc/pam.d/system-login
+    owner:  root
+    group:  root
+    mode:   0640
+    backup: yes
+ 
+- name: "Arch: pacman configuration - /etc/pacman.conf"
+  copy:
+    src:    pacman.conf
+    dest:   /etc/pacman.conf
+    owner:  root
+    group:  wheel
+    mode:   0644
+    backup: yes
+- name: "Arch: /etc/pacman.d/hooks"
+  file:
+    path:  /etc/pacman.d/hooks
+    state: directory
+- name: "Arch: /etc/pacman.d/hooks/paccache.hook"
+  copy:
+    src:  paccache.hook
+    dest: /etc/pacman.d/hooks/paccache.hook
+
+- name: ensure services running and enabled
+  service: name="{{ item }}" enabled="yes" state="started"
+  with_items:
+    - tlp # Linux Advanced Power Management
+
+- name: /etc/resolvconf.conf
+  template:
+    src:      resolvconf.conf.j2
+    dest:     /etc/resolvconf.conf
+    mode:     0644
+    owner:    root
+    group:    root
+  notify: update /etc/resolv.conf 
+
+- name: /etc/default/grub.template
+  file:
+    dest:     "/etc/default/grub.template"
+    state:    absent
+
+- name: /etc/default/grub
+  template:
+    src:      "grub.j2"
+    dest:     "/etc/default/grub"
+    mode:     0644
+    owner:    root
+    group:    root
+  notify: grub-mkconfig
+
+- name: /usr/local/sbin/archlinux-backup.sh
+  copy:
+    src:      archlinux-backup.sh
+    dest:     /usr/local/sbin/archlinux-backup
+    mode:     0755
+    owner:    root
+    group:    root
+
+- name: /etc/cron.daily/archlinux-backup symlink to backup the local archlinux installation
+  file:
+    src:    /usr/local/sbin/archlinux-backup
+    dest:   /etc/cron.daily/archlinux-backup
+    state:  link
+  when: archlinux_backup == true
+
+- name: remove /etc/cron.daily/archlinux-backup symlink
+  file:
+    dest:   /usr/local/sbin/archlinux-backup.sh
+    state:  absent
+  when: archlinux_backup is undefined
+
+- name: /etc/systemd/timesyncd.conf - systemd NTP implementation
+  template:
+    src:      timesyncd.conf.j2
+    dest:     /etc/systemd/timesyncd.conf
+    mode:     0644
+    owner:    root
+    group:    root
+  notify: reload systemd-timesyncd
+
+- name: systemd-timesyncd service enabled and started
+  service: name="systemd-timesyncd" enabled="yes" state="started"
+
+- name: cronie service enabled and started
+  service: name="cronie" enabled="yes" state="started"
+
+- include_tasks: hardening.yml
+  when: archlinux_hardening is defined
+
+- include_tasks: dnscrypt-proxy.yml
+  when:
+    - use_dnscrypt_proxy|bool
+
+- include_tasks: desktop.yml
+  when:
+    - arch_desktop_enable|bool
