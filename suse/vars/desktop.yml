@@ -63,7 +63,6 @@ install_packages:
   - ksshaskpass5
   - kwalletmanager5
   - kmix
-  - vagrant
   - clementine
   - gstreamer-plugins-ugly
   - gstreamer-plugins-libav
