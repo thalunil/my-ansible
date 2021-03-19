@@ -18,15 +18,9 @@
     dest:   "/etc/hosts"
 
 - name: "/etc/profile.d/version.sh"
-  copy:
+  file:
     dest: "/etc/profile.d/version.sh"
-    content: |
-      if [ -e /etc/os-release ]; then
-        . /etc/os-release
-      else
-        . /usr/lib/os-release
-      fi
-      echo "Running on: $PRETTY_NAME"
+    state: absent
 
 - name: "/etc/sysconfig/network/config"
   template:
