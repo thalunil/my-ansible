@@ -51,6 +51,7 @@ install_packages:
   - sound-juicer-lang
   - syncthing-gtk
   - syncthing-gtk-lang
+  - python-xml # dependency of syncthing-gtk
   - ark
   - dolphin
   - gwenview5
