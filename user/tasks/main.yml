@@ -3,11 +3,6 @@
   assert:
     that: user != false
 
-- name: "~/.zshrc.pre removed"
-  file:
-    dest:   ~{{user}}/.zshrc.pre
-    state:  absent
-
 - name: ~/.zshrc file
   copy: src=zshrc dest=~{{user}}/.zshrc owner={{user}} group={{group}}
 
@@ -43,6 +38,14 @@
       [manual]
       lat=47.26
       lon=11.39
+
+- name: "~{{user}}/.config/khotkeysrc"
+  copy:
+    src:    "khotkeysrc"
+    dest:   "~{{user}}/.config/khotkeysrc"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+    mode:   0644
 
 - name: "~{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/"
   file:
