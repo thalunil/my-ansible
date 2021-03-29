@@ -20,7 +20,7 @@
     mode:   0755
     force:  no
     content: |
-      #!/bin/bash
+      #!/usr/bin/zsh
       sleep $((RANDOM%15+5))m
 
       #BORG_PRUNE_DAILY="21"
