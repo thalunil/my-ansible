@@ -886,7 +886,7 @@ GesturePointData=0,0.0625,-0.5,0.5,1,0.0625,0.0625,-0.5,0.5,0.875,0.125,0.0625,-
 Type=GESTURE
 
 [Data_4]
-Comment=Schalte den BIldschirm aus
+Comment=Schalte den Bildschirm aus
 Enabled=true
 Name=screenoff
 Type=SIMPLE_ACTION_DATA
@@ -907,7 +907,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_4Triggers0]
-Key=Meta+O
+Key=Ctrl+Alt+O
 Type=SHORTCUT
 Uuid={cb70d7ea-1f82-4079-b136-b9bd6f7eafd5}
 
