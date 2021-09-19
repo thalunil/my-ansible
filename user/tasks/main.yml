@@ -39,6 +39,14 @@
       lat=47.26
       lon=11.39
 
+- name: "~{{user}}/.config/kglobalshortcutsrc"
+  copy:
+    src:    "kglobalshortcutsrc"
+    dest:   "~{{user}}/.config/kglobalshortcutsrc"
+    owner:  "{{user}}"
+    group:  "{{group}}"
+    mode:   0644
+
 - name: "~{{user}}/.config/khotkeysrc"
   copy:
     src:    "khotkeysrc"
