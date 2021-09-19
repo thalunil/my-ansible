@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - simplescreenrecorder
   - ansible
   - kalarm
   - kfind # file search tool
