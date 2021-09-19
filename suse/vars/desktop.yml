@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - ansible
   - kalarm
   - kfind # file search tool
   - kid3

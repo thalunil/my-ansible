@@ -64,7 +64,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_1_2Triggers0]
-Key=Ctrl+Alt+T
+Key=Meta+T
 Type=SHORTCUT
 Uuid={379a389e-063c-4f96-bae4-40ebb960d589}
 
@@ -907,7 +907,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_4Triggers0]
-Key=Ctrl+Alt+O
+Key=Meta+O
 Type=SHORTCUT
 Uuid={cb70d7ea-1f82-4079-b136-b9bd6f7eafd5}
 
