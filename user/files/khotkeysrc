@@ -907,7 +907,7 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_4Triggers0]
-Key=Meta+O
+Key=Ctrl+Alt+O
 Type=SHORTCUT
 Uuid={cb70d7ea-1f82-4079-b136-b9bd6f7eafd5}
 
