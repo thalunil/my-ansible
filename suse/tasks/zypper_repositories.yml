@@ -57,6 +57,18 @@
         state:    "present"
         priority: 90
     - zypper_repository:
+        name:     "OpenSUSE-update-backports"
+        repo:     "http://download.opensuse.org/update/leap/$releasever/backports/"
+        state:    "present"
+        priority: 90
+      when: ansible_distribution_version|float >= 15.3
+    - zypper_repository:
+        name:     "OpenSUSE-update-sle"
+        repo:     "http://download.opensuse.org/update/leap/$releasever/sle/"
+        state:    "present"
+        priority: 90
+      when: ansible_distribution_version|float >= 15.3
+    - zypper_repository:
         name:   "repo-oss"
         state:  "absent"
     - zypper_repository:
@@ -67,6 +79,12 @@
         state:  "absent"
     - zypper_repository:
         name:   "repo-update-non-oss"
+        state:  "absent"
+    - zypper_repository:
+        name:   "repo-backports-update"
+        state:  "absent"
+    - zypper_repository:
+        name:   "repo-sle-update"
         state:  "absent"
   when:
     - ansible_distribution == 'openSUSE Leap'
