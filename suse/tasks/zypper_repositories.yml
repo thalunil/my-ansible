@@ -61,12 +61,14 @@
         repo:     "http://download.opensuse.org/update/leap/$releasever/backports/"
         state:    "present"
         priority: 90
+# needed since 15.3 because 15.3 pulls packages from SLE
       when: ansible_distribution_version|float >= 15.3
     - zypper_repository:
         name:     "OpenSUSE-update-sle"
         repo:     "http://download.opensuse.org/update/leap/$releasever/sle/"
         state:    "present"
         priority: 90
+# needed since 15.3 because 15.3 pulls packages from SLE
       when: ansible_distribution_version|float >= 15.3
     - zypper_repository:
         name:   "repo-oss"
