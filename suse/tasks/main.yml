@@ -11,6 +11,7 @@
 - name: "Set hostname: {{inventory_hostname_short}}"
   hostname:
     name: "{{inventory_hostname_short}}"
+    use:  "systemd"
 
 - name: "/etc/hosts"
   template:

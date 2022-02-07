@@ -12,7 +12,6 @@ install_packages:
   - dvdbackup
   - powertop # top for power usage
   - lame # mp3 encoder
-  - stellarium # astronomy simulation
   - qdirstat # graphical disk space usage of directories
   - opus-tools
   - flatpak
@@ -20,39 +19,27 @@ install_packages:
   - wireshark
   - xsel
   - xaos
-  - lightdm-slick-greeter
-  - lightdm-slick-greeter-branding-openSUSE
   - xsane
   - gkrellm
-  - nautilus
-  - gnome-search-tool
   - virt-viewer
   - redshift
   - redshift-gtk
-  - gnome-system-monitor
   - geany
-  - leafpad
   - gvim
-  - mousepad
   - scite # Source Code Editor based on Scintilla
   - baobab
   - youtube-dl
-  - evolution
   - pinta # simple Drawing/editing application
   - gthumb # simple image editor
   - gthumb-lang
   - meld # visual diff tool
   - WoeUSB
-  - evince # PDF viewer
-  - file-roller # archive manager for GNOME
   - mpg123
   - rhythmbox
   - rhythmbox-lang
   - sound-juicer
   - sound-juicer-lang
-  - syncthing-gtk
-  - syncthing-gtk-lang
-  - python-xml # dependency of syncthing-gtk
+  - qsyncthingtray
   - ark
   - dolphin
   - gwenview5
@@ -80,7 +67,6 @@ install_packages:
   - geeqie-lang
   - nextcloud-desktop
   - nextcloud-desktop-lang
-  - gajim
   - hexchat
   - chromium
   - audacious
@@ -101,7 +87,6 @@ install_packages:
   - vlc-lang
   - mpv
   - mplayer
-  - julia
   - gimp
   - gimp-lang
   - rawtherapee
@@ -110,7 +95,6 @@ install_packages:
 install_pattern:
   - kde
   - kde_pim
-  - xfce
   - office
   - games
 

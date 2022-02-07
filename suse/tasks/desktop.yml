@@ -15,11 +15,6 @@
     type: pattern
     disable_recommends: no
 
-- name: "desktop: Slick configuration"
-  template:
-    src: slick-greeter.conf.j2
-    dest: "{{ slick_greeter_conf }}"
-
 - name: "desktop: Remove packages"
   zypper:
     name: "{{ remove_packages }}"
