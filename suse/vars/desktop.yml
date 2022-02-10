@@ -61,6 +61,7 @@ install_packages:
   - httperf
   - bonnie++
   - cadaver # WebDAV client
+  - handbrake-cli
   - handbrake-gtk
   - handbrake-gtk-lang
   - geeqie
