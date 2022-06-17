@@ -1,6 +1,4 @@
 ---
-repo_version: "openSUSE_Leap_15.3"
-
 install_packages:
   - zip
   - sshpass

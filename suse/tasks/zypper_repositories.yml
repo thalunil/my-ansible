@@ -12,13 +12,6 @@
     - "{{ zypper_repo_host }}"
     - "{{ zypper_repo_group }}"
 
-#zypper_repo_group:
-#  - name:             "OpenSUSE-oss"
-#    repo:             "http://download.opensuse.org/distribution/leap/{{ ansible_distribution_version }}/repo/oss/"
-#   state:            "present"
-#   auto_import_keys: "yes"
-#   priority:         90
-
 - name: "Repositories for OpenSUSE Tumbleweed"
   block:
     - zypper_repository:
