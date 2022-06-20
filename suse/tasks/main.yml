@@ -2,10 +2,7 @@
 - name: Set variables
   include_vars: "{{ item }}"
   with_first_found:
-   - "{{ ansible_distribution }}_{{ ansible_distribution_version }}.yml"
-   - "{{ ansible_distribution }}.yml"
-   - "{{ ansible_os_family }}_{{ ansible_distribution_version }}.yml"
-   - "{{ ansible_os_family }}.yml"
+   - "{{ansible_distribution_file_variety}}_{{ansible_distribution_version}}.yml"
 
 - name: "Set hostname: {{inventory_hostname_short}}"
   hostname:

@@ -2,6 +2,8 @@
 install_packages:
   - simplescreenrecorder
   - ansible
+# needed for ansible and python2
+  - python-xml
   - kalarm
   - kfind # file search tool
   - kid3
