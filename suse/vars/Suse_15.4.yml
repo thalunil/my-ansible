@@ -1,0 +1,47 @@
+---
+install_packages:
+  - zip
+  - sshpass
+  - encfs # encrypted file system
+  - nmon # top-like tool
+  - sslscan # tools to scan SSL services
+## unavailable via standard repos
+#  - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
+  - ShellCheck # Shell script analysis tool
+  - logwatch # Tool to analyze and report on system logs
+  - lnav # log file navigator, lnav, is an enhanced log file viewer
+  - multitail
+  - vim
+  - vim-plugin-colorschemes
+  - vim-plugin-diffchanges
+  - vim-plugin-fugitive
+  - vim-plugin-NERDtree
+  - fd # fd is an alternative to /usr/bin/find
+  - ripgrep # ripgrep is a line oriented search tool
+  - iotop
+  - cronie
+  - cronie-anacron
+  - mtr
+  - git
+  - zsh
+  - syncthing
+  - whois # contains mkpasswd
+  - stunnel
+  - openvpn
+  - neomutt
+  - sshfs
+  - htop
+  - nmap
+  - ipcalc
+  - jq
+  - bc
+  - atop
+  - mc
+  - figlet
+  - unrar
+  - sensors
+  - screen
+  - etckeeper
+  - at
+  - yast2-online-update-configuration
+  - update-checker
