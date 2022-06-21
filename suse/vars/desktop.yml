@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - ddccontrol
   - simplescreenrecorder
   - ansible
 # needed for ansible and python2
