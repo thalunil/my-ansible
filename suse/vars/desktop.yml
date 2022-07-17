@@ -90,6 +90,8 @@ install_packages:
   - midori
   - vlc
   - vlc-lang
+  - kaffeine
+  - kaffeine-lang
   - mpv
   - mplayer
   - gimp
