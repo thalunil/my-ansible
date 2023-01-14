@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - x11vnc
   - ddccontrol
   - ddccontrol-gtk
   - simplescreenrecorder
