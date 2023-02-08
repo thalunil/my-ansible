@@ -73,6 +73,7 @@ install_packages:
   - geeqie-lang
   - nextcloud-desktop
   - nextcloud-desktop-lang
+  - nextcloud-desktop-dolphin
   - hexchat
   - chromium
   - audacious
