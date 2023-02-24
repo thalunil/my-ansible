@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - python3-yamllint
   - x11vnc
   - ddccontrol
   - ddccontrol-gtk
