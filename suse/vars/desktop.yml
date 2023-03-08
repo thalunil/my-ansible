@@ -102,6 +102,7 @@ install_packages:
   - rawtherapee
   - tor
   - remmina
+  - remmina-plugin-rdp
 
 install_pattern:
   - kde
