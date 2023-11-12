@@ -1,10 +1,7 @@
 ---
 install_packages:
   - sshpass
-  - nmon # top-like tool
-  - xfce4-screensaver # Screensaver for XFCE
-  - xscreensaver-data # screensavers
-  - xscreensaver-data-extra # more screensavers
+  - sshfs
   - sslscan # tools to scan SSL services
   - swaks # Swiss Army Knife for SMTP - http://www.jetmore.org/john/code/swaks
   - ShellCheck # Shell script analysis tool
@@ -18,32 +15,24 @@ install_packages:
   - fd # fd is an alternative to /usr/bin/find
   - ripgrep # ripgrep is a line oriented search tool
   - iotop
-  - ksh
-  - cronie
-  - cronie-anacron
+  - htop
+  - nmon # top-like tool
+  - atop
   - mtr
   - git
   - kernel-devel
-  - kernel-default-devel
   - zsh
   - syncthing
   - whois # contains mkpasswd
   - stunnel
   - openvpn
   - neomutt
-  - sshfs
-  - htop
   - nmap
   - rsnapshot
   - knock
-  - python3-axolotl # for OMEMO with gajim
-  - python3-axolotl-curve25519 # for OMEMO with gajim
-  - python3-httplib2
-  - python3-urllib3
   - ipcalc
   - jq
   - bc
-  - atop
   - mc
   - figlet
   - unrar
@@ -56,6 +45,6 @@ install_packages:
   - elinks
   - etckeeper
   - at
+  - cronie
+  - cronie-anacron
   - yast2-online-update-configuration
-  - update-checker
-  - python-xml

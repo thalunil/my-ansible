@@ -1,8 +1,9 @@
 ---
-- name: Set variables
+- name: "Set variables"
   include_vars: "{{ item }}"
   with_first_found:
-   - "{{ansible_distribution_file_variety}}_{{ansible_distribution_version}}.yml"
+    - "{{ansible_distribution}}.yml"
+    - "{{ansible_distribution_file_variety}}_{{ansible_distribution_version}}.yml"
 
 - name: "Set hostname: {{inventory_hostname_short}}"
   hostname:
@@ -14,23 +15,9 @@
     src:    "templates/hosts.j2"
     dest:   "/etc/hosts"
 
-- name: "/etc/profile.d/version.sh"
-  file:
-    dest: "/etc/profile.d/version.sh"
-    state: absent
-
-- name: "/etc/sysconfig/network/config"
-  template:
-    src:    templates/network-config.j2
-    dest:   /etc/sysconfig/network/config
-    mode:   0644
-    owner:  root
-    group:  root
-  notify: netconfig update -f
-
 - include_tasks: zypper_repositories.yml
 
-- name: "install suse standard software: {{ install_packages }}"
+- name: "install standard software: {{ install_packages }}"
   zypper:
     name:               "{{ install_packages }}"
     state:              present
@@ -38,11 +25,13 @@
 
 - include_tasks: backup.yml
 
-- include_tasks: desktop.yml
+- name: "install desktop software"
+  include_tasks: desktop.yml
   when:
     - suse_desktop_enable|bool
 
-- include_tasks: server.yml
+- name: "install server software"
+  include_tasks: server.yml
   when:
     - suse_server_enable|bool
 

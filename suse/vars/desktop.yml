@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - xscreensaver-data-extra # more screensavers
   - python3-yamllint
   - x11vnc
   - ddccontrol
