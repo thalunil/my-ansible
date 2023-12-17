@@ -1,5 +1,6 @@
 ---
 install_packages:
+  - sysstat # sar & iostat
   - zip
   - sshpass
   - encfs # encrypted file system
